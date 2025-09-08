@@ -1,0 +1,627 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Formularios | Solicitud de Perfiles {% endblock title %} 
+
+{% block extra_css %}
+<!-- Sweet Alert css-->
+<link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+<!-- Estilos personalizados para el huellero -->
+<style>
+    .fingerprint-container {
+        display: none;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-top: 20px;
+        background-color: #f8f9fa;
+        text-align: center;
+    }
+    .fingerprint-image-container {
+        position: relative;
+        width: 180px;
+        height: 220px;
+        margin: 0 auto;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        border: 2px solid #ccc;
+        overflow: hidden;
+    }
+    .fingerprint-base {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("{% static 'images/fingerprint-base.png' %}");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0.3;
+    }
+    .fingerprint-scan {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(0deg, rgba(0,255,120,0.3) 0%, rgba(0,0,0,0) 20%);
+        transform: translateY(100%);
+        transition: transform 2s linear;
+    }
+    .scanning .fingerprint-scan {
+        transform: translateY(-100%);
+    }
+    .fingerprint-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("{% static 'images/fingerprint-scan.png' %}");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+    .captured .fingerprint-overlay {
+        opacity: 1;
+        background-image: url("{% static 'images/fingerprint-captured.png' %}");
+    }
+    .scanning-instruction {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+    }
+    .fingerprint-status {
+        text-align: center;
+        margin-top: 15px;
+        font-weight: bold;
+        color: #555;
+    }
+    .fingerprint-success {
+        color: #0ab39c;
+    }
+    .fingerprint-error {
+        color: #f06548;
+    }
+    .progress-indicator {
+        width: 100%;
+        max-width: 180px;
+        height: 5px;
+        margin: 10px auto;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background-color: #0ab39c;
+        transition: width 2s linear;
+    }
+    .scanning .progress-bar {
+        width: 100%;
+    }
+</style>
+{% endblock extra_css %}
+
+{% block main_title %} 
+
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-md-5">
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Formularios" title="Solicitud de Perfiles" %}
+            {% endblock pagetitle %}
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+{% endblock main_title %}
+
+{% block content %}
+
+<!-- Banner para el título del formulario -->
+<div class="row mb-4">
+    <div class="col-lg-12">
+        <div class="card bg-primary">
+            <div class="card-body text-center text-white py-4">
+                <h2 class="mb-2">Formulario de Solicitud de Perfiles</h2>
+                <p class="mb-0">Este documento es solicitado por la jefatura a cargo, quien se hará cargo completamente de los accesos solicitados al usuario en cuestión.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="flex-grow-1">
+                    <h4 class="card-title mb-1">Datos del Usuario</h4>
+                    <p class="text-muted mb-0">Ingrese los datos completos del usuario que requiere acceso a los sistemas.</p>
+                </div>
+            </div><!-- end card header -->
+            <div class="card-body tab-content">
+                <div class="tab-pane show active" id="floatingFormsPreview" role="tabpanel" aria-labelledby="floatingFormsPreview-tab" tabindex="0">
+                    <form id="profileRequestForm" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-lg-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="firstnamefloatingInput" name="firstnamefloatingInput" placeholder="Ingrese sus Nombres" required>
+                                    <label for="firstnamefloatingInput">Nombres</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese los nombres.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="lastnamefloatingInput" name="lastnamefloatingInput" placeholder="Ingrese sus Apellidos" required>
+                                    <label for="lastnamefloatingInput">Apellidos</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese los apellidos.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="rutfloatingInput" name="rutfloatingInput" placeholder="Ingrese su número de RUT" required>
+                                    <label for="rutfloatingInput">RUT</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese el RUT.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="emailfloatingInput" name="emailfloatingInput" placeholder="Ingrese su correo electrónico" required>
+                                    <label for="emailfloatingInput">Correo Electrónico</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese un correo electrónico válido.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="unidadfloatingInput1" name="unidadfloatingInput1" placeholder="Ingrese la Unidad" required>
+                                    <label for="unidadfloatingInput1">Unidad</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese la unidad.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="estamentofloatingInput" name="estamentofloatingInput" placeholder="Ingrese el Estamento" required>
+                                    <label for="estamentofloatingInput">Estamento</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese el estamento.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="cargofloatingInput" name="cargofloatingInput" placeholder="Ingrese el Cargo" required>
+                                    <label for="cargofloatingInput">Cargo</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese el cargo.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header d-md-flex gap-3">
+                                <div class="flex-grow-1">
+                                    <h4 class="card-title mb-1">Datos de la Jefatura</h4>
+                                        <p class="text-muted mb-0">Este documento es solicitado por la jefatura a cargo, quien se hará cargo completamente de los accesos solicitados al usuario en cuestión.</p>
+                                    </div>
+                            </div><!-- end card header -->  
+                            <div class="col-lg-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="firstnameleadershipfloatingInput" name="firstnameleadershipfloatingInput" placeholder="Ingrese sus Nombres" required>
+                                    <label for="firstnameleadershipfloatingInput">Nombres</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese los nombres de la jefatura.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="lastnameleadershipfloatingInput" name="lastnameleadershipfloatingInput" placeholder="Ingrese sus Apellidos" required>
+                                    <label for="lastnameleadershipfloatingInput">Apellidos</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese los apellidos de la jefatura.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="rutleadershipfloatingInput" name="rutleadershipfloatingInput" placeholder="Ingrese su número de RUT" required>
+                                    <label for="rutleadershipfloatingInput">RUT</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese el RUT de la jefatura.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="emailleadershipfloatingInput" name="emailleadershipfloatingInput" placeholder="Ingrese su correo electrónico" required>
+                                    <label for="emailleadershipfloatingInput">Correo Electrónico</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese un correo electrónico válido para la jefatura.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="unidadleadershipfloatingInput1" name="unidadleadershipfloatingInput1" placeholder="Ingrese la Unidad" required>
+                                    <label for="unidadleadershipfloatingInput1">Unidad</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese la unidad de la jefatura.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="estamentoleadershipfloatingInput" name="estamentoleadershipfloatingInput" placeholder="Ingrese el Estamento" required>
+                                    <label for="estamentoleadershipfloatingInput">Estamento</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese el estamento de la jefatura.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="cargoleadershipfloatingInput" name="cargoleadershipfloatingInput" placeholder="Ingrese el Cargo" required>
+                                    <label for="cargoleadershipfloatingInput">Cargo</label>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese el cargo de la jefatura.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header d-md-flex gap-3">
+                                <div class="flex-grow-1">
+                                    <h4 class="card-title mb-1">Sistemas Requeridos</h4>
+                                        <p class="text-muted mb-0">Seleccione los sistemas que requiere el usuario.</p>
+                                    </div>
+                            </div><!-- end card header -->  
+                            <div class="col-md-4">
+                                <div class="mt-4 mt-md-2">
+                                    <div>
+                                        <div class="form-check form-check-outline form-check-primary mb-3">
+                                            <input class="form-check-input" type="checkbox" id="formCheck1" name="sistema[]" value="HIS-SFERE">
+                                            <label class="form-check-label" for="formCheck1">
+                                                HIS - SFERE
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-outline form-check-secondary mb-3">
+                                            <input class="form-check-input" type="checkbox" id="formCheck2" name="sistema[]" value="SIH">
+                                            <label class="form-check-label" for="formCheck2">
+                                                SIH
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-outline form-check-success mb-3">
+                                            <input class="form-check-input" type="checkbox" id="formCheck3" name="sistema[]" value="TRAKCARE">
+                                            <label class="form-check-label" for="formCheck3">
+                                                TRAKCARE
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mt-4 mt-md-2">
+                                    <div>
+                                        <div class="form-check form-check-outline form-check-primary mb-3">
+                                            <input class="form-check-input" type="checkbox" id="formCheck4" name="sistema[]" value="Dedalus">
+                                            <label class="form-check-label" for="formCheck4">
+                                                Dedalus (Toma de muestras - DNLab)
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-outline form-check-secondary mb-3">
+                                            <input class="form-check-input" type="checkbox" id="formCheck5" name="sistema[]" value="Soporte-MDA">
+                                            <label class="form-check-label" for="formCheck5">
+                                                Soporte MDA | Proactivanet
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-outline form-check-success mb-3">
+                                            <input class="form-check-input" type="checkbox" id="formCheck6" name="sistema[]" value="Mi-Ssvq">
+                                            <label class="form-check-label" for="formCheck6">
+                                                Mi Ssvq (Gestor documental)
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end col-->  
+
+                            <div class="card-header d-md-flex gap-3">
+                                <div class="flex-grow-1">
+                                    <h4 class="card-title mb-1">Información Adicional</h4>
+                                        <p class="text-muted mb-0">Ingrese la información adicional que considere necesaria.</p>
+                                    </div>
+                            </div><!-- end card header -->  
+
+                            <div class="row mb-3 mt-4 mt-md-2">
+                                <div class="col-lg-3">
+                                    <label for="permisosInput" class="form-label">¿Que permisos necesita? ¿Qué labores desempeña?</label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <textarea class="form-control" id="permisosInput" name="permisos" rows="3" placeholder="Describa los permisos que necesita y las labores que desempeña"></textarea>
+                                </div>
+                            </div>                            
+                            <div class="row mb-3">
+                                <div class="col-lg-3">
+                                    <label for="homologacionInput" class="form-label">¿Necesita homologar los accesos a los de otro usuario?</label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <textarea class="form-control" id="homologacionInput" name="homologacion" rows="3" placeholder="Indique si necesita homologar accesos y de qué usuario"></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Firma Digital -->
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!-- Contenedor para la huella digital -->
+                                        <div id="fingerprintContainer" class="fingerprint-container">
+                                            <h5 class="text-center mb-3">Verificación de Huella Digital</h5>
+                                            
+                                            <div class="fingerprint-image-container" id="fingerprintScanArea">
+                                                <div class="fingerprint-base"></div>
+                                                <div class="fingerprint-scan"></div>
+                                                <div class="fingerprint-overlay"></div>
+                                                <div class="scanning-instruction">Coloque su dedo índice en el lector</div>
+                                            </div>
+                                            
+                                            <div class="progress-indicator">
+                                                <div class="progress-bar"></div>
+                                            </div>
+                                            
+                                            <div class="fingerprint-status" id="fingerprintStatus">Esperando huella digital...</div>
+                                            <input type="hidden" id="fingerprintData" name="fingerprintData">
+                                            
+                                            <div class="text-center mt-3">
+                                                <button type="button" id="cancelFingerprint" class="btn btn-light btn-sm">Cancelar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-end mt-4">
+                                    <button type="button" id="leadershipSignature" class="btn btn-secondary me-2">Firma de Jefatura</button>
+                                    <button type="button" id="submitToLeadership" class="btn btn-primary">Enviar a Jefatura</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!--end col-->
+</div><!--end row-->
+{% endblock content %}
+
+{% block extra_js %}
+<!-- Sweet Alert -->
+<script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}"></script>
+
+<!-- Formularios JS -->
+<script src="{% static 'js/pages/forms.init.js' %}"></script>
+
+<!-- Script para la captura de huella digital -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Referencias a elementos del DOM
+        const leadershipSignatureBtn = document.getElementById('leadershipSignature');
+        const submitToLeadershipBtn = document.getElementById('submitToLeadership');
+        const fingerprintContainer = document.getElementById('fingerprintContainer');
+        const fingerprintStatus = document.getElementById('fingerprintStatus');
+        const fingerprintData = document.getElementById('fingerprintData');
+        const cancelFingerprintBtn = document.getElementById('cancelFingerprint');
+        const fingerprintScanArea = document.getElementById('fingerprintScanArea');
+        
+        // Variable para controlar si la huella ha sido verificada
+        let isFingerprintVerified = false;
+        
+        // Event listeners
+        leadershipSignatureBtn.addEventListener('click', function() {
+            // Verificar que los campos de la jefatura estén completos
+            if (!validateLeadershipFields()) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Datos incompletos',
+                    text: 'Por favor complete todos los datos de la jefatura antes de firmar.',
+                    confirmButtonText: 'Entendido'
+                });
+                return;
+            }
+            
+            // Mostrar el contenedor de la huella digital y resetear estado
+            fingerprintContainer.style.display = 'block';
+            fingerprintStatus.textContent = "Esperando huella digital...";
+            fingerprintStatus.className = "fingerprint-status";
+            fingerprintScanArea.className = "fingerprint-image-container";
+            
+            // Iniciar el proceso de escaneo de huella
+            setTimeout(startFingerprintScan, 500);
+        });
+        
+        // Cancelar la captura de huella
+        cancelFingerprintBtn.addEventListener('click', function() {
+            fingerprintContainer.style.display = 'none';
+            fingerprintScanArea.className = "fingerprint-image-container";
+        });
+        
+        // Función para iniciar el escaneo de huella
+        function startFingerprintScan() {
+            // Actualizar estado visual
+            fingerprintScanArea.classList.add('scanning');
+            fingerprintStatus.textContent = "Escaneando huella...";
+            
+            // Simular el tiempo de escaneo (2 segundos)
+            setTimeout(function() {
+                // Finalizar escaneo
+                fingerprintScanArea.classList.remove('scanning');
+                
+                // Simular captura exitosa
+                fingerprintScanArea.classList.add('captured');
+                fingerprintStatus.textContent = "¡Huella verificada correctamente!";
+                fingerprintStatus.className = "fingerprint-status fingerprint-success";
+                
+                // Generar datos de huella
+                const mockFingerprintData = generateMockFingerprintData();
+                fingerprintData.value = mockFingerprintData;
+                
+                // Marcar como verificada
+                isFingerprintVerified = true;
+                
+                // Esperar un momento y cerrar
+                setTimeout(function() {
+                    fingerprintContainer.style.display = 'none';
+                    
+                    // Mostrar mensaje de éxito
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Huella Verificada',
+                        text: `La identidad de ${document.getElementById('firstnameleadershipfloatingInput').value} ${document.getElementById('lastnameleadershipfloatingInput').value} ha sido verificada exitosamente.`,
+                        confirmButtonText: 'Continuar'
+                    });
+                    
+                    // Habilitar el botón de envío
+                    enableSubmitButton();
+                }, 1500);
+            }, 2000);
+        }
+        
+        // Generar datos aleatorios para simular la huella digital
+        function generateMockFingerprintData() {
+            const length = 512; // Tamaño de una huella típica
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+        
+        // Validar los campos de la jefatura
+        function validateLeadershipFields() {
+            const requiredFields = [
+                'firstnameleadershipfloatingInput',
+                'lastnameleadershipfloatingInput',
+                'rutleadershipfloatingInput',
+                'emailleadershipfloatingInput'
+            ];
+            
+            for (const fieldId of requiredFields) {
+                const field = document.getElementById(fieldId);
+                if (!field || !field.value.trim()) {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+        
+        // Habilitar el botón de envío después de verificar la huella
+        function enableSubmitButton() {
+            // Cambiar el aspecto del botón para indicar que está habilitado
+            submitToLeadershipBtn.classList.add('btn-success');
+            submitToLeadershipBtn.classList.remove('btn-primary');
+            
+            // Añadir el manejador de eventos para el envío
+            submitToLeadershipBtn.addEventListener('click', handleFormSubmit);
+        }
+        
+        // Manejar el envío del formulario
+        function handleFormSubmit() {
+            // Validar que todos los campos requeridos estén completos
+            const form = document.getElementById('profileRequestForm');
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
+            }
+            
+            // Verificar que la huella haya sido verificada
+            if (!isFingerprintVerified) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Verificación pendiente',
+                    text: 'Por favor verifique su identidad con huella digital antes de enviar el formulario.',
+                    confirmButtonText: 'Entendido'
+                });
+                return;
+            }
+            
+            // Mostrar mensaje de éxito con Sweet Alert
+            Swal.fire({
+                icon: 'success',
+                title: 'Formulario Enviado',
+                text: 'La solicitud de perfil ha sido enviada exitosamente.',
+                confirmButtonText: 'Continuar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Resetear el formulario
+                    form.reset();
+                    form.classList.remove('was-validated');
+                    isFingerprintVerified = false;
+                    fingerprintData.value = '';
+                    submitToLeadershipBtn.classList.remove('btn-success');
+                    submitToLeadershipBtn.classList.add('btn-primary');
+                    
+                    // Quitar el event listener para evitar múltiples envíos
+                    submitToLeadershipBtn.removeEventListener('click', handleFormSubmit);
+                }
+            });
+            
+            // Aquí iría el código para enviar los datos al servidor
+            console.log("Datos del formulario listos para enviar:", getFormData(form));
+        }
+        
+        // Función para obtener los datos del formulario como objeto
+        function getFormData(form) {
+            const formData = new FormData(form);
+            const formObject = {};
+            
+            formData.forEach((value, key) => {
+                // Si la clave ya existe y es un array, añadir el valor
+                if (formObject[key] && Array.isArray(formObject[key])) {
+                    formObject[key].push(value);
+                }
+                // Si la clave ya existe pero no es un array, convertirla en array
+                else if (formObject[key]) {
+                    formObject[key] = [formObject[key], value];
+                }
+                // Si la clave no existe, asignar el valor
+                else {
+                    // Si la clave termina con "[]", tratarla como array
+                    if (key.endsWith('[]')) {
+                        const realKey = key.slice(0, -2);
+                        formObject[realKey] = [value];
+                    } else {
+                        formObject[key] = value;
+                    }
+                }
+            });
+            
+            return formObject;
+        }
+        
+        // Inicialmente, configurar el botón de envío para mostrar un mensaje si no se ha verificado la huella
+        submitToLeadershipBtn.addEventListener('click', function() {
+            if (!isFingerprintVerified) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Verificación pendiente',
+                    text: 'Por favor verifique su identidad con huella digital antes de enviar el formulario.',
+                    confirmButtonText: 'Entendido'
+                });
+            }
+        });
+    });
+</script>
+{% endblock extra_js %}

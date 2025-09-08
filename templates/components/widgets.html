@@ -1,0 +1,840 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Widgets {% endblock title %} 
+
+{% block extra_css %}
+    <!-- plugin css -->
+    <link href="{% static 'libs/jsvectormap/jsvectormap.min.css' %}" rel="stylesheet" type="text/css">
+{% endblock extra_css %}
+
+{% block main_title %}
+
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-md-5">
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Judia" title="Widgets" %}
+            {% endblock pagetitle %}
+        </div><!--end col-->
+        <div class="col-md-auto ms-auto">
+            {% block customizer %}
+                {% include "partials/customizer.html" %}
+            {% endblock customizer %}
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+    
+{% endblock main_title %}
+
+{% block content %}
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="page-title text-decoration-underline mb-3 pb-1">Tile Boxs</h5>
+                        </div>
+                    </div>
+                    <!-- end row-->
+
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="text-success fs-xs float-end mb-0">
+                                        <i class="ph ph-trend-up fs-sm align-middle me-1"></i> +16.09 %
+                                    </h6>
+                                    <div>
+                                        <p class="text-uppercase fw-medium text-muted text-truncate fs-sm">Total Revenue</p>
+                                        <h4 class="fw-semibold mb-3">$<span class="counter-value" data-target="974.82">0</span>M </h4>
+                                    </div>
+                    
+                                    <div id="total_revenue" data-colors='["--tb-primary"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="text-success fs-xs float-end mb-0">
+                                        <i class="ri-arrow-right-up-line fs-sm align-middle"></i> +19.07 %
+                                    </h5>
+                                    <div>
+                                        <p class="text-uppercase fw-medium text-muted text-truncate fs-sm">Total Earnings</p>
+                                        <h4 class="fw-semibold mb-3">$<span class="counter-value" data-target="750.36">0</span>M </h4>
+                                    </div>
+                                    <div id="total_earnings" data-colors='["--tb-info"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="text-danger fs-xs float-end mb-0">
+                                        <i class="ph ph-trend-down fs-sm align-middle me-1"></i> -07.18 %
+                                    </h6>
+                                    <div>
+                                        <p class="text-uppercase fw-medium text-muted text-truncate fs-sm">Average Daily Sales</p>
+                                    </div>
+                                    <div id="average_daily_sales" data-colors='["--tb-secondary"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="text-danger fs-xs float-end mb-0">
+                                        <i class="ph ph-trend-down fs-sm align-middle me-1"></i> -01.45 %
+                                    </h6>
+                                    <div>
+                                        <p class="text-uppercase fw-medium text-muted text-truncate fs-sm">Total Orders</p>
+                                        <h4 class="fw-semibold mb-3"><span class="counter-value" data-target="8745">0</span> </h4>
+                                    </div>
+                    
+                                    <div id="total_orders" data-colors='["--tb-primary"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+
+                    <div class="row">
+                        <div class="col-xxl col-sm-6">
+                            <div class="card overflow-hidden">
+                                <div class="card-body">
+                                    <span class="badge bg-danger-subtle text-danger float-end"><i class="bi bi-arrow-down"></i> 0.18%</span>
+                                    <h5 class="fs-lg mb-1">Bitcoin</h5>
+                                    <p class="text-muted fs-xs mb-4">BTC/USD</p>
+                                    <h4 class="mb-0">$<span class="counter-value" data-target="26807.45">0</span> <small class="fw-normal text-muted fs-xs">USD</small></h4>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xxl col-sm-6">
+                            <div class="card overflow-hidden">
+                                <div class="card-body">
+                                    <span class="badge bg-success-subtle text-success float-end"><i class="bi bi-arrow-up"></i> 0.61%</span>
+                                    <h5 class="fs-lg mb-1">Ethereum</h5>
+                                    <p class="text-muted fs-xs mb-4">ETH/USD</p>
+                                    <h4 class="mb-0">$<span class="counter-value" data-target="1819.98">0</span> <small class="fw-normal text-muted fs-xs">USD</small></h4>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xxl col-sm-6">
+                            <div class="card overflow-hidden">
+                                <div class="card-body">
+                                    <span class="badge bg-success-subtle text-success float-end"><i class="bi bi-arrow-up"></i> 9.03%</span>
+                                    <h5 class="fs-lg mb-1">Solana</h5>
+                                    <p class="text-muted fs-xs mb-4">SOL/USD</p>
+                                    <h4 class="mb-0">$<span class="counter-value" data-target="19.52">0</span> <small class="fw-normal text-muted fs-xs">USD</small></h4>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xxl col-sm-6">
+                            <div class="card overflow-hidden">
+                                <div class="card-body">
+                                    <span class="badge bg-danger-subtle text-danger float-end"><i class="bi bi-arrow-down"></i> 5.51%</span>
+                                    <h5 class="fs-lg mb-1">Litecoin</h5>
+                                    <p class="text-muted fs-xs mb-4">LTC/USD</p>
+                                    <h4 class="mb-0">$<span class="counter-value" data-target="86.72">0</span> <small class="fw-normal text-muted fs-xs">USD</small></h4>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="avatar-sm float-end">
+                                        <div class="avatar-title bg-success-subtle text-success rounded fs-3xl">
+                                            <i class="bi bi-activity"></i>
+                                        </div>
+                                    </div>
+                                    <p class="fs-md text-muted mb-4">Total Sessions</p>
+                                    <h4 class="mb-3"><span class="counter-value" data-target="154.79">0</span>k </h4>
+                                    <p class="text-success mb-0"><i class="bi bi-arrow-up me-1"></i> 06.41% Last Month</p>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xl-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="avatar-sm float-end">
+                                        <div class="avatar-title bg-primary-subtle text-primary rounded fs-3xl">
+                                            <i class="bi bi-magnet"></i>
+                                        </div>
+                                    </div>
+                                    <p class="fs-md text-muted mb-4">Avg. Visit Duration</p>
+                                    <h4 class="mb-3"><span class="counter-value" data-target="01.57">0</span>sec </h4>
+                                    <p class="text-success mb-0"><i class="bi bi-arrow-up me-1"></i> 17.52% Last Month</p>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xl-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="avatar-sm float-end">
+                                        <div class="avatar-title bg-info-subtle text-info rounded fs-3xl">
+                                            <i class="bi bi-optical-audio"></i>
+                                        </div>
+                                    </div>
+                                    <p class="fs-md text-muted mb-4">Impressions</p>
+                                    <h4 class="mb-3"><span class="counter-value" data-target="1784">0</span></h4>
+                                    <p class="text-danger mb-0"><i class="bi bi-arrow-down me-1"></i> 07.26% Last Week</p>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xl-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="avatar-sm float-end">
+                                        <div class="avatar-title bg-warning-subtle text-warning rounded fs-3xl">
+                                            <i class="bi bi-eye"></i>
+                                        </div>
+                                    </div>
+                                    <p class="fs-md text-muted mb-4">Total Views</p>
+                                    <h4 class="mb-3"><span class="counter-value" data-target="136.19">0</span>k </h4>
+                                    <p class="text-success mb-0"><i class="bi bi-arrow-up me-1"></i> 09.33% Last Month</p>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-decoration-underline mb-3 pb-1">Other Widgets</h5>
+                        </div>
+                    </div>
+                    <!-- end row-->
+
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card" id="networks">
+                                <div class="card-header d-flex">
+                                    <h5 class="card-title mb-0 flex-grow-1">Browsers</h5>
+                                    <div class="flex-shrink-0">
+                                        <div class="dropdown card-header-dropdown sortble-dropdown">
+                                            <a class="text-reset dropdown-btn" href="#!" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="text-muted dropdown-title">Browsers</span> <i class="bi bi-chevron-down ms-1"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <button class="dropdown-item sort" data-sort="browsers">Browsers</button>
+                                                <button class="dropdown-item sort" data-sort="click">Click</button>
+                                                <button class="dropdown-item sort" data-sort="pageviews">Bounce Rate</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table align-middle mb-0">
+                                            <thead class="table-active">
+                                                <tr>
+                                                    <th class="sort cursor-pointer" data-sort="browsers">
+                                                        Browsers
+                                                    </th>
+                                                    <th class="sort cursor-pointer text-center" data-sort="click">
+                                                        Click
+                                                    </th>
+                                                    <th class="sort cursor-pointer text-center" data-sort="pageviews">
+                                                        Bounce Rate
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="list">
+                                                <tr>
+                                                    <td>
+                                                        <img src="https://img.themesbrand.com/judia/brands/chrome.png" alt="" class="avatar-xxs">
+                                                        <span class="ms-1 browsers">Google Chrome</span>
+                                                    </td>
+                                                    <td class="click text-center">
+                                                        640
+                                                    </td>
+                                                    <td class="pageviews text-center">
+                                                        86.01%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="https://img.themesbrand.com/judia/brands/firefox.png" alt="" class="avatar-xxs">
+                                                        <span class="ms-1 browsers">Firefox</span>
+                                                    </td>
+                                                    <td class="click text-center">
+                                                        274
+                                                    </td>
+                                                    <td class="pageviews text-center">
+                                                        59.22%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="https://img.themesbrand.com/judia/brands/safari.png" alt="" class="avatar-xxs">
+                                                        <span class="ms-1 browsers">Safari</span>
+                                                    </td>
+                                                    <td class="click text-center">
+                                                        591
+                                                    </td>
+                                                    <td class="pageviews text-center">
+                                                        71.36%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="https://img.themesbrand.com/judia/brands/opera.png" alt="" class="avatar-xxs">
+                                                        <span class="ms-1 browsers">Opera</span>
+                                                    </td>
+                                                    <td class="click text-center">
+                                                        456
+                                                    </td>
+                                                    <td class="pageviews text-center">
+                                                        63.82%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="https://img.themesbrand.com/judia/brands/microsoft.png" alt="" class="avatar-xxs">
+                                                        <span class="ms-1 browsers">Microsoft Edge</span>
+                                                    </td>
+                                                    <td class="click text-center">
+                                                        312
+                                                    </td>
+                                                    <td class="pageviews text-center">
+                                                        57.48%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="https://img.themesbrand.com/judia/brands/microsoft2.png" alt="" class="avatar-xxs">
+                                                        <span class="ms-1 browsers">Internet Explorer</span>
+                                                    </td>
+                                                    <td class="click text-center">
+                                                        164
+                                                    </td>
+                                                    <td class="pageviews text-center">
+                                                        77.21%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="https://img.themesbrand.com/judia/brands/cloud-computing.png" alt="" class="avatar-xxs">
+                                                        <span class="ms-1 browsers">cloud-computing</span>
+                                                    </td>
+                                                    <td class="click text-center">
+                                                        36
+                                                    </td>
+                                                    <td class="pageviews text-center">
+                                                        18.90%
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card card-height-100">
+                                <div class="card-header d-flex align-items-center">
+                                    <h4 class="card-title mb-0 flex-grow-1">Best Selling Products</h4>
+                                    <div class="flex-shrink-0">
+                                        <div class="dropdown card-header-dropdown">
+                                            <a class="text-reset dropdown-btn" href="#!" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="fw-semibold text-uppercase">Sort by: </span><span class="text-muted align-baseline">Today<i class="bi bi-chevron-down align-baseline ms-1"></i></span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="#!">Today</a>
+                                                <a class="dropdown-item" href="#!">Yesterday</a>
+                                                <a class="dropdown-item" href="#!">Last 7 Days</a>
+                                                <a class="dropdown-item" href="#!">Last 30 Days</a>
+                                                <a class="dropdown-item" href="#!">This Month</a>
+                                                <a class="dropdown-item" href="#!">Last Month</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body px-0">
+                                    <div data-simplebar class="px-3" style="max-height: 385px;">
+                                        <div class="vstack gap-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="avatar-sm flex-shrink-0">
+                                                    <div class="avatar-title bg-light rounded">
+                                                        <img src="https://img.themesbrand.com/judia/products/img-6.png" alt="" class="avatar-xs">
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <a href="#!">
+                                                        <h6 class="fs-md mb-2">The short sleeved</h6>
+                                                    </a>
+                                                    <ul class="hstack list-unstyled gap-2 mb-0 fs-sm fw-medium text-muted">
+                                                        <li>
+                                                            <i class="ph-star align-baseline"></i> 487
+                                                        </li>
+                                                        <li>
+                                                            <i class="ph-shopping-cart align-baseline"></i> 936
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="text-end">
+                                                    <h5 class="fs-md text-primary mb-0">$154.00</h5>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="avatar-sm flex-shrink-0">
+                                                    <div class="avatar-title bg-light rounded">
+                                                        <img src="https://img.themesbrand.com/judia/products/img-1.png" alt="" class="avatar-xs">
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <a href="#!">
+                                                        <h6 class="fs-md mb-2">Aster t-shirt 2XL / Royal Blue</h6>
+                                                    </a>
+                                                    <ul class="hstack list-unstyled gap-2 mb-0 fs-sm fw-medium text-muted">
+                                                        <li>
+                                                            <i class="ph-star align-baseline"></i> 487
+                                                        </li>
+                                                        <li>
+                                                            <i class="ph-shopping-cart align-baseline"></i> 936
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="text-end">
+                                                    <h5 class="fs-md text-primary mb-0">$15.99</h5>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <div class="avatar-title bg-light rounded">
+                                                            <img src="https://img.themesbrand.com/judia/products/img-3.png" alt="" class="avatar-xs">
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <a href="#!">
+                                                            <h6 class="fs-md mb-2">Unique Men's Wrist Watch</h6>
+                                                        </a>
+                                                        <ul class="hstack list-unstyled gap-2 mb-0 fs-sm fw-medium text-muted">
+                                                            <li>
+                                                                <i class="ph-star align-baseline"></i> 452
+                                                            </li>
+                                                            <li>
+                                                                <i class="ph-shopping-cart align-baseline"></i> 1420
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <h5 class="fs-md text-primary mb-0">$84.99</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <div class="avatar-title bg-light rounded">
+                                                            <img src="https://img.themesbrand.com/judia/products/img-7.png" alt="" class="avatar-xs">
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <a href="#!">
+                                                            <h6 class="fs-md mb-2">Twiala Floral Dress</h6>
+                                                        </a>
+                                                        <ul class="hstack list-unstyled gap-2 mb-0 fs-sm fw-medium text-muted">
+                                                            <li>
+                                                                <i class="ph-star align-baseline"></i> 562
+                                                            </li>
+                                                            <li>
+                                                                <i class="ph-shopping-cart align-baseline"></i> 1348
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <h5 class="fs-md text-primary mb-0">$149.99</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <div class="avatar-title bg-light rounded">
+                                                            <img src="https://img.themesbrand.com/judia/products/img-8.png" alt="" class="avatar-xs">
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <a href="#!">
+                                                            <h6 class="fs-md mb-2">Tokyo Fancy Bomber Jacket</h6>
+                                                        </a>
+                                                        <ul class="hstack list-unstyled gap-2 mb-0 fs-sm fw-medium text-muted">
+                                                            <li>
+                                                                <i class="ph-star align-baseline"></i> 644
+                                                            </li>
+                                                            <li>
+                                                                <i class="ph-shopping-cart align-baseline"></i> 1540
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <h5 class="fs-md text-primary mb-0">$245.00</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <div class="avatar-title bg-light rounded">
+                                                            <img src="https://img.themesbrand.com/judia/products/img-10.png" alt="" class="avatar-xs">
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <a href="#!">
+                                                            <h6 class="fs-md mb-2">Aster Dress 2XL / Royal Blue</h6>
+                                                        </a>
+                                                        <ul class="hstack list-unstyled gap-2 mb-0 fs-sm fw-medium text-muted">
+                                                            <li>
+                                                                <i class="ph-star align-baseline"></i> 841
+                                                            </li>
+                                                            <li>
+                                                                <i class="ph-shopping-cart align-baseline"></i> 985
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <h5 class="fs-md text-primary mb-0">$74.63</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <div class="avatar-title bg-light rounded">
+                                                            <img src="https://img.themesbrand.com/judia/products/img-4.png" alt="" class="avatar-xs">
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <a href="#!">
+                                                            <h6 class="fs-md mb-2">Unique bluetooth headphone</h6>
+                                                        </a>
+                                                        <ul class="hstack list-unstyled gap-2 mb-0 fs-sm fw-medium text-muted">
+                                                            <li>
+                                                                <i class="ph-star align-baseline"></i> 763
+                                                            </li>
+                                                            <li>
+                                                                <i class="ph-shopping-cart align-baseline"></i> 763
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <h5 class="fs-md text-primary mb-0">$245.74</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xxl-4">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center">
+                                    <h4 class="card-title mb-0 flex-grow-1">Customer Feedback</h4>
+                                    <div class="flex-shrink-0">
+                                        <a href="#!" class="text-muted">View All <i class="bi bi-chevron-right align-baseline"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body px-0">
+                                    <div data-simplebar style="max-height: 390px;">
+                                        <div class="card border-bottom rounded-0 shadow-none mb-0">
+                                            <div class="card-body pt-0">
+                                                <div class="d-flex gap-2">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="https://img.themesbrand.com/judia/users/avatar-2.jpg" alt="" class="avatar-sm rounded">
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <span class="text-muted clearfix float-end">04:47 PM</span>
+                                                        <h6 class="fs-md mb-1"><a href="#!" class="text-reset">Josefa Weissnat</a></h6>
+                                                        <div class="text-warning mb-2 fs-xs">
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                        </div>
+                                                        <p class="text-muted mb-0">" Themebrand used Anydesk to fix the bug in Flask and django version. I highly recommend this product! "</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card border-bottom rounded-0 shadow-none mb-0">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-2">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="https://img.themesbrand.com/judia/users/avatar-3.jpg" alt="" class="avatar-sm rounded">
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <span class="text-muted clearfix float-end">11:24 AM</span>
+                                                        <h6 class="fs-md mb-1"><a href="#!" class="text-reset">Ophelia Steuber</a></h6>
+                                                        <div class="text-warning mb-2 fs-xs">
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                        </div>
+                                                        <p class="text-muted mb-0">" Thank you for this awesome admin panel. I'm very happy with it, it's a pleasure to work with it! "</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card border-bottom rounded-0 shadow-none mb-0">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-2">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="https://img.themesbrand.com/judia/users/avatar-4.jpg" alt="" class="avatar-sm rounded">
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <span class="text-muted clearfix float-end">03:19 PM</span>
+                                                        <h6 class="fs-md mb-1"><a href="#!" class="text-reset">Dianna Bogan</a></h6>
+                                                        <div class="text-warning mb-2 fs-xs">
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                        </div>
+                                                        <p class="text-muted mb-0">" High theme quality. Very good support, they spent almost an hour remotely to fix a problem. I hope this theme will have a long term support. "</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card border-bottom rounded-0 shadow-none mb-0">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-2">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="https://img.themesbrand.com/judia/users/avatar-5.jpg" alt="" class="avatar-sm rounded">
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <span class="text-muted clearfix float-end">06:39 AM</span>
+                                                        <h6 class="fs-md mb-1"><a href="#!" class="text-reset">Jerry Emard</a></h6>
+                                                        <div class="text-warning mb-2 fs-xs">
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                        </div>
+                                                        <p class="text-muted mb-0">" There is as lot packed in this template. The savings in time and energy is so worth it. "</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card border-bottom rounded-0 shadow-none mb-0">
+                                            <div class="card-body">
+                                                <div class="d-flex gap-2">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="https://img.themesbrand.com/judia/users/avatar-6.jpg" alt="" class="avatar-sm rounded">
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <span class="text-muted clearfix float-end">09:18 AM</span>
+                                                        <h6 class="fs-md mb-1"><a href="#!" class="text-reset">Axel Kozey</a></h6>
+                                                        <div class="text-warning mb-2 fs-xs">
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                        </div>
+                                                        <p class="text-muted mb-0">" Works like a component library, a crazy amount of design elements already built and given. "</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--end card-->
+                        </div><!--end col-->
+                    </div><!--end col-->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-decoration-underline mb-3 mt-2 pb-3">Chart & Map Widgets</h5>
+                        </div>
+                    </div>
+                    <!-- end row-->
+
+                    <div class="row">
+
+                        <div class="col-xxl-4 col-lg-6">
+                            <div class="card">
+                                <div class="card-header d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">Real Time Sales</h4>
+                                    <div class="dropdown card-header-dropdown float-end">
+                                        <a class="text-muted dropdown-btn" href="#!" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#!">Today</a>
+                                            <a class="dropdown-item" href="#!">Last Week</a>
+                                            <a class="dropdown-item" href="#!">Last Month</a>
+                                            <a class="dropdown-item" href="#!">Current Year</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-lg-6">
+                                            <h5>$10,872.32</h5>
+                                            <p class="text-muted fs-sm mb-0"><i class="bi bi-circle-fill fs-3xs align-middle me-1 text-info"></i> Avg. Sales Per day</p>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h5>$2,493.84</h5>
+                                            <p class="text-muted fs-sm mb-0"><i class="bi bi-circle-fill fs-3xs align-middle me-1 text-primary"></i> Avg. Sales Per day</p>
+                                        </div>
+                                    </div>
+                                    <div id="real_time_sales" data-colors='["--tb-info", "--tb-primary"]' class="apex-charts ms-n3" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-xxl-4 col-lg-6">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center">
+                                    <h5 class="card-title mb-0 flex-grow-1">Sales Report</h5>
+                                    <div class="flex-shrink-0">
+                                        <button type="button" class="btn btn-subtle-info btn-sm"><i class="bi bi-file-earmark-text me-1 align-baseline"></i> Generate Reports</button>
+                                    </div>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <h4>$<span class="counter-value" data-target="452.32"></span>M <span class="text-success fw-normal fs-sm"><i class="bi bi-arrow-up"></i> +23.57%</span></h4>
+                                    <p class="text-muted mb-0">($215.32 Avg. revenue monthly)</p>
+                                </div>
+                                <div class="card-body pt-0 pb-2 ps-0 mt-2 mt-lg-n3">
+                                    <div id="sales_Report" data-colors='["--tb-primary", "--tb-secondary"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-xxl-4 col-lg-6">
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h6 class="card-title mb-0 flex-grow-1">Sync Status Breakdown</h6>
+                                    <div class="dropdown card-header-dropdown flex-shrink-0">
+                                        <a class="text-reset dropdown-btn" href="#!" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted">This Month<i class="bi bi-chevron-down ms-1"></i></span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#!">This Month</a>
+                                            <a class="dropdown-item" href="#!">Last Month</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="syncStatusBreakdown" data-colors='["--tb-primary", "--tb-primary-rgb, 0.85", "--tb-primary-rgb, 0.60", "--tb-primary-rgb, 0.50", "--tb-info"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div> <!-- end row-->
+
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <!-- card -->
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">Sales by Countries</h4>
+                                    <div class="flex-shrink-0">
+                                        <button type="button" class="btn btn-subtle-primary btn-sm">
+                                            Export Report
+                                        </button>
+                                    </div>
+                                </div><!-- end card header -->
+                    
+                                <!-- card body -->
+                                <div class="card-body">
+                    
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div id="world-map-line-markers" data-colors='["--tb-light"]' style="height: 300px"></div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-4">
+                                                <h6 class="text-muted mb-3 fw-medium fs-xs text-uppercase">Compared to last month</h6>
+                                                <h3><span class="counter-value" data-target="53736"></span> <small class="text-muted fw-normal fs-sm">Sales</small></h3>
+                                            </div>
+                                            <div>
+                                                <ul class="list-unstyled vstack gap-2 mb-0">
+                                                    <li class="p-2 rounded">
+                                                        <i class="ri-checkbox-blank-circle-fill text-primary align-bottom me-1"></i> United States <span class="float-end">15,364</span>
+                                                    </li>
+                                                    <li class="bg-light-subtle p-2 rounded">
+                                                        <i class="ri-checkbox-blank-circle-fill text-secondary align-bottom me-1"></i> Greenland <span class="float-end">12,387</span>
+                                                    </li>
+                                                    <li class="p-2 rounded">
+                                                        <i class="ri-checkbox-blank-circle-fill text-info align-bottom me-1"></i> Serbia <span class="float-end">9,123</span>
+                                                    </li>
+                                                    <li class="bg-light-subtle p-2 rounded">
+                                                        <i class="ri-checkbox-blank-circle-fill text-success align-bottom me-1"></i> Russia <span class="float-end">7,108</span>
+                                                    </li>
+                                                    <li class="p-2 rounded">
+                                                        <i class="ri-checkbox-blank-circle-fill text-danger align-bottom me-1"></i> Brazil <span class="float-end">6,731</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div><!-- end col -->
+                        <div class="col-xl-3 col-lg-6">
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h6 class="card-title mb-0 flex-grow-1">Realized Rate</h6>
+                                    <div class="dropdown card-header-dropdown flex-shrink-0">
+                                        <a class="text-reset dropdown-btn" href="#!" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#!">Current Years</a>
+                                            <a class="dropdown-item" href="#!">Last Years</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="realized_rate" data-colors='["--tb-primary", "--tb-secondary", "--tb-danger"]' class="apex-charts" dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-xl-3 col-lg-6">
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h6 class="card-title mb-0 flex-grow-1">Email Sent</h6>
+                                    <div class="dropdown card-header-dropdown flex-shrink-0">
+                                        <a class="text-reset dropdown-btn" href="#!" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#!">Current Years</a>
+                                            <a class="dropdown-item" href="#!">Last Years</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="emailSent" data-colors='["--tb-primary", "--tb-success", "--tb-secondary"]' dir="ltr"></div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->            
+{% endblock content %}
+
+{% block extra_js %}
+                    
+   <!-- apexcharts -->
+   <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+
+   <!-- list js-->
+   <script src="{% static 'libs/list.js/list.min.js' %}"></script>
+
+   <!-- Vector map-->
+   <script src="{% static 'libs/jsvectormap/jsvectormap.min.js' %}"></script>
+   <script src="{% static 'libs/jsvectormap/maps/world-merc.js' %}"></script>  
+
+   <!-- Widget init -->
+   <script src="{% static 'js/pages/widgets.init.js' %}"></script>
+    
+
+{% endblock extra_js %}
+ 

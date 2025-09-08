@@ -1,0 +1,96 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Crop Images {% endblock title %} 
+
+{% block extra_css %}
+
+    <!-- Cropper css -->
+    <link rel="stylesheet" href="{% static 'libs/cropperjs/cropper.min.css' %}">
+
+{% endblock extra_css %}
+
+{% block main_title %}
+
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-md-5">
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Advance UI" title="Crop Images" %}
+            {% endblock pagetitle %}
+        </div><!--end col-->
+        <div class="col-md-auto ms-auto">
+            {% block customizer %}
+                {% include "partials/customizer.html" %}
+            {% endblock customizer %}
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+    
+{% endblock main_title %}
+
+{% block content %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="mb-0 card-title">Cropper with a range of aspect ratio</h4>
+                                </div><!-- end card header -->
+                                <div class="card-body">
+                                    <div>
+                                        <img id="ragbe_aspect_ratio" src="https://img.themesbrand.com/judia/small/img-1.jpg" alt="Picture" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="mb-0 card-title">Crop a round image</h4>
+                                </div><!-- end card header -->
+                                <div class="card-body">
+                                    <div class="crop-rounded">
+                                        <img id="crop_round_images" src="https://img.themesbrand.com/judia/small/img-1.jpg" alt="Picture" class="img-fluid">
+                                        <h5 class="mt-4 fs-lg">Crop Images Result</h5>
+                                        <button type="button" class="btn btn-primary" id="cropButtonResult"><i class="align-middle bi bi-crop me-1"></i> Crop</button>
+                                        <div id="resultRoundImages"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0 card-title">Customize preview for Cropper</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <div class="col col-5">
+                                            <img id="customizeImages" src="https://img.themesbrand.com/judia/small/img-1.jpg" alt="Picture" class="img-fluid">
+                                        </div>
+                                        <div class="col col-3">
+                                            <div class="overflow-hidden preview"></div>
+                                        </div>
+                                        <div class="col col-2">
+                                            <div class="overflow-hidden preview"></div>
+                                        </div>
+                                        <div class="col col-1">
+                                            <div class="overflow-hidden preview"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{% endblock content %}
+
+{% block extra_js %}
+                    
+    <!-- cropper plugin -->
+    <script src="{% static 'libs/cropperjs/cropper.min.js' %}"></script>
+
+    <!-- Cropper init js -->
+    <script src="{% static 'js/pages/cropper.init.js' %}"></script>
+
+{% endblock extra_js %} 
+                
+
+
+   

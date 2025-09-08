@@ -1,0 +1,24 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow mb-5">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-3 fw-bold text-center text-white">{% if object %}Editar Formulario{% else %}Formulario{% endif %} De Contacto</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="mt-3 d-flex justify-content-end">
+                    <button type="submit" class="btn text-white me-2" style="background-color: var(--tb-primary);">
+                        <i class="bi bi-save"></i> Guardar
+                    </button>
+                    <a href="{% url 'contacto_list' %}" class="btn text-white" style="background-color: var(--tb-secondary);">Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

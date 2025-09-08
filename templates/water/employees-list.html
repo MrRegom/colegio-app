@@ -1,0 +1,511 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Water | Empleados {% endblock title %} 
+
+{% block extra_css %}
+
+   <!-- Sweet Alert css-->
+   <link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css">
+
+{% endblock extra_css %}
+
+{% block main_title %}
+
+<div class="page-title-box">
+    <div class="row align-items-center gy-3">
+        <div class="col-md">
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Water" title="Listado de Empleados" %}
+            {% endblock pagetitle %}
+            
+        </div><!--end col-->
+        <div class="col-md-auto ms-auto">
+            <div class="d-flex flex-wrap gap-2">
+                <a href="#" class="btn btn-secondary" id="add-employee-btn"><i class="bi bi-plus-circle align-baseline me-1"></i> Agregar Empleado</a>
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+
+{% endblock main_title %}
+
+
+{% block content %}
+                    <div class="row" id="employeeList">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row align-items-center g-3 g-lg-2">
+                                        <div class="col-lg-3 me-auto">
+                                            <h6 class="card-title mb-0">Listado de Empleados</h6>
+                                        </div><!--end col-->
+                                        <div class="col-xl-3 col-md-3">
+                                            <div class="search-box">
+                                                <input type="text" class="form-control search" placeholder="Buscar empleado, fecha, cliente o algo...">
+                                                <i class="ri-search-line search-icon"></i>
+                                            </div>
+                                        </div><!--end col-->
+                                        <div class="col-md-auto">
+                                            <button class="btn btn-subtle-danger d-none" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                        </div><!--end col-->
+                                    </div><!--end row-->
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive table-card">
+                                        <table class="table table-centered align-middle table-custom-effect table-nowrap mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAll">
+                                                            <label class="form-check-label" for="checkAll"></label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col" class="sort cursor-pointer" data-sort="invoice_id">ID</th>
+                                                    <th scope="col" class="sort cursor-pointer" data-sort="customer_name">RUT</th>
+                                                    <th scope="col" class="sort cursor-pointer" data-sort="email">Nombres</th>
+                                                    <th scope="col" class="sort cursor-pointer" data-sort="create_date">Apellidos</th>
+                                                    <th scope="col" class="sort cursor-pointer" data-sort="due_date">Email</th>
+                                                    <th scope="col" class="sort cursor-pointer" data-sort="amount">Estamento</th>
+                                                    <th scope="col" class="sort cursor-pointer" data-sort="status">Estado</th>
+                                                    <th scope="col">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="list form-check-all" id="invoice-list-data">
+                                                {% for empleado in empleados %}
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="{{ empleado.id }}">
+                                                            <label class="form-check-label"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="id"><a href="javascript:void(0);" class="fw-medium link-primary">#{{ empleado.id }}</a></td>
+                                                    <td class="customer_name">{{ empleado.rut }}</td>
+                                                    <td class="email">{{ empleado.nombres }}</td>
+                                                    <td class="create_date">{{ empleado.apellidos }}</td>
+                                                    <td class="due_date">{{ empleado.email|default:"" }}</td>
+                                                    <td class="amount">{{ empleado.estamento.descripcion }}</td>
+                                                    <td class="status">
+                                                        <span class="badge {% if empleado.estado.descripcion == 'Activo' %}bg-success-subtle text-success{% else %}bg-danger-subtle text-danger{% endif %} text-uppercase">
+                                                            {{ empleado.estado.descripcion }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex gap-2">
+                                                            <div class="view">
+                                                                <button class="btn btn-sm btn-info view-item-btn" data-id="{{ empleado.id }}" title="Ver detalles">
+                                                                    <i class="bi bi-eye"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="edit">
+                                                                <button class="btn btn-sm btn-success edit-item-btn" data-id="{{ empleado.id }}" title="Editar estado">
+                                                                    <i class="bi bi-pencil"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="remove">
+                                                                <button class="btn btn-sm btn-danger remove-item-btn" data-id="{{ empleado.id }}" title="Eliminar">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="9" class="text-center">No hay empleados registrados</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody><!-- end tbody -->
+                                        </table><!-- end table -->
+                                        <div class="noresult" style="display: none">
+                                            <div class="text-center py-4">
+                                                <i class="ph-magnifying-glass fs-1 text-primary"></i>
+                                                <h5 class="mt-2">No se encontraron resultados</h5>
+                                                <p class="text-muted mb-0">No se encontraron resultados para la búsqueda.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-4 pt-3" id="pagination-element">
+                                        <div class="col-sm">
+                                            <div class="text-muted text-center text-sm-start">
+                                                Showing <span class="fw-semibold showing">10</span> of <span class="fw-semibold total-records">15</span> Results
+                                            </div>
+                                        </div><!--end col-->
+                                        <div class="col-sm-auto mt-3 mt-sm-0">
+                                            <div class="pagination-wrap hstack justify-content-center gap-2">
+                                                <a class="page-item pagination-prev disabled" href="#">
+                                                    Previous
+                                                </a>
+                                                <ul class="pagination listjs-pagination mb-0"></ul>
+                                                <a class="page-item pagination-next" href="#">
+                                                    Next
+                                                </a>
+                                            </div>
+                                        </div><!--end col-->
+                                    </div><!--end row-->
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+{% endblock content %}
+
+{% block extra_content %}
+    <!-- deleteRecordModal -->
+    <div id="deleteRecordModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" id="deleteRecord-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-md-5">
+                    <div class="text-center">
+                        <div class="text-danger">
+                            <i class="bi bi-trash display-5"></i>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="mb-2">¿Está seguro?</h4>
+                            <p class="text-muted mx-3 mb-0">¿Está seguro que desea eliminar este registro?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-center mt-4 pt-2 mb-2">
+                        <button type="button" class="btn w-sm btn-light btn-hover" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record">Sí, Eliminar</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /deleteRecordModal -->
+
+    <!-- Modal para ver detalles del Empleado -->
+    <div class="modal fade" id="viewEmployeeModal" tabindex="-1" aria-labelledby="viewEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="viewEmployeeModalLabel">Detalles del Empleado</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <h6 class="text-muted">ID</h6>
+                            <p id="view-id" class="mb-0 fs-5">#</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6 class="text-muted">RUT</h6>
+                            <p id="view-rut" class="mb-0 fs-5">-</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6 class="text-muted">Estamento</h6>
+                            <p id="view-estamento" class="mb-0 fs-5">-</p>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <h6 class="text-muted">Nombre Completo</h6>
+                            <p id="view-nombre-completo" class="mb-0 fs-5">-</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6 class="text-muted">Estado</h6>
+                            <p id="view-estado" class="mb-0 fs-5">-</p>
+                        </div>
+                        <div class="col-12">
+                            <h6 class="text-muted">Fecha de Registro</h6>
+                            <p id="view-fecha-registro" class="mb-0">-</p>
+                        </div>
+                        <div class="col-12">
+                            <h6 class="text-muted">Última Actualización</h6>
+                            <p id="view-fecha-actualizacion" class="mb-0">-</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Editar Estado del Empleado -->
+    <div class="modal fade" id="editStatusModal" tabindex="-1" aria-labelledby="editStatusModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="editStatusModalLabel">Editar Estado</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editStatusForm">
+                        <input type="hidden" id="edit-employee-id" value="">
+                        <div class="mb-3">
+                            <label for="edit-employee-estado" class="form-label">Estado</label>
+                            <select class="form-select" id="edit-employee-estado" name="estado">
+                                {% for estado in estados %}
+                                <option value="{{ estado.id }}">{{ estado.descripcion }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-success" id="saveStatusBtn">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Agregar Empleado -->
+    <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="addEmployeeModalLabel">Agregar Nuevo Empleado</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addEmployeeForm" method="post" action="{% url 'water:add_employee' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="employee-rut" class="form-label">RUT</label>
+                            <input type="text" class="form-control" id="employee-rut" name="rut" placeholder="Ingrese el RUT">
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee-nombres" class="form-label">Nombres</label>
+                            <input type="text" class="form-control" id="employee-nombres" name="nombres" placeholder="Ingrese los nombres">
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee-apellidos" class="form-label">Apellidos</label>
+                            <input type="text" class="form-control" id="employee-apellidos" name="apellidos" placeholder="Ingrese los apellidos">
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="employee-email" name="email" placeholder="Ingrese el email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee-estamento" class="form-label">Estamento</label>
+                            <select class="form-select" id="employee-estamento" name="estamento">
+                                <option value="">Seleccione un estamento</option>
+                                {% for estamento in estamentos %}
+                                <option value="{{ estamento.id }}">{{ estamento.descripcion }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee-estado" class="form-label">Estado</label>
+                            <select class="form-select" id="employee-estado" name="estado">
+                                <option value="1">Activo</option>
+                                <option value="2">Inactivo</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" id="saveEmployeeBtn">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock extra_content %}
+
+
+{% block extra_js %}
+
+    <!-- List Js -->
+    <script src="{% static 'libs/list.js/list.min.js' %}"></script>
+
+    <!--list pagination js-->
+    <script src="{% static 'libs/list.pagination.js/list.pagination.min.js' %}"></script>
+
+    <!-- sweetalert2 js -->
+    <script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}"></script>
+
+
+    <script>
+        // Inicialización del botón agregar empleado
+        document.getElementById('add-employee-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            var addEmployeeModal = new bootstrap.Modal(document.getElementById('addEmployeeModal'));
+            addEmployeeModal.show();
+        });
+
+        // Mostrar mensajes de Django usando SweetAlert2
+        {% if messages %}
+            {% for message in messages %}
+                Swal.fire({
+                    title: '{{ message.tags|title }}',
+                    text: '{{ message }}',
+                    icon: '{% if message.tags == "error" %}error{% else %}success{% endif %}',
+                    confirmButtonText: 'Aceptar'
+                });
+            {% endfor %}
+        {% endif %}
+        
+        // Inicializar eventos para botones de editar y eliminar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Botones para ver detalles
+            var viewButtons = document.querySelectorAll('.view-item-btn');
+            viewButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var employeeId = this.getAttribute('data-id');
+                    
+                    // Realizar petición AJAX para obtener los datos del empleado
+                    fetch(`{% url 'water:employees' %}/view/${employeeId}/`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                // Llenar modal con los datos
+                                document.getElementById('view-id').textContent = '#' + data.data.id;
+                                document.getElementById('view-rut').textContent = data.data.rut;
+                                document.getElementById('view-estamento').textContent = data.data.estamento;
+                                document.getElementById('view-nombre-completo').textContent = data.data.nombres + ' ' + data.data.apellidos;
+                                document.getElementById('view-estado').textContent = data.data.estado;
+                                document.getElementById('view-fecha-registro').textContent = data.data.fecha_registro;
+                                document.getElementById('view-fecha-actualizacion').textContent = data.data.fecha_actualizacion;
+                                
+                                // Mostrar modal
+                                var viewModal = new bootstrap.Modal(document.getElementById('viewEmployeeModal'));
+                                viewModal.show();
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: data.message || 'Error al obtener los datos',
+                                    icon: 'error',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Error al comunicarse con el servidor',
+                                icon: 'error',
+                                confirmButtonText: 'Aceptar'
+                            });
+                        });
+                });
+            });
+            
+            // Botones para editar estado
+            var editButtons = document.querySelectorAll('.edit-item-btn');
+            editButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var employeeId = this.getAttribute('data-id');
+                    document.getElementById('edit-employee-id').value = employeeId;
+                    
+                    // Mostrar modal de edición
+                    var editModal = new bootstrap.Modal(document.getElementById('editStatusModal'));
+                    editModal.show();
+                });
+            });
+            
+            // Guardar cambio de estado
+            document.getElementById('saveStatusBtn').addEventListener('click', function() {
+                var employeeId = document.getElementById('edit-employee-id').value;
+                var estadoId = document.getElementById('edit-employee-estado').value;
+                
+                // Crear objeto FormData para enviar los datos
+                var formData = new FormData();
+                formData.append('estado', estadoId);
+                formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+                
+                // Realizar petición AJAX para actualizar el estado
+                fetch(`{% url 'water:employees' %}/update-status/${employeeId}/`, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            // Cerrar modal
+                            var editModal = bootstrap.Modal.getInstance(document.getElementById('editStatusModal'));
+                            editModal.hide();
+                            
+                            // Mostrar mensaje de éxito
+                            Swal.fire({
+                                title: 'Éxito',
+                                text: data.message,
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then(() => {
+                                // Recargar la página para ver los cambios
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: data.message || 'Error al actualizar el estado',
+                                icon: 'error',
+                                confirmButtonText: 'Aceptar'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Error al comunicarse con el servidor',
+                            icon: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    });
+            });
+            
+            // Botones de eliminar
+            var removeButtons = document.querySelectorAll('.remove-item-btn');
+            removeButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var employeeId = this.getAttribute('data-id');
+                    var deleteModal = new bootstrap.Modal(document.getElementById('deleteRecordModal'));
+                    
+                    // Configurar el botón de eliminar con el ID correcto
+                    document.getElementById('delete-record').setAttribute('data-id', employeeId);
+                    deleteModal.show();
+                });
+            });
+            
+            // Botón de confirmación de eliminación (soft delete)
+            document.getElementById('delete-record').addEventListener('click', function() {
+                var employeeId = this.getAttribute('data-id');
+                
+                // Realizar petición AJAX para soft delete
+                fetch(`{% url 'water:employees' %}/delete/${employeeId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Cerrar modal
+                        var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteRecordModal'));
+                        deleteModal.hide();
+                        
+                        if (data.status === 'success') {
+                            // Mostrar mensaje de éxito
+                            Swal.fire({
+                                title: 'Éxito',
+                                text: data.message,
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then(() => {
+                                // Recargar la página para ver los cambios
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: data.message || 'Error al eliminar el empleado',
+                                icon: 'error',
+                                confirmButtonText: 'Aceptar'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Error al comunicarse con el servidor',
+                            icon: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    });
+            });
+        });
+    </script>
+{% endblock extra_js %}

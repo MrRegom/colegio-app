@@ -1,0 +1,1296 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Checkbox & Radios {% endblock title %} 
+
+{% block main_title %}
+
+                <div class="page-title-box">
+                    <div class="row align-items-center">
+                        <div class="col-md-5">
+                            {% block pagetitle %}
+                                {% include "partials/page-title.html" with pagetitle="Forms" title="Checkbox & Radios" %}
+                            {% endblock pagetitle %}
+                        </div><!--end col-->
+                        <div class="col-md-auto ms-auto">
+
+                            {% block customizer %}
+                                {% include "partials/customizer.html" %}
+                            {% endblock customizer %}
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div>
+{% endblock main_title %}
+
+
+{% block content %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-0">Checkbox</h4>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="checkboxPreview-tab" data-bs-toggle="pill" data-bs-target="#checkboxPreview" type="button" role="tab" aria-controls="checkboxPreview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="checkboxCode-tab" data-bs-toggle="pill" data-bs-target="#checkboxCode" type="button" role="tab" aria-controls="checkboxCode" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="checkboxPreview" role="tabpanel" aria-labelledby="checkboxPreview-tab" tabindex="0">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div>
+                                                        <p class="text-muted fw-medium">Default Checkbox</p>
+                                                        <p class="text-muted">Use <code>type="checkbox"</code> attribute to set a checkbox and add <code>checked</code>attribute to set a checkbox checked by default.</p>
+                                                        <div class="form-check mb-2">
+                                                            <input class="form-check-input" type="checkbox" id="formCheck1">
+                                                            <label class="form-check-label" for="formCheck1">
+                                                                Default checkbox
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="formCheck2" checked>
+                                                            <label class="form-check-label" for="formCheck2">
+                                                                Checked checkbox
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div class="mt-4 mt-md-0">
+                                                        <p class="text-muted fw-medium">Disabled Checkbox</p>
+                                                        <p class="text-muted">Use <code>disabled</code> attribute to set a checkbox disabled and add <code>checked</code> attribute to set a checkbox checked by default.</p>
+                                                        <div>
+                                                            <div class="form-check form-check-right mb-2">
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled>
+                                                                <label class="form-check-label" for="flexCheckDisabled">
+                                                                    Disabled checkbox
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="form-check form-check-right">
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+                                                                <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                                                    Disabled checked checkbox
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div class="mt-4 mt-md-0">
+                                                        <p class="text-muted fw-medium">Checkbox Right</p>
+                                                        <p class="text-muted">Use <code>form-check-right</code> class to form-check class to set a checkbox on the right side.</p>
+                                                        <div class="form-check form-check-right mb-2">
+                                                            <input class="form-check-input" type="checkbox" name="formCheckboxRight" id="formCheckboxRight1" checked="">
+                                                            <label class="form-check-label" for="formCheckboxRight1">
+                                                                Form Radio Right
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <div class="form-check form-check-right">
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedRightDisabled" checked disabled>
+                                                                <label class="form-check-label" for="flexCheckCheckedRightDisabled">
+                                                                    Disabled checked checkbox
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+
+                                                <div class="col-lg-6">
+                                                    <div class="mt-3">
+                                                        <p class="text-muted fw-medium">Indeterminate</p>
+                                                        <div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="defaultIndeterminateCheck">
+                                                                <label class="form-check-label" for="defaultIndeterminateCheck">
+                                                                    Indeterminate checkbox
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                            </div><!--end row-->
+                                        </div>
+                                        <div class="tab-pane" id="checkboxCode" role="tabpanel" aria-labelledby="checkboxCode-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup" style="height: 275px"><code>&lt;!-- Base Example --&gt;
+&lt;div class=&quot;form-check mb-2&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck1&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck1&quot;&gt;
+        Default checkbox
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div class=&quot;form-check&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck2&quot; checked=&quot;&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck2&quot;&gt;
+        Checked checkbox
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Disabled Checkbox --&gt;
+&lt;div class=&quot;form-check form-check-right mb-2&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; name=&quot;formCheckboxRight&quot; id=&quot;formCheckboxRight1&quot; checked=&quot;&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheckboxRight1&quot;&gt;
+        Form Radio Right
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div&gt;
+    &lt;div class=&quot;form-check form-check-right&quot;&gt;
+        &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;&quot; id=&quot;flexCheckCheckedDisabled&quot; checked disabled&gt;
+        &lt;label class=&quot;form-check-label&quot; for=&quot;flexCheckCheckedDisabled&quot;&gt;
+            Disabled checked checkbox
+        &lt;/label&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Form Checkbox Right --&gt;
+&lt;div class=&quot;form-check form-check-right mb-2&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; name=&quot;formCheckboxRight&quot; id=&quot;formCheckboxRight1&quot; checked=&quot;&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheckboxRight1&quot;&gt;
+        Form Radio Right
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div&gt;
+    &lt;div class=&quot;form-check form-check-right&quot;&gt;
+        &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;&quot; id=&quot;flexCheckCheckedDisabled&quot; checked disabled&gt;
+        &lt;label class=&quot;form-check-label&quot; for=&quot;flexCheckCheckedDisabled&quot;&gt;
+            Disabled checked checkbox
+        &lt;/label&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Indeterminate --&gt;
+&lt;div class=&quot;form-check&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;&quot; id=&quot;flexCheckIndeterminate&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;flexCheckIndeterminate&quot;&gt;
+    Indeterminate checkbox
+    &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Custom Checkbox</h4>
+                                            <p class="text-muted mb-0">Use <code>form-check-</code> class with below-mentioned color variation to set a color checkbox.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="checkboxCustomPreview-tab" data-bs-toggle="pill" data-bs-target="#checkboxCustomPreview" type="button" role="tab" aria-controls="checkboxCustomPreview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="checkboxCustomCode-tab" data-bs-toggle="pill" data-bs-target="#checkboxCustomCode" type="button" role="tab" aria-controls="checkboxCustomCode" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="checkboxCustomPreview" role="tabpanel" aria-labelledby="checkboxCustomPreview-tab" tabindex="0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <!-- Bootstrap Custom Checkboxes color -->
+                                                    <div>
+                                                        <div class="form-check mb-3">
+                                                            <input class="form-check-input" type="checkbox" id="formCheck6" checked>
+                                                            <label class="form-check-label" for="formCheck6">
+                                                                Checkbox Primary
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check form-check-secondary mb-3">
+                                                            <input class="form-check-input" type="checkbox" id="formCheck7" checked>
+                                                            <label class="form-check-label" for="formCheck7">
+                                                                Checkbox Secondary
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check form-check-success mb-3">
+                                                            <input class="form-check-input" type="checkbox" id="formCheck8" checked>
+                                                            <label class="form-check-label" for="formCheck8">
+                                                                Checkbox Success
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check form-check-warning mb-3">
+                                                            <input class="form-check-input" type="checkbox" id="formCheck9" checked>
+                                                            <label class="form-check-label" for="formCheck9">
+                                                                Checkbox Warning
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check form-check-danger mb-3">
+                                                            <input class="form-check-input" type="checkbox" id="formCheck10" checked>
+                                                            <label class="form-check-label" for="formCheck10">
+                                                                Checkbox Danger
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check form-check-info mb-3">
+                                                            <input class="form-check-input" type="checkbox" id="formCheck11" checked>
+                                                            <label class="form-check-label" for="formCheck11">
+                                                                Checkbox Info
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check form-check-dark">
+                                                            <input class="form-check-input" type="checkbox" id="formCheck12" checked>
+                                                            <label class="form-check-label" for="formCheck12">
+                                                                Checkbox Dark
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+
+                                                <div class="col-md-6">
+                                                    <div class="mt-4 mt-md-0">
+                                                        <p class="text-muted">Use <code>form-check-outline</code> class and <code>form-check-</code> class with below-mentioned color variation to set a color checkbox with outline.</p>
+                                                        <!-- Bootstrap Custom Outline Checkboxes -->
+                                                        <div>
+                                                            <div class="form-check form-check-outline form-check-primary mb-3">
+                                                                <input class="form-check-input" type="checkbox" id="formCheck13" checked>
+                                                                <label class="form-check-label" for="formCheck13">
+                                                                    Checkbox Outline Primary
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-outline form-check-secondary mb-3">
+                                                                <input class="form-check-input" type="checkbox" id="formCheck14" checked>
+                                                                <label class="form-check-label" for="formCheck14">
+                                                                    Checkbox Outline Secondary
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-outline form-check-success mb-3">
+                                                                <input class="form-check-input" type="checkbox" id="formCheck15" checked>
+                                                                <label class="form-check-label" for="formCheck15">
+                                                                    Checkbox Outline Success
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-outline form-check-warning mb-3">
+                                                                <input class="form-check-input" type="checkbox" id="formCheck16" checked>
+                                                                <label class="form-check-label" for="formCheck16">
+                                                                    Checkbox Outline Warning
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-outline form-check-danger mb-3">
+                                                                <input class="form-check-input" type="checkbox" id="formCheck17" checked>
+                                                                <label class="form-check-label" for="formCheck17">
+                                                                    Checkbox Outline Danger
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-outline form-check-info mb-3">
+                                                                <input class="form-check-input" type="checkbox" id="formCheck18" checked>
+                                                                <label class="form-check-label" for="formCheck18">
+                                                                    Checkbox Outline Info
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-outline form-check-dark">
+                                                                <input class="form-check-input" type="checkbox" id="formCheck19" checked>
+                                                                <label class="form-check-label" for="formCheck19">
+                                                                    Checkbox Outline Dark
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                            </div>
+                                            <!--end row-->
+                                        </div>
+                                        <div class="tab-pane" id="checkboxCustomCode" role="tabpanel" aria-labelledby="checkboxCustomCode-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup" style="height: 275px"><code>&lt;!-- Custom Checkboxes Color --&gt;
+&lt;div class=&quot;form-check mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck6&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck6&quot;&gt;
+        Checkbox Primary
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-secondary mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck7&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck7&quot;&gt;
+        Checkbox Secondary
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-success mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck8&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck8&quot;&gt;
+        Checkbox Success
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<Code>&lt;div class=&quot;form-check form-check-warning mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck9&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck9&quot;&gt;
+        Checkbox Warning
+    &lt;/label&gt;
+&lt;/div&gt;</Code>
+<code>&lt;div class=&quot;form-check form-check-danger mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck10&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck10&quot;&gt;
+        Checkbox Danger
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-info mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck11&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck11&quot;&gt;
+        Checkbox Info
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-dark mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck12&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck12&quot;&gt;
+        Checkbox Dark
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-light&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck12&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck12&quot;&gt;
+        Checkbox Light
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+
+
+<code>&lt;!-- Custom Outline Checkboxes --&gt;
+&lt;div class=&quot;form-check form-check-outline form-check-primary mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck13&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck13&quot;&gt;
+        Checkbox Outline Primary
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-outline form-check-secondary mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck14&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck14&quot;&gt;
+        Checkbox Outline Secondary
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-outline form-check-success mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck15&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck15&quot;&gt;
+        Checkbox Outline Success
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-outline form-check-warning mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck16&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck16&quot;&gt;
+        Checkbox Outline Warning
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<Code>&lt;div class=&quot;form-check form-check-outline form-check-danger mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck17&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck17&quot;&gt;
+        Checkbox Outline Danger
+    &lt;/label&gt;
+&lt;/div&gt;</Code>
+<code>&lt;div class=&quot;form-check form-check-outline form-check-info mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck18&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck18&quot;&gt;
+        Checkbox Outline Info
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-outline form-check-dark mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck19&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck19&quot;&gt;
+        Checkbox Outline Dark
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-outline form-check-light mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;formCheck20&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formCheck20&quot;&gt;
+        Checkbox Outline light
+    &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-0">Radios</h4>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="radiosExamplePreview-tab" data-bs-toggle="pill" data-bs-target="#radiosExamplePreview" type="button" role="tab" aria-controls="radiosExamplePreview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="radiosExampleCode-tab" data-bs-toggle="pill" data-bs-target="#radiosExampleCode" type="button" role="tab" aria-controls="radiosExampleCode" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="radiosExamplePreview" role="tabpanel" aria-labelledby="radiosExamplePreview-tab" tabindex="0">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div>
+                                                        <p class="text-muted fw-medium">Default Radios</p>
+                                                        <p class="text-muted">Use <code>type="radio"</code> attribute to set a radio button and add <code>checked</code> attribute to set a radio checked by default.</p>
+                                                        <div class="form-check mb-2">
+                                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                Default radio
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                                Default checked radio
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div class="mt-4 mt-md-0">
+                                                        <p class="text-muted fw-medium">Disabled Radios</p>
+                                                        <p class="text-muted">Use <code>disabled</code> attribute to set a radio button disabled and add <code>checked</code> attribute to set a radio checked by default.</p>
+                                                        <div class="form-check mb-2">
+                                                            <input class="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioDisabled" disabled>
+                                                            <label class="form-check-label" for="flexRadioDisabled">
+                                                                Disabled radio
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled" checked disabled>
+                                                                <label class="form-check-label" for="flexRadioCheckedDisabled">
+                                                                    Disabled checked radio
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div class="mt-4 mt-md-0">
+                                                        <p class="text-muted fw-medium">Radio Right</p>
+                                                        <p class="text-muted">Use <code>form-check-right</code> class to form-check class to set a radio button on the right side.</p>
+                                                        <div class="form-check form-check-right mb-2">
+                                                            <input class="form-check-input" type="radio" name="formradioRight" id="formradioRight1">
+                                                            <label class="form-check-label" for="formradioRight1">
+                                                                Form Radio Right
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <div class="form-check form-check-right">
+                                                                <input class="form-check-input" type="radio" value="" name="formradioRight" id="flexCheckCheckedDisabled2" checked disabled>
+                                                                <label class="form-check-label" for="flexCheckCheckedDisabled2">
+                                                                    Disabled checked radio
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                            </div>
+                                            <!--end row-->
+                                        </div>
+                                        <div class="tab-pane" id="radiosExampleCode" role="tabpanel" aria-labelledby="radiosExampleCode-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup" style="height: 275px"><code>&lt;!-- Base Radios --&gt;
+&lt;div class=&quot;form-check mb-2&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;flexRadioDefault&quot; id=&quot;flexRadioDefault1&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;flexRadioDefault1&quot;&gt;
+        Default radio
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div class=&quot;form-check&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;flexRadioDefault&quot; id=&quot;flexRadioDefault2&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;flexRadioDefault2&quot;&gt;
+        Default checked radio
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Disabled Radios --&gt;
+&lt;div class=&quot;form-check mb-2&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;flexRadioDisabled&quot; id=&quot;flexRadioDisabled&quot; disabled&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;flexRadioDisabled&quot;&gt;
+    Disabled radio
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div&gt;
+    &lt;div class=&quot;form-check&quot;&gt;
+        &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;flexRadioDisabled&quot; id=&quot;flexRadioCheckedDisabled&quot; checked disabled&gt;
+        &lt;label class=&quot;form-check-label&quot; for=&quot;flexRadioCheckedDisabled&quot;&gt;
+        Disabled checked radio
+        &lt;/label&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Form Radio Right --&gt;
+&lt;div class=&quot;form-check form-check-right mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;formradioRight&quot; id=&quot;formradioRight1&quot; checked=&quot;&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formradioRight1&quot;&gt;
+        Form Radio Right
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div&gt;
+    &lt;div class=&quot;form-check form-check-right&quot;&gt;
+        &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; value=&quot;&quot; id=&quot;flexCheckCheckedDisabled&quot; checked disabled&gt;
+        &lt;label class=&quot;form-check-label&quot; for=&quot;flexCheckCheckedDisabled&quot;&gt;
+            Disabled checked radio
+        &lt;/label&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Custom Radio</h4>
+                                            <p class="text-muted mb-0">Use <code>form-check-</code> class with below-mentioned color variation to set a color radio.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="radiosCustomPreview-tab" data-bs-toggle="pill" data-bs-target="#radiosCustomPreview" type="button" role="tab" aria-controls="radiosCustomPreview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="radiosCustomCode-tab" data-bs-toggle="pill" data-bs-target="#radiosCustomCode" type="button" role="tab" aria-controls="radiosCustomCode" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="radiosCustomPreview" role="tabpanel" aria-labelledby="radiosCustomPreview-tab" tabindex="0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div>
+
+                                                        <div class="form-check form-radio-primary mb-3">
+                                                            <input class="form-check-input" type="radio" name="formradiocolor1" id="formradioRight5" checked>
+                                                            <label class="form-check-label" for="formradioRight5">
+                                                                Radio Primary
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-radio-secondary mb-3">
+                                                            <input class="form-check-input" type="radio" name="formradiocolor2" id="formradioRight6" checked>
+                                                            <label class="form-check-label" for="formradioRight6">
+                                                                Radio Secondary
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-radio-success mb-3">
+                                                            <input class="form-check-input" type="radio" name="formradiocolor3" id="formradioRight7" checked>
+                                                            <label class="form-check-label" for="formradioRight7">
+                                                                Radio Success
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-radio-warning mb-3">
+                                                            <input class="form-check-input" type="radio" name="formradiocolor4" id="formradioRight8" checked>
+                                                            <label class="form-check-label" for="formradioRight8">
+                                                                Radio Warning
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-radio-danger mb-3">
+                                                            <input class="form-check-input" type="radio" name="formradiocolor5" id="formradioRight9" checked>
+                                                            <label class="form-check-label" for="formradioRight9">
+                                                                Radio Danger
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-radio-info mb-3">
+                                                            <input class="form-check-input" type="radio" name="formradiocolor6" id="formradioRight10" checked>
+                                                            <label class="form-check-label" for="formradioRight10">
+                                                                Radio Info
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check form-radio-dark">
+                                                            <input class="form-check-input" type="radio" name="formradiocolor7" id="formradioRight11" checked>
+                                                            <label class="form-check-label" for="formradioRight11">
+                                                                Radio Dark
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                            </div>
+                                            <!--end row-->
+                                        </div>
+                                        <div class="tab-pane" id="radiosCustomCode" role="tabpanel" aria-labelledby="radiosCustomCode-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup" style="height: 275px"><code>&lt;!-- Custom Radio Color --&gt;
+&lt;div class=&quot;form-check form-radio-primary mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;formradiocolor1&quot; id=&quot;formradioRight5&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formradioRight5&quot;&gt;
+        Radio Primary
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-radio-secondary mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;formradiocolor2&quot; id=&quot;formradioRight6&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formradioRight6&quot;&gt;
+        Radio Secondary
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-radio-success mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;formradiocolor3&quot; id=&quot;formradioRight7&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formradioRight7&quot;&gt;
+        Radio Success
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-radio-warning mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;formradiocolor4&quot; id=&quot;formradioRight8&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formradioRight8&quot;&gt;
+        Radio Warning
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-radio-danger mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;formradiocolor5&quot; id=&quot;formradioRight9&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formradioRight9&quot;&gt;
+        Radio Danger
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-radio-info mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;formradiocolor6&quot; id=&quot;formradioRight10&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formradioRight10&quot;&gt;
+        Radio Info
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-radio-dark mb-3&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;formradiocolor7&quot; id=&quot;formradioRight11&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formradioRight11&quot;&gt;
+        Radio Dark
+    &lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-radio-light&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;formradiocolor8&quot; id=&quot;formradioRight12&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;formradioRight12&quot;&gt;
+        Radio light
+    &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-0">Switches</h4>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="switchesExamplePreview-tab" data-bs-toggle="pill" data-bs-target="#switchesExamplePreview" type="button" role="tab" aria-controls="switchesExamplePreview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="switchesExampleCode-tab" data-bs-toggle="pill" data-bs-target="#switchesExampleCode" type="button" role="tab" aria-controls="switchesExampleCode" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="switchesExamplePreview" role="tabpanel" aria-labelledby="switchesExamplePreview-tab" tabindex="0">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div>
+                                                        <p class="text-muted fw-medium">Default Switches</p>
+                                                        <p class="text-muted">Use <code>form-switch</code> class to form-check class to set a switch and add <code>checked</code> attribute to set a switch checked by default.</p>
+                                                        <div class="form-check form-switch mb-2">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                            <label class="form-check-label" for="flexSwitchCheckDefault">Default switch input</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                                            <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch input</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div class="mt-4 mt-md-0">
+                                                        <p class="text-muted fw-medium">Disabled Switchs</p>
+                                                        <p class="text-muted">Use <code>disabled</code> attribute to set a radio button disabled and add <code>checked</code> attribute to set a switch checked by default.</p>
+                                                        <div class="form-check form-switch mb-2">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDisabled" disabled>
+                                                            <label class="form-check-label" for="flexSwitchCheckDisabled">Switch input</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckedDisabled1" checked disabled>
+                                                            <label class="form-check-label" for="flexSwitchCheckCheckedDisabled1">Disabled checked switch input</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div class="mt-4 mt-md-0">
+                                                        <p class="text-muted fw-medium">Switch Right</p>
+                                                        <p class="text-muted">Use <code>form-check-right</code> class to form-check class to set a switch button on the right side.</p>
+                                                        <div>
+                                                            <div class="form-check form-switch form-check-right mb-2">
+                                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckRightDisabled" checked>
+                                                                <label class="form-check-label" for="flexSwitchCheckRightDisabled">Switch Right input</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div>
+                                                            <div class="form-check form-switch form-check-right">
+                                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckedDisabled2" disabled>
+                                                                <label class="form-check-label" for="flexSwitchCheckCheckedDisabled2">Disabled checked switch input</label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div class="mt-3">
+                                                        <p class="text-muted fw-medium">Switch sizes</p>
+                                                        <p class="text-muted">Use <code>form-switch-md</code> class to set a medium size switch button and <code>form-switch-lg</code> class to form-check class to set a large size switch button respectively. No such class is required for small size switch button.</p>
+
+                                                        <div class="form-check form-switch mb-3" dir="ltr">
+                                                            <input type="checkbox" class="form-check-input" id="customSwitchsizesm" checked="">
+                                                            <label class="form-check-label" for="customSwitchsizesm">Small Size Switch</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
+                                                            <input type="checkbox" class="form-check-input" id="customSwitchsizemd">
+                                                            <label class="form-check-label" for="customSwitchsizemd">Medium Size Switch</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch form-switch-lg" dir="ltr">
+                                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked="">
+                                                            <label class="form-check-label" for="customSwitchsizelg">Large Size Switch</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+
+                                            </div>
+                                            <!--end row-->
+                                        </div>
+                                        <div class="tab-pane" id="switchesExampleCode" role="tabpanel" aria-labelledby="switchesExampleCode-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup" style="height: 275px"><code>&lt;!-- Base Switches --&gt;
+&lt;div class=&quot;form-check form-switch&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;flexSwitchCheckDefault&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;flexSwitchCheckDefault&quot;&gt;Default switch checkbox input&lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div class=&quot;form-check form-switch&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;flexSwitchCheckChecked&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;flexSwitchCheckChecked&quot;&gt;Checked switch checkbox input&lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Disabled Switches --&gt;
+&lt;div class=&quot;form-check form-switch&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;flexSwitchCheckDisabled&quot; disabled&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;flexSwitchCheckDisabled&quot;&gt;Disabled switch checkbox input&lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div class=&quot;form-check form-switch&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;flexSwitchCheckCheckedDisabled&quot; checked disabled&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;flexSwitchCheckCheckedDisabled&quot;&gt;Disabled checked switch checkbox input&lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Form Switch Right --&gt;
+&lt;div class=&quot;form-check form-switch form-check-right&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;flexSwitchCheckRightDisabled&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;flexSwitchCheckRightDisabled&quot;&gt;Disabled switch checkbox input&lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div class=&quot;form-check form-switch form-check-right&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;flexSwitchCheckCheckedDisabled&quot; disabled&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;flexSwitchCheckCheckedDisabled&quot;&gt;Disabled checked switch checkbox input&lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Switch sizes --&gt;
+&lt;div class=&quot;form-check form-switch&quot; dir=&quot;ltr&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;form-check-input&quot; id=&quot;customSwitchsizesm&quot; checked=&quot;&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;customSwitchsizesm&quot;&gt;Small Size Switch&lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div class=&quot;form-check form-switch form-switch-md&quot; dir=&quot;ltr&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;form-check-input&quot; id=&quot;customSwitchsizemd&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;customSwitchsizemd&quot;&gt;Medium Size Switch&lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div class=&quot;form-check form-switch form-switch-lg&quot; dir=&quot;ltr&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;form-check-input&quot; id=&quot;customSwitchsizelg&quot; checked=&quot;&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;customSwitchsizelg&quot;&gt;Large Size Switch&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Switches Color</h4>
+                                            <p class="text-muted mb-0">Use <code>form-check-</code> class with below-mentioned color variation to set a color switch.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="switchesColorsPreview-tab" data-bs-toggle="pill" data-bs-target="#switchesColorsPreview" type="button" role="tab" aria-controls="switchesColorsPreview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="switchesColorsCode-tab" data-bs-toggle="pill" data-bs-target="#switchesColorsCode" type="button" role="tab" aria-controls="switchesColorsCode" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="switchesColorsPreview" role="tabpanel" aria-labelledby="switchesColorsPreview-tab" tabindex="0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <div class="form-check form-switch mb-3">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck1" checked>
+                                                            <label class="form-check-label" for="SwitchCheck1">Switch Default</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch form-switch-secondary mb-3">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck2" checked>
+                                                            <label class="form-check-label" for="SwitchCheck2">Switch Secondary</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch form-switch-success mb-3">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck3" checked>
+                                                            <label class="form-check-label" for="SwitchCheck3">Switch Success</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch form-switch-warning mb-2 mb-md-0">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck4" checked>
+                                                            <label class="form-check-label" for="SwitchCheck4">Switch Warning</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <div class="form-check form-switch form-switch-danger mb-3">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck5" checked>
+                                                            <label class="form-check-label" for="SwitchCheck5">Switch Danger</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch form-switch-info mb-3">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck6" checked>
+                                                            <label class="form-check-label" for="SwitchCheck6">Switch Info</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch form-switch-dark mb-3">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck7" checked>
+                                                            <label class="form-check-label" for="SwitchCheck7">Switch Dark</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                            </div>
+                                            <!--end row-->
+                                        </div>
+                                        <div class="tab-pane" id="switchesColorsCode" role="tabpanel" aria-labelledby="switchesColorsCode-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup" style="height: 275px"><code>&lt;!-- Switches Color --&gt;
+&lt;div class=&quot;form-check form-switch&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;SwitchCheck1&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;SwitchCheck1&quot;&gt;Switch Default&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-switch form-switch-secondary&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;SwitchCheck2&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;SwitchCheck2&quot;&gt;Switch Secondary&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-switch form-switch-success&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;SwitchCheck3&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;SwitchCheck3&quot;&gt;Switch Success&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-switch form-switch-warning&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;SwitchCheck4&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;SwitchCheck4&quot;&gt;Switch Warning&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-switch form-switch-danger&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;SwitchCheck5&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;SwitchCheck5&quot;&gt;Switch Danger&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-switch form-switch-info&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;SwitchCheck6&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;SwitchCheck6&quot;&gt;Switch Info&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-switch form-switch-dark&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; role=&quot;switch&quot; id=&quot;SwitchCheck7&quot; checked&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;SwitchCheck7&quot;&gt;Switch Dark&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end card-->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Inline Checkbox & Radios</h4>
+                                            <p class="text-muted mb-0">Use <code>form-check-inline</code> class to form-check class to set horizontally align checkboxes, radios, or switches.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="InlineCheckboxRadiosPreview-tab" data-bs-toggle="pill" data-bs-target="#InlineCheckboxRadiosPreview" type="button" role="tab" aria-controls="InlineCheckboxRadiosPreview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="InlineCheckboxRadiosCode-tab" data-bs-toggle="pill" data-bs-target="#InlineCheckboxRadiosCode" type="button" role="tab" aria-controls="InlineCheckboxRadiosCode" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="InlineCheckboxRadiosPreview" role="tabpanel" aria-labelledby="InlineCheckboxRadiosPreview-tab" tabindex="0">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="mt-4 mt-lg-0">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1">
+                                                            <label class="form-check-label" for="inlineCheckbox6">1</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option2">
+                                                            <label class="form-check-label" for="inlineCheckbox7">2</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option3" disabled>
+                                                            <label class="form-check-label" for="inlineCheckbox8">3 (disabled)</label>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end col -->
+
+                                                <div class="col-lg-4">
+                                                    <div class="mt-4 mt-lg-0">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio1" value="option1">
+                                                            <label class="form-check-label" for="inlineRadio1">1</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio2" value="option2">
+                                                            <label class="form-check-label" for="inlineRadio2">2</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions3" id="inlineRadio3" value="option3" disabled>
+                                                            <label class="form-check-label" for="inlineRadio3">3 (disabled)</label>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end col -->
+
+                                                <div class="col-lg-4">
+                                                    <div class="mt-4 mt-lg-0">
+                                                        <div class="form-check form-switch form-check-inline" dir="ltr">
+                                                            <input type="checkbox" class="form-check-input" id="inlineswitch5">
+                                                            <label class="form-check-label" for="inlineswitch5">1</label>
+                                                        </div>
+                                                        <div class="form-check form-switch form-check-inline" dir="ltr">
+                                                            <input type="checkbox" class="form-check-input" id="inlineswitch6">
+                                                            <label class="form-check-label" for="inlineswitch6">2</label>
+                                                        </div>
+                                                        <div class="form-check form-switch form-check-inline" dir="ltr">
+                                                            <input type="checkbox" class="form-check-input" id="inlineswitchdisabled2" disabled>
+                                                            <label class="form-check-label" for="inlineswitchdisabled2">2</label>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end col -->
+                                            </div>
+                                            <!--end row-->
+                                        </div>
+                                        <div class="tab-pane" id="InlineCheckboxRadiosCode" role="tabpanel" aria-labelledby="InlineCheckboxRadiosCode-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup" style="height: 275px"><code>&lt;!-- Inline Checkbox --&gt;
+&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;inlineCheckbox1&quot; value=&quot;option1&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;inlineCheckbox1&quot;&gt;1&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;inlineCheckbox2&quot; value=&quot;option2&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;inlineCheckbox2&quot;&gt;2&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;inlineCheckbox3&quot; value=&quot;option3&quot; disabled&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;inlineCheckbox3&quot;&gt;3 (disabled)&lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Inline Radios --&gt;
+&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;inlineRadioOptions1&quot; id=&quot;inlineRadio1&quot; value=&quot;option1&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;inlineRadio1&quot;&gt;1&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;inlineRadioOptions2&quot; id=&quot;inlineRadio2&quot; value=&quot;option2&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;inlineRadio2&quot;&gt;2&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;inlineRadioOptions3&quot; id=&quot;inlineRadio3&quot; value=&quot;option3&quot; disabled&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;inlineRadio3&quot;&gt;3 (disabled)&lt;/label&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Inline Switches --&gt;
+&lt;div class=&quot;form-check form-switch form-check-inline&quot; dir=&quot;ltr&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;form-check-input&quot; id=&quot;inlineswitch&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;inlineswitch&quot;&gt;1&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-switch form-check-inline&quot; dir=&quot;ltr&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;form-check-input&quot; id=&quot;inlineswitch1&quot;&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;inlineswitch1&quot;&gt;2&lt;/label&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-switch form-check-inline&quot; dir=&quot;ltr&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;form-check-input&quot; id=&quot;inlineswitchdisabled&quot; disabled&gt;
+    &lt;label class=&quot;form-check-label&quot; for=&quot;inlineswitchdisabled&quot;&gt;2&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end card-->
+                            </div><!-- end col -->
+                        </div><!-- end row -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Without Labels</h4>
+                                            <p class="text-muted mb-0">Omit the wrapping, <code>form-check</code> class for checkboxes, radios, or switches that have no label text. Remember to still provide some form of accessible name for assistive technologies (for instance, using aria-label).</p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="withoutLabelsPreview-tab" data-bs-toggle="pill" data-bs-target="#withoutLabelsPreview" type="button" role="tab" aria-controls="withoutLabelsPreview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="withoutLabelsCode-tab" data-bs-toggle="pill" data-bs-target="#withoutLabelsCode" type="button" role="tab" aria-controls="withoutLabelsCode" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="withoutLabelsPreview" role="tabpanel" aria-labelledby="withoutLabelsPreview-tab" tabindex="0">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="mt-4 mt-lg-0">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end col -->
+
+                                                <div class="col-lg-4">
+                                                    <div class="mt-4 mt-lg-0">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="WithoutinlineRadio1" value="option1">
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="WithoutinlineRadio2" value="option2">
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="WithoutinlineRadio3" value="option3" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end col -->
+
+                                                <div class="col-lg-4">
+                                                    <div class="mt-4 mt-lg-0">
+                                                        <div class="form-check form-switch form-check-inline" dir="ltr">
+                                                            <input type="checkbox" class="form-check-input" id="inlineswitch">
+                                                        </div>
+                                                        <div class="form-check form-switch form-check-inline" dir="ltr">
+                                                            <input type="checkbox" class="form-check-input" id="inlineswitch1">
+                                                        </div>
+                                                        <div class="form-check form-switch form-check-inline" dir="ltr">
+                                                            <input type="checkbox" class="form-check-input" id="inlineswitchdisabled" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end col -->
+                                            </div>
+                                            <!--end row-->
+                                        </div>
+                                        <div class="tab-pane" id="withoutLabelsCode" role="tabpanel" aria-labelledby="withoutLabelsCode-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup" style="height: 275px"><code>&lt;!-- Without labels Checkbox --&gt;
+&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;inlineCheckbox1&quot; value=&quot;option1&quot;&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;inlineCheckbox2&quot; value=&quot;option2&quot;&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;inlineCheckbox3&quot; value=&quot;option3&quot; disabled&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Without labels Radios --&gt;
+&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;inlineRadioOptions&quot; id=&quot;WithoutinlineRadio1&quot; value=&quot;option1&quot;&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;inlineRadioOptions&quot; id=&quot;WithoutinlineRadio2&quot; value=&quot;option2&quot;&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-check-inline&quot;&gt;
+    &lt;input class=&quot;form-check-input&quot; type=&quot;radio&quot; name=&quot;inlineRadioOptions&quot; id=&quot;WithoutinlineRadio3&quot; value=&quot;option3&quot; disabled&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Without labels Switches --&gt;
+&lt;div class=&quot;form-check form-switch form-check-inline&quot; dir=&quot;ltr&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;form-check-input&quot; id=&quot;inlineswitch&quot;&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-switch form-check-inline&quot; dir=&quot;ltr&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;form-check-input&quot; id=&quot;inlineswitch1&quot;&gt;
+&lt;/div&gt;</code>
+<code>&lt;div class=&quot;form-check form-switch form-check-inline&quot; dir=&quot;ltr&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;form-check-input&quot; id=&quot;inlineswitchdisabled&quot; disabled&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end card-->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Radio Toggle Buttons</h4>
+                                            <p class="text-muted mb-0">Create button-like checkboxes and radio buttons by using <code>btn</code> styles rather than form-check-label class on the &lt;label&gt; elements. These toggle buttons can further be grouped in a <a href="https://getbootstrap.com/docs/5.1/components/button-group/">button group</a> if needed.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="radioToggleButtonsPreview-tab" data-bs-toggle="pill" data-bs-target="#radioToggleButtonsPreview" type="button" role="tab" aria-controls="radioToggleButtonsPreview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="radioToggleButtonsCode-tab" data-bs-toggle="pill" data-bs-target="#radioToggleButtonsCode" type="button" role="tab" aria-controls="radioToggleButtonsCode" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="radioToggleButtonsPreview" role="tabpanel" aria-labelledby="radioToggleButtonsPreview-tab" tabindex="0">
+                                            <div class="hstack gap-2 flex-wrap">
+                                                <input type="radio" class="btn-check" name="options" id="option1" checked>
+                                                <label class="btn btn-secondary" for="option1">Checked</label>
+
+                                                <input type="radio" class="btn-check" name="options" id="option2">
+                                                <label class="btn btn-secondary" for="option2">Radio</label>
+
+                                                <input type="radio" class="btn-check" name="options" id="option3" disabled>
+                                                <label class="btn btn-secondary" for="option3">Disabled</label>
+
+                                                <input type="radio" class="btn-check" name="options" id="option4">
+                                                <label class="btn btn-secondary" for="option4">Radio</label>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="radioToggleButtonsCode" role="tabpanel" aria-labelledby="radioToggleButtonsCode-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup" style="height: 258px;"><code>&lt;!-- Radio toggle buttons   --&gt;
+&lt;div class=&quot;hstack gap-2 flex-wrap&quot;&gt;
+    &lt;input type=&quot;radio&quot; class=&quot;btn-check&quot; name=&quot;options&quot; id=&quot;option1&quot;  checked&gt;
+    &lt;label class=&quot;btn btn-secondary&quot; for=&quot;option1&quot;&gt;Checked&lt;/label&gt;
+
+    &lt;input type=&quot;radio&quot; class=&quot;btn-check&quot; name=&quot;options&quot; id=&quot;option2&quot; &gt;
+    &lt;label class=&quot;btn btn-secondary&quot; for=&quot;option2&quot;&gt;Radio&lt;/label&gt;
+
+    &lt;input type=&quot;radio&quot; class=&quot;btn-check&quot; name=&quot;options&quot; id=&quot;option3&quot;  disabled&gt;
+    &lt;label class=&quot;btn btn-secondary&quot; for=&quot;option3&quot;&gt;Disabled&lt;/label&gt;
+
+    &lt;input type=&quot;radio&quot; class=&quot;btn-check&quot; name=&quot;options&quot; id=&quot;option4&quot; &gt;
+    &lt;label class=&quot;btn btn-secondary&quot; for=&quot;option4&quot;&gt;Radio&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end card-->
+                            </div> <!-- end col -->
+
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Outlined Styles</h4>
+                                            <p class="text-muted mb-0">Different variants of <code>btn</code> attribute, such as the various outlined styles, are supported.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="outlinedStylesPreview-tab" data-bs-toggle="pill" data-bs-target="#outlinedStylesPreview" type="button" role="tab" aria-controls="outlinedStylesPreview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="outlinedStylesCode-tab" data-bs-toggle="pill" data-bs-target="#outlinedStylesCode" type="button" role="tab" aria-controls="outlinedStylesCode" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="outlinedStylesPreview" role="tabpanel" aria-labelledby="outlinedStylesPreview-tab" tabindex="0">
+                                            <div class="hstack gap-2 flex-wrap">
+                                                <input type="checkbox" class="btn-check" id="btn-check-outlined">
+                                                <label class="btn btn-outline-primary" for="btn-check-outlined">Single toggle</label>
+
+                                                <input type="checkbox" class="btn-check" id="btn-check-2-outlined" checked>
+                                                <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Checked</label>
+
+                                                <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" checked>
+                                                <label class="btn btn-outline-success" for="success-outlined">Checked success radio</label>
+
+                                                <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined">
+                                                <label class="btn btn-outline-danger" for="danger-outlined">Danger radio</label>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="outlinedStylesCode" role="tabpanel" aria-labelledby="outlinedStylesCode-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup" style="height: 275px;"><code>&lt;!-- Outlined Styles --&gt;
+&lt;div class=&quot;hstack gap-2 flex-wrap&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;btn-check&quot; id=&quot;btn-check-outlined&quot;&gt;
+    &lt;label class=&quot;btn btn-outline-primary&quot; for=&quot;btn-check-outlined&quot;&gt;Single toggle&lt;/label&gt;
+
+    &lt;input type=&quot;checkbox&quot; class=&quot;btn-check&quot; id=&quot;btn-check-2-outlined&quot; checked&gt;
+    &lt;label class=&quot;btn btn-outline-secondary&quot; for=&quot;btn-check-2-outlined&quot;&gt;Checked&lt;/label&gt;
+
+    &lt;input type=&quot;radio&quot; class=&quot;btn-check&quot; name=&quot;options-outlined&quot; id=&quot;success-outlined&quot; checked&gt;
+    &lt;label class=&quot;btn btn-outline-success&quot; for=&quot;success-outlined&quot;&gt;Checked success radio&lt;/label&gt;
+
+    &lt;input type=&quot;radio&quot; class=&quot;btn-check&quot; name=&quot;options-outlined&quot; id=&quot;danger-outlined&quot;&gt;
+    &lt;label class=&quot;btn btn-outline-danger&quot; for=&quot;danger-outlined&quot;&gt;Danger radio&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+
+                        </div>
+                        <!-- end row -->
+{% endblock content %}
+
+{% block extra_js %}
+
+    <!-- prismjs plugin -->
+    <script src="{% static 'libs/prismjs/prism.js' %}"></script>
+
+{% endblock extra_js %} 

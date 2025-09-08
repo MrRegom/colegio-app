@@ -1,0 +1,83 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Editors {% endblock title %} 
+
+{% block extra_css %}
+
+    <link rel="stylesheet" href="{% static 'libs/suneditor/css/suneditor.min.css' %}">
+
+{% endblock extra_css %}
+
+{% block main_title %}
+
+                <div class="page-title-box">
+                    <div class="row align-items-center">
+                        <div class="col-md-5">
+                            {% block pagetitle %}
+                                {% include "partials/page-title.html" with pagetitle="Forms" title="Editors" %}
+                            {% endblock pagetitle %}
+                        </div><!--end col-->
+                        <div class="col-md-auto ms-auto">
+
+                            {% block customizer %}
+                                {% include "partials/customizer.html" %}
+                            {% endblock customizer %}
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div>
+{% endblock main_title %}
+
+
+{% block content %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title mb-1">Ckeditor Classic Editor</h4>
+                                        <p class="text-muted mb-0">Use <code>ckeditor-classic</code> class to set ckeditor classic editor.</p>
+                                    </div><!-- end card header -->
+
+                                    <div class="card-body">
+                                        <div class="ckeditor-classic">
+                                            <ol>
+                                                <li>first</li>
+                                                <li>second</li>
+                                                <li>third</li>
+                                            </ol>
+                                        </div>
+                                    </div><!-- end card-body -->
+                                </div><!-- end card -->
+
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title mb-1">Suneditor Editor</h4>
+                                        <p class="text-muted mb-0">Use <code>sun_editor</code> ID to set suneditor editor.</p>
+                                    </div><!-- end card header -->
+                                    <div class="card-body">
+                                        <textarea id="sun_editor" class="form-control">Hi</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+{% endblock content %}
+
+{% block extra_js %}
+
+    <!-- ckeditor -->
+    <script src="{% static 'libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js' %}"></script>
+
+    <!-- suneditor -->
+    <script src="{% static 'libs/suneditor/suneditor.min.js' %}"></script>
+
+    <!-- init js -->
+    <script src="{% static 'js/pages/form-editor.init.js' %}"></script>
+    
+{% endblock extra_js %}
+                        
+       
+
+
+
+      

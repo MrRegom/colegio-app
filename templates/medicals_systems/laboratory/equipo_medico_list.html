@@ -1,0 +1,239 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}Lista de Equipos Médicos{% endblock title %}
+
+{% block extra_css %}
+<!-- Sweet Alert css-->
+<link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+<!-- DataTables css -->
+<link href="{% static 'libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'libs/datatables.net-select-bs5/css/select.bootstrap5.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
+
+{% block main_title %}
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Equipos Médicos" title="Lista de Equipos" %}
+            {% endblock pagetitle %}
+        </div><!--end col-->
+        <div class="col-md-4">
+            <div class="d-flex gap-2 justify-content-end">
+                <a href="{% url 'medicals_systems:equipo_medico_create' %}" class="btn btn-primary">
+                    <i class="ri-add-line align-bottom"></i> Nuevo Equipo
+                </a>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#importarEquiposModal">
+                    <i class="ri-file-excel-line align-bottom"></i> Importar Excel
+                </button>
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+{% endblock main_title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title mb-0 flex-grow-1">Equipos Médicos</h5>
+                    <div class="d-flex gap-2">
+                        <div class="search-box">
+                            <form action="{% url 'medicals_systems:equipo_medico_list' %}" method="get">
+                                <input type="text" class="form-control search" name="search" placeholder="Buscar..." value="{{ request.GET.search|default:'' }}">
+                                <i class="ri-search-line search-icon"></i>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="equipos-medicos-datatable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID Equipo</th>
+                                <th>Nombre</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Ubicación</th>
+                                <th>Estado</th>
+                                <th>Próx. Mantenimiento</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for equipo in page_obj %}
+                            <tr>
+                                <td>{{ equipo.id_equipo }}</td>
+                                <td>{{ equipo.nombre }}</td>
+                                <td>{{ equipo.marca }}</td>
+                                <td>{{ equipo.modelo }}</td>
+                                <td>{{ equipo.ubicacion }}</td>
+                                <td>
+                                    {% if equipo.estado_actual %}
+                                    <span class="badge bg-{% if equipo.estado_actual.nombre_estado == 'Operativo' %}success{% elif equipo.estado_actual.nombre_estado == 'Mantenimiento' %}warning{% elif equipo.estado_actual.nombre_estado == 'Fuera de servicio' %}danger{% else %}info{% endif %}">
+                                        {{ equipo.estado_actual.nombre_estado }}
+                                    </span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">No asignado</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ equipo.fecha_proxima_mantencion|date:"d-m-Y" }}</td>
+                                <td>
+                                    <div class="hstack gap-2">
+                                        <a href="{% url 'medicals_systems:equipo_medico_detail' equipo.id %}" class="link-success fs-16" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver Detalles">
+                                            <i class="ri-eye-line"></i>
+                                        </a>
+                                        <a href="{% url 'medicals_systems:equipo_medico_edit' equipo.id %}" class="link-primary fs-16" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                        <a href="{% url 'medicals_systems:equipo_medico_delete' equipo.id %}" class="link-danger fs-16" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
+                                            <i class="ri-delete-bin-line"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="8" class="text-center">No se encontraron equipos médicos.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Paginación -->
+                {% if page_obj.has_other_pages %}
+                <div class="pagination-wrap mt-4">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item"><a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    <p class="text-muted mt-3">
+                        Mostrando {{ page_obj.start_index }} a {{ page_obj.end_index }} de {{ total_equipos }} equipos.
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Importar Equipos Médicos -->
+<div class="modal fade" id="importarEquiposModal" tabindex="-1" aria-labelledby="importarEquiposModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importarEquiposModalLabel">Importar Equipos Médicos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'medicals_systems:equipo_medico_import' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="excel_file" class="form-label">Archivo Excel</label>
+                        <input type="file" class="form-control" id="excel_file" name="excel_file" accept=".xlsx, .xls" required>
+                        <div class="form-text">El archivo debe contener las columnas: id_equipo, nombre, marca, modelo, numero_serie, anio_fabricacion, ubicacion, etc.</div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Importar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<!-- Sweet Alert js -->
+<script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}"></script>
+<!-- DataTables js -->
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js' %}"></script>
+<script src="{% static 'libs/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-select-bs5/js/select.bootstrap5.min.js' %}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // DataTable básica (solo cuando no hay paginación del servidor)
+        if (document.querySelectorAll('#equipos-medicos-datatable tbody tr').length > 0 && document.querySelector('#equipos-medicos-datatable tbody tr td').innerText.trim() !== 'No se encontraron equipos médicos.') {
+            new DataTable('#equipos-medicos-datatable', {
+                responsive: true,
+                lengthChange: false,
+                pageLength: 10,
+                info: false,
+                searching: false,
+                paging: false
+            });
+        }
+        
+        // Mostrar mensajes de error/éxito si los hay
+        {% if messages %}
+            {% for message in messages %}
+                Swal.fire({
+                    title: '{{ message.tags|title }}',
+                    text: '{{ message }}',
+                    icon: '{% if message.tags == "error" %}error{% else %}success{% endif %}',
+                    confirmButtonText: 'Aceptar'
+                });
+            {% endfor %}
+        {% endif %}
+        
+        // Tooltips de Bootstrap
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    });
+</script>
+{% endblock extra_js %} 

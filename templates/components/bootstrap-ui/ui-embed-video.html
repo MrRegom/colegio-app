@@ -1,0 +1,194 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Embed Video {% endblock title %} 
+
+
+{% block main_title %}
+
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-md-5">
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Bootstrap UI" title="Embed Video" %}
+            {% endblock pagetitle %}
+        </div><!--end col-->
+        <div class="col-md-auto ms-auto">
+            {% block customizer %}
+                {% include "partials/customizer.html" %}
+            {% endblock customizer %}
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+    
+{% endblock main_title %}
+
+{% block content %}
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Ratio Video 16:9</h4>
+                                            <p class="text-muted mb-0">Wrap any embed in<code>&lt;iframe&gt;</code> tag, in a parent element, use <code>ratio-16x9</code> class to set aspect ratio 16:9. </p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="ratioVideo169Preview-tab" data-bs-toggle="pill" data-bs-target="#ratioVideo169Preview" type="button" role="tab" aria-controls="ratioVideo169Preview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="ratioVideo169Code-tab" data-bs-toggle="pill" data-bs-target="#ratioVideo169Code" type="button" role="tab" aria-controls="ratioVideo169Code" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="ratioVideo169Preview" role="tabpanel" aria-labelledby="ratioVideo169Preview-tab" tabindex="0">
+                                            <div>
+                                                <!-- 16:9 aspect ratio -->
+                                                <div class="ratio ratio-16x9">
+                                                    <iframe class="rounded" src="https://www.youtube.com/embed/1y_kfWUCFDQ" title="YouTube video" allowfullscreen></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="ratioVideo169Code" role="tabpanel" aria-labelledby="ratioVideo169Code-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup"><code>&lt;!-- Ratio Video 16:9 --&gt;
+&lt;div class=&quot;ratio ratio-16x9&quot;&gt;
+    &lt;iframe src=&quot;https://www.youtube.com/embed/1y_kfWUCFDQ&quot; title=&quot;YouTube video&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div><!-- end card-body -->
+                                </div><!-- end card -->
+
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Ratio Video 4:3</h4>
+                                            <p class="text-muted mb-0">Use <code>ratio-4x3</code> class to set aspect ratio 4:3.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="ratioVideo43Preview-tab" data-bs-toggle="pill" data-bs-target="#ratioVideo43Preview" type="button" role="tab" aria-controls="ratioVideo43Preview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="ratioVideo43Code-tab" data-bs-toggle="pill" data-bs-target="#ratioVideo43Code" type="button" role="tab" aria-controls="ratioVideo43Code" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="ratioVideo43Preview" role="tabpanel" aria-labelledby="ratioVideo43Preview-tab" tabindex="0">
+                                            <!-- 4:3 aspect ratio -->
+                                            <div class="ratio ratio-4x3">
+                                                <iframe class="rounded" src="https://www.youtube.com/embed/PHcgN1GTjdU" title="YouTube video" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="ratioVideo43Code" role="tabpanel" aria-labelledby="ratioVideo43Code-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup"><code>&lt;!-- Ratio Video 4:3 --&gt;
+&lt;div class=&quot;ratio ratio-4x3&quot;&gt;
+    &lt;iframe src=&quot;https://www.youtube.com/embed/1y_kfWUCFDQ&quot; title=&quot;YouTube video&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div><!-- end card-body -->
+                                </div><!-- end card -->
+
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Custom Ratios</h4>
+                                            <p class="text-muted mb-0">Use <code>--tb-aspect-ratio: 50%</code> to style element to set aspect ratio 2:1.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="ratioVideoCustomPreview-tab" data-bs-toggle="pill" data-bs-target="#ratioVideoCustomPreview" type="button" role="tab" aria-controls="ratioVideoCustomPreview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="ratioVideoCustomCode-tab" data-bs-toggle="pill" data-bs-target="#ratioVideoCustomCode" type="button" role="tab" aria-controls="ratioVideoCustomCode" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="ratioVideoCustomPreview" role="tabpanel" aria-labelledby="ratioVideoCustomPreview-tab" tabindex="0">
+                                            <!-- 16:9 aspect ratio -->
+                                            <div class="ratio" style="--tb-aspect-ratio: 50%;">
+                                                <iframe class="rounded" src="https://www.youtube.com/embed/2RZQN_ko0iU" title="YouTube video" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="ratioVideoCustomCode" role="tabpanel" aria-labelledby="ratioVideoCustomCode-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup"><code>&lt;!-- Custom Ratio Video --&gt;
+&lt;div class=&quot;ratio&quot; style=&quot;--tb-aspect-ratio: 50%;&quot;&gt;
+    &lt;iframe src=&quot;https://www.youtube.com/embed/2RZQN_ko0iU&quot; title=&quot;YouTube video&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div><!-- end card-body -->
+                                </div><!-- end card -->
+
+                            </div>
+                            <!-- end col -->
+
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Ratio Video 21:9</h4>
+                                            <p class="text-muted mb-0">Use <code>ratio-21x9</code> class to set aspect ratio 21:9.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="ratioVideo219Preview-tab" data-bs-toggle="pill" data-bs-target="#ratioVideo219Preview" type="button" role="tab" aria-controls="ratioVideo219Preview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="ratioVideo219Code-tab" data-bs-toggle="pill" data-bs-target="#ratioVideo219Code" type="button" role="tab" aria-controls="ratioVideo219Code" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="ratioVideo219Preview" role="tabpanel" aria-labelledby="ratioVideo219Preview-tab" tabindex="0">
+                                            <!-- 21:9 aspect ratio -->
+                                            <div class="ratio ratio-21x9">
+                                                <iframe class="rounded" src="https://www.youtube.com/embed/Z-fV2lGKnnU" title="YouTube video" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="ratioVideo219Code" role="tabpanel" aria-labelledby="ratioVideo219Code-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup"><code>&lt;!-- Ratio Video 21:9 --&gt;
+&lt;div class=&quot;ratio ratio-21x9&quot;&gt;
+    &lt;iframe src=&quot;https://www.youtube.com/embed/Z-fV2lGKnnU&quot; title=&quot;YouTube video&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div><!-- end card-body -->
+                                </div><!-- end card -->
+
+                                <div class="card">
+                                    <div class="card-header d-md-flex gap-3">
+                                        <div class="flex-grow-1">
+                                            <h4 class="card-title mb-1">Ratio Video 1:1</h4>
+                                            <p class="text-muted mb-0">Use <code>ratio-1x1</code> class to set aspect ratio 1:1.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 mt-3 mt-md-0">
+                                            <div class="nav nav-pills code-menu bg-light p-1 rounded" role="tablist">
+                                                <button class="nav-link active" id="ratioVideo11Preview-tab" data-bs-toggle="pill" data-bs-target="#ratioVideo11Preview" type="button" role="tab" aria-controls="ratioVideo11Preview" aria-selected="true">Preview</button>
+                                                <button class="nav-link" id="ratioVideo11Code-tab" data-bs-toggle="pill" data-bs-target="#ratioVideo11Code" type="button" role="tab" aria-controls="ratioVideo11Code" aria-selected="false">HTML</button>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane show active" id="ratioVideo11Preview" role="tabpanel" aria-labelledby="ratioVideo11Preview-tab" tabindex="0">
+                                            <!-- 1:1 aspect ratio -->
+                                            <div class="ratio ratio-1x1">
+                                                <iframe class="rounded" src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="ratioVideo11Code" role="tabpanel" aria-labelledby="ratioVideo11Code-tab" tabindex="0">
+                                            <h5 class="fs-sm text-muted">HTML Preview</h5>
+                                            <pre class="language-markup"><code>&lt;!-- Ratio Video 1:1 --&gt;
+&lt;div class=&quot;ratio ratio-1x1&quot;&gt;
+    &lt;iframe src=&quot;https://www.youtube.com/embed/GfSZtaoc5bw&quot; title=&quot;YouTube video&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </div><!-- end card-body -->
+                                </div><!-- end card -->
+                            </div>
+                            <!-- end col -->
+                        </div><!-- end row -->
+{% endblock content %}
+
+
+{% block extra_js %}
+                    
+    <!-- prismjs plugin -->
+    <script src="{% static 'libs/prismjs/prism.js' %}"></script>
+
+{% endblock extra_js %} 

@@ -1,0 +1,838 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}Gestionar Firma - Correo Masivo{% endblock %}
+
+{% block main_title %}
+<div class="page-title-box">
+    <div class="row align-items-center gy-3">
+        <div class="col-md">
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Correo Masivo" title="Gestionar Firma" %}
+            {% endblock pagetitle %}
+        </div><!--end col-->
+        <div class="col-md-auto ms-auto">
+            <div class="hstack gap-2">
+                {% block customizer %}
+                    {% include "partials/customizer.html" %}
+                {% endblock customizer %}
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+{% endblock main_title %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <!-- EDITOR DE FIRMA -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">⚙️ Configuración de Firma</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="firmaForm">
+                            {% csrf_token %}
+                            
+                            <!-- Información Personal -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="text-primary mb-3">👤 Información Personal</h6>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nombre Completo</label>
+                                        <input type="text" class="form-control" id="nombre" name="nombre" 
+                                               value="{% if firma_actual %}{{ firma_actual.nombre_completo }}{% endif %}"
+                                               placeholder="Ej: Dr. Juan Pérez" onkeyup="actualizarVistaPrevia()">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="cargo" class="form-label">Cargo</label>
+                                        <input type="text" class="form-control" id="cargo" name="cargo" 
+                                               value="{% if firma_actual %}{{ firma_actual.cargo }}{% endif %}"
+                                               placeholder="Ej: Director Médico" onkeyup="actualizarVistaPrevia()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Información Institucional -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="text-primary mb-3">🏥 Información Institucional</h6>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="unidad" class="form-label">Unidad/Departamento</label>
+                                        <input type="text" class="form-control" id="unidad" name="unidad" 
+                                               value="{% if firma_actual %}{{ firma_actual.unidad }}{% endif %}"
+                                               placeholder="Ej: Unidad Comunicaciones y RRPP" onkeyup="actualizarVistaPrevia()">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="institucion" class="form-label">Institución</label>
+                                        <input type="text" class="form-control" id="institucion" name="institucion" 
+                                               value="{% if firma_actual %}{{ firma_actual.institucion }}{% endif %}"
+                                               placeholder="Ej: Hospital Dr. Gustavo Fricke" onkeyup="actualizarVistaPrevia()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Información de Contacto -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="text-primary mb-3">📞 Información de Contacto</h6>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="telefono" class="form-label">Teléfono</label>
+                                        <input type="text" class="form-control" id="telefono" name="telefono" 
+                                               value="{% if firma_actual %}{{ firma_actual.telefono }}{% endif %}"
+                                               placeholder="Ej: 32-2577637" onkeyup="actualizarVistaPrevia()">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" 
+                                               value="{% if firma_actual %}{{ firma_actual.email }}{% endif %}"
+                                               placeholder="Ej: comunicaciones@hospitalfricke.cl" onkeyup="actualizarVistaPrevia()">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="website" class="form-label">Sitio Web</label>
+                                        <input type="url" class="form-control" id="website" name="website" 
+                                               value="{% if firma_actual %}{{ firma_actual.website }}{% endif %}"
+                                               placeholder="Ej: www.hospitalfricke.cl" onkeyup="actualizarVistaPrevia()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Logos Institucionales -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="text-primary mb-3">🖼️ Logos Institucionales</h6>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label for="logo_gobierno" class="form-label">Logo Gobierno de Chile</label>
+                                        <div class="input-group">
+                                            <input type="file" class="form-control" id="logo_gobierno" name="logo_gobierno" 
+                                                   accept="image/*" onchange="previewLogo(this, 'logo_gobierno_preview')">
+                                            <button class="btn btn-outline-secondary" type="button" 
+                                                    onclick="resetLogo('logo_gobierno', 'logo_gobierno_preview')">
+                                                <i class="bi bi-arrow-clockwise"></i>
+                                            </button>
+                                        </div>
+                                        <div class="mt-2">
+                                            <img id="logo_gobierno_preview" src="" alt="Preview" style="max-width: 80px; max-height: 40px; display: none;" class="border">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label for="logo_salud" class="form-label">Logo Servicio de Salud</label>
+                                        <div class="input-group">
+                                            <input type="file" class="form-control" id="logo_salud" name="logo_salud" 
+                                                   accept="image/*" onchange="previewLogo(this, 'logo_salud_preview')">
+                                            <button class="btn btn-outline-secondary" type="button" 
+                                                    onclick="resetLogo('logo_salud', 'logo_salud_preview')">
+                                                <i class="bi bi-arrow-clockwise"></i>
+                                            </button>
+                                        </div>
+                                        <div class="mt-2">
+                                            <img id="logo_salud_preview" src="" alt="Preview" style="max-width: 80px; max-height: 40px; display: none;" class="border">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label for="logo_hospital" class="form-label">Logo Hospital</label>
+                                        <div class="input-group">
+                                            <input type="file" class="form-control" id="logo_hospital" name="logo_hospital" 
+                                                   accept="image/*" onchange="previewLogo(this, 'logo_hospital_preview')">
+                                            <button class="btn btn-outline-secondary" type="button" 
+                                                    onclick="resetLogo('logo_hospital', 'logo_hospital_preview')">
+                                                <i class="bi bi-arrow-clockwise"></i>
+                                            </button>
+                                        </div>
+                                        <div class="mt-2">
+                                            <img id="logo_hospital_preview" src="" alt="Preview" style="max-width: 60px; max-height: 40px; display: none;" class="border">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="alert alert-info">
+                                        <i class="bi bi-info-circle"></i> 
+                                        <strong>Recomendaciones:</strong> Use imágenes PNG con fondo transparente. Tamaño máximo: 2MB. Dimensiones recomendadas: 80x40px para gobierno y salud, 60x40px para hospital.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botones de Acción -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-save"></i> Guardar Firma
+                                        </button>
+                                        <button type="button" class="btn btn-success" onclick="copiarFirma()">
+                                            <i class="bi bi-clipboard"></i> Copiar HTML
+                                        </button>
+                                        <button type="button" class="btn btn-info" onclick="previsualizarEmail()">
+                                            <i class="bi bi-eye"></i> Vista Previa
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA PREVIA -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">👁️ Vista Previa de Firma</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i> 
+                            Esta es la vista previa de tu firma tal como aparecerá en los correos.
+                        </div>
+                        
+                        <!-- FIRMA GENERADA -->
+                        <div id="firmaPreview" class="border p-3" style="background-color: #f8f9fa;">
+                            <!-- La firma se genera aquí dinámicamente -->
+                        </div>
+
+                        <!-- CÓDIGO HTML -->
+                        <div class="mt-3">
+                            <label class="form-label">📝 Código HTML de la Firma:</label>
+                            <textarea id="firmaHTML" class="form-control" rows="8" readonly 
+                                      style="font-family: 'Courier New', monospace; font-size: 12px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTADO DE FIRMAS CREADAS -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title mb-0">📝 Mis Firmas Creadas</h4>
+                        <button class="btn btn-success btn-sm" onclick="nuevaFirma()">
+                            <i class="bi bi-plus-circle"></i> Nueva Firma
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        {% if user.firmas_correo.all %}
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>👤 Nombre</th>
+                                            <th>💼 Cargo</th>
+                                            <th>🏢 Institución</th>
+                                            <th>📅 Modificada</th>
+                                            <th>🔧 Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for firma in user.firmas_correo.all %}
+                                        <tr>
+                                            <td>
+                                                <strong>{{ firma.nombre_completo|default:"Sin nombre" }}</strong>
+                                            </td>
+                                            <td>{{ firma.cargo|default:"Sin cargo" }}</td>
+                                            <td>{{ firma.institucion|default:"Sin institución" }}</td>
+                                            <td>
+                                                <small class="text-muted">
+                                                    {{ firma.fecha_modificacion|date:"d/m/Y H:i" }}
+                                                </small>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm" role="group">
+                                                    <button type="button" class="btn btn-outline-primary" 
+                                                            onclick="editarFirma({{ firma.id }})"
+                                                            title="Editar firma">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-info" 
+                                                            onclick="previsualizarFirma({{ firma.id }})"
+                                                            title="Vista previa">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-danger" 
+                                                            onclick="eliminarFirma({{ firma.id }})"
+                                                            title="Eliminar firma">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="text-center py-4">
+                                <div class="mb-3">
+                                    <i class="bi bi-file-earmark-text text-muted" style="font-size: 3rem;"></i>
+                                </div>
+                                <h5 class="text-muted">No tienes firmas creadas</h5>
+                                <p class="text-muted">Crea tu primera firma completando el formulario de arriba.</p>
+                                <button class="btn btn-primary" onclick="document.getElementById('nombre').focus()">
+                                    <i class="bi bi-plus-circle"></i> Crear Mi Primera Firma
+                                </button>
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Información adicional -->
+                        <div class="alert alert-info mt-3">
+                            <i class="bi bi-info-circle"></i>
+                            <strong>Información:</strong> Puedes crear y gestionar múltiples firmas. Selecciona la que desees usar al enviar correos masivos.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Vista Previa de Email -->
+<div class="modal fade" id="previewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">📧 Vista Previa del Email</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="border p-3" style="background-color: white;">
+                    <div class="mb-3">
+                        <strong>Para:</strong> destinatario@ejemplo.com<br>
+                        <strong>De:</strong> <span id="previewFrom"></span><br>
+                        <strong>Asunto:</strong> Mensaje de prueba
+                    </div>
+                    <hr>
+                    <div class="mb-4">
+                        Estimado/a,<br><br>
+                        Este es un mensaje de ejemplo para mostrar cómo se verá tu firma en los correos electrónicos.<br><br>
+                        Saludos cordiales,
+                    </div>
+                    <div id="previewFirmaCompleta"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Función para actualizar la vista previa en tiempo real
+function actualizarVistaPrevia() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const cargo = document.getElementById('cargo').value.trim();
+    const unidad = document.getElementById('unidad').value.trim();
+    const institucion = document.getElementById('institucion').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const website = document.getElementById('website').value.trim();
+
+    // Obtener logos personalizados si existen
+    const logoGobiernoImg = document.getElementById('logo_gobierno_preview');
+    const logoGobierno = logoGobiernoImg && logoGobiernoImg.src && logoGobiernoImg.style.display !== 'none' 
+        ? `<img src="${logoGobiernoImg.src}" alt="Gobierno de Chile" style="height: 45px; margin-right: 3px;">`
+        : '<div style="background: #0066cc; color: white; padding: 10px 15px; font-size: 10px; font-weight: bold; margin-right: 3px; height: 25px; display: flex; align-items: center;">GOBIERNO<br>DE CHILE</div>';
+        
+    const logoSaludImg = document.getElementById('logo_salud_preview');
+    const logoSalud = logoSaludImg && logoSaludImg.src && logoSaludImg.style.display !== 'none'
+        ? `<img src="${logoSaludImg.src}" alt="Servicio de Salud" style="height: 45px; margin-right: 3px;">`
+        : '<div style="background: #dc3545; color: white; padding: 10px 15px; font-size: 10px; font-weight: bold; margin-right: 3px; height: 25px; display: flex; align-items: center;">SERVICIO<br>DE SALUD</div>';
+        
+    const logoHospitalImg = document.getElementById('logo_hospital_preview');
+    const logoHospital = logoHospitalImg && logoHospitalImg.src && logoHospitalImg.style.display !== 'none'
+        ? `<img src="${logoHospitalImg.src}" alt="Hospital" style="height: 45px;">`
+        : '<div style="background: #ff9500; color: white; padding: 10px 15px; font-size: 10px; font-weight: bold; height: 25px; display: flex; align-items: center;">HOSPITAL</div>';
+
+    // Construir información personal (solo si no está vacía)
+    let infoPersonal = '';
+    if (nombre) {
+        infoPersonal += `<div style="color: #333; font-size: 18px; font-weight: bold; margin-bottom: 3px;">${nombre}</div>`;
+    }
+    if (cargo) {
+        infoPersonal += `<div style="color: #666; font-size: 15px; margin-bottom: 8px;">${cargo}</div>`;
+    }
+
+    // Construir información institucional (tamaño más grande)
+    let infoInstitucional = '';
+    if (unidad || institucion) {
+        infoInstitucional = '<div style="color: #666; font-size: 15px; font-weight: 500; margin-bottom: 10px;">';
+        if (unidad) {
+            infoInstitucional += `${unidad}`;
+            if (institucion) infoInstitucional += '<br>';
+        }
+        if (institucion) {
+            infoInstitucional += `${institucion}`;
+        }
+        infoInstitucional += '</div>';
+    }
+
+    // Construir información de contacto
+    let infoContacto = '';
+    if (telefono || email || website) {
+        infoContacto = '<div style="color: #0066cc; font-size: 13px;">';
+        if (telefono) {
+            infoContacto += `📞 Teléfono: ${telefono}<br>`;
+        }
+        if (email) {
+            infoContacto += `✉️ ${email}<br>`;
+        }
+        if (website) {
+            const websiteClean = website.replace('http://', '').replace('https://', '');
+            infoContacto += `🌐 <a href="http://${websiteClean}" style="color: #0066cc; text-decoration: none;">${websiteClean}</a>`;
+        }
+        infoContacto += '</div>';
+    }
+
+    // Generar HTML de la firma
+    const firmaHTML = `
+    <table style="font-family: Arial, sans-serif; border-collapse: collapse; width: 100%; max-width: 600px;">
+        <tr>
+            <td style="padding: 12px 0; vertical-align: top;">
+                <div style="border-left: 4px solid #0066cc; padding-left: 18px;">
+                    ${infoPersonal}
+                    ${infoInstitucional}
+                    ${infoContacto}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 15px 0 0 0; text-align: left;">
+                <div style="display: flex; align-items: center; justify-content: flex-start; gap: 8px; margin-left: 22px;">
+                    ${logoGobierno}
+                    ${logoSalud}
+                    ${logoHospital}
+                </div>
+            </td>
+        </tr>
+    </table>`;
+
+    // Actualizar vista previa
+    document.getElementById('firmaPreview').innerHTML = firmaHTML;
+    document.getElementById('firmaHTML').value = firmaHTML;
+}
+
+// Función para previsualizar logos subidos
+function previewLogo(input, previewId) {
+    const file = input.files[0];
+    const preview = document.getElementById(previewId);
+    
+    if (file) {
+        // Validar tamaño de archivo (máximo 2MB)
+        if (file.size > 2 * 1024 * 1024) {
+            Toastify({
+                text: "❌ El archivo es muy grande. Máximo 2MB.",
+                duration: 5000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#dc3545"
+            }).showToast();
+            input.value = '';
+            return;
+        }
+        
+        // Validar tipo de archivo
+        if (!file.type.startsWith('image/')) {
+            Toastify({
+                text: "❌ Por favor seleccione un archivo de imagen válido.",
+                duration: 5000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#dc3545"
+            }).showToast();
+            input.value = '';
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+            
+            // Actualizar vista previa de la firma
+            actualizarVistaPrevia();
+            
+            Toastify({
+                text: "✅ Logo cargado correctamente",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#28a745"
+            }).showToast();
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// Función para resetear logos a los valores por defecto
+function resetLogo(inputId, previewId) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(previewId);
+    
+    input.value = '';
+    preview.style.display = 'none';
+    preview.src = '';
+    
+    // Actualizar vista previa
+    actualizarVistaPrevia();
+    
+    Toastify({
+        text: "✅ Logo reseteado a valor por defecto",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#17a2b8"
+    }).showToast();
+}
+
+// Función para convertir imagen a base64 para incluir en el HTML
+function imageToBase64(img, callback) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    
+    ctx.drawImage(img, 0, 0);
+    
+    try {
+        const dataURL = canvas.toDataURL('image/png');
+        callback(dataURL);
+    } catch (e) {
+        console.error('Error converting image to base64:', e);
+        callback(null);
+    }
+}
+
+// Función para copiar la firma al portapapeles
+function copiarFirma() {
+    const firmaHTML = document.getElementById('firmaHTML').value;
+    navigator.clipboard.writeText(firmaHTML).then(() => {
+        // Mostrar notificación
+        Toastify({
+            text: "✅ Firma copiada al portapapeles",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#28a745"
+        }).showToast();
+    });
+}
+
+// Función para mostrar vista previa del email
+function previsualizarEmail() {
+    const nombre = document.getElementById('nombre').value || '[Nombre]';
+    const email = document.getElementById('email').value || '[Email]';
+    const firmaHTML = document.getElementById('firmaHTML').value;
+    
+    document.getElementById('previewFrom').textContent = `${nombre} <${email}>`;
+    document.getElementById('previewFirmaCompleta').innerHTML = firmaHTML;
+    
+    const modal = new bootstrap.Modal(document.getElementById('previewModal'));
+    modal.show();
+}
+
+// Variable global para rastrear si estamos editando
+let editandoFirmaId = null;
+
+// Función para nueva firma
+function nuevaFirma() {
+    editandoFirmaId = null;
+    
+    // Limpiar formulario
+    document.getElementById('firmaForm').reset();
+    
+    // Limpiar previews de logos
+    ['logo_gobierno_preview', 'logo_salud_preview', 'logo_hospital_preview'].forEach(id => {
+        const img = document.getElementById(id);
+        if (img) {
+            img.style.display = 'none';
+            img.src = '';
+        }
+    });
+    
+    // Actualizar vista previa
+    actualizarVistaPrevia();
+    
+    // Scroll al formulario
+    document.getElementById('firmaForm').scrollIntoView({ behavior: 'smooth' });
+    
+    Toastify({
+        text: "📝 Formulario listo para nueva firma",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745"
+    }).showToast();
+}
+
+// Función para editar firma
+function editarFirma(firmaId) {
+    editandoFirmaId = firmaId;
+    
+    // Hacer petición AJAX para obtener datos de la firma
+    fetch(`{% url "correo_masivo:gestionar_firma" %}?action=get_firma&id=${firmaId}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const firma = data.firma;
+            
+            // Llenar formulario con datos
+            document.getElementById('nombre').value = firma.nombre_completo || '';
+            document.getElementById('cargo').value = firma.cargo || '';
+            document.getElementById('unidad').value = firma.unidad || '';
+            document.getElementById('institucion').value = firma.institucion || '';
+            document.getElementById('telefono').value = firma.telefono || '';
+            document.getElementById('email').value = firma.email || '';
+            document.getElementById('website').value = firma.website || '';
+            
+            // Cargar logos existentes
+            if (firma.logo_gobierno_url) {
+                const logoGobiernoPreview = document.getElementById('logo_gobierno_preview');
+                logoGobiernoPreview.src = firma.logo_gobierno_url;
+                logoGobiernoPreview.style.display = 'block';
+            }
+            if (firma.logo_salud_url) {
+                const logoSaludPreview = document.getElementById('logo_salud_preview');
+                logoSaludPreview.src = firma.logo_salud_url;
+                logoSaludPreview.style.display = 'block';
+            }
+            if (firma.logo_hospital_url) {
+                const logoHospitalPreview = document.getElementById('logo_hospital_preview');
+                logoHospitalPreview.src = firma.logo_hospital_url;
+                logoHospitalPreview.style.display = 'block';
+            }
+            
+            // Actualizar vista previa
+            actualizarVistaPrevia();
+            
+            // Scroll al formulario
+            document.getElementById('firmaForm').scrollIntoView({ behavior: 'smooth' });
+            
+            Toastify({
+                text: `✏️ Editando firma: ${firma.nombre_completo}`,
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#17a2b8"
+            }).showToast();
+        } else {
+            Toastify({
+                text: "❌ Error al cargar los datos de la firma",
+                duration: 5000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#dc3545"
+            }).showToast();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Toastify({
+            text: "❌ Error de conexión",
+            duration: 5000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#dc3545"
+        }).showToast();
+    });
+}
+
+// Función para previsualizar firma
+function previsualizarFirma(firmaId) {
+    // Hacer petición para obtener HTML de la firma
+    fetch(`{% url "correo_masivo:gestionar_firma" %}?action=preview_firma&id=${firmaId}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('previewFirmaCompleta').innerHTML = data.html_firma;
+            document.getElementById('previewFrom').textContent = `${data.nombre} <${data.email}>`;
+            
+            const modal = new bootstrap.Modal(document.getElementById('previewModal'));
+            modal.show();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Toastify({
+            text: "❌ Error al obtener vista previa",
+            duration: 5000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#dc3545"
+        }).showToast();
+    });
+}
+
+
+
+// Función para eliminar firma
+function eliminarFirma(firmaId) {
+    if (confirm('¿Estás seguro de que deseas eliminar esta firma?\n\nEsta acción no se puede deshacer.')) {
+        fetch(`{% url "correo_masivo:gestionar_firma" %}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({
+                action: 'delete',
+                firma_id: firmaId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Toastify({
+                    text: "✅ Firma eliminada correctamente",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#28a745"
+                }).showToast();
+                
+                // Recargar página después de 1 segundo
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            } else {
+                Toastify({
+                    text: "❌ " + data.message,
+                    duration: 5000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#dc3545"
+                }).showToast();
+            }
+        });
+    }
+}
+
+// Cargar plantilla por defecto al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    {% if firma_actual %}
+        // Cargar logos existentes si hay firma actual
+        {% if firma_actual.logo_gobierno %}
+        const logoGobiernoPreview = document.getElementById('logo_gobierno_preview');
+        logoGobiernoPreview.src = '{{ firma_actual.logo_gobierno.url }}';
+        logoGobiernoPreview.style.display = 'block';
+        {% endif %}
+        
+        {% if firma_actual.logo_salud %}
+        const logoSaludPreview = document.getElementById('logo_salud_preview');
+        logoSaludPreview.src = '{{ firma_actual.logo_salud.url }}';
+        logoSaludPreview.style.display = 'block';
+        {% endif %}
+        
+        {% if firma_actual.logo_hospital %}
+        const logoHospitalPreview = document.getElementById('logo_hospital_preview');
+        logoHospitalPreview.src = '{{ firma_actual.logo_hospital.url }}';
+        logoHospitalPreview.style.display = 'block';
+        {% endif %}
+        
+        // Cargar datos de la firma existente
+        actualizarVistaPrevia();
+    {% else %}
+        // Cargar plantilla por defecto si no hay firma
+        cargarPlantilla('hospital');
+    {% endif %}
+});
+
+// Manejar envío del formulario
+document.getElementById('firmaForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Crear FormData para incluir archivos
+    const formData = new FormData();
+    
+    // Agregar campos de texto
+    formData.append('nombre', document.getElementById('nombre').value);
+    formData.append('cargo', document.getElementById('cargo').value);
+    formData.append('unidad', document.getElementById('unidad').value);
+    formData.append('institucion', document.getElementById('institucion').value);
+    formData.append('telefono', document.getElementById('telefono').value);
+    formData.append('email', document.getElementById('email').value);
+    formData.append('website', document.getElementById('website').value);
+    formData.append('plantilla', 'hospital');
+    formData.append('color_principal', '#0066cc');
+    formData.append('incluir_logos', 'true');
+    formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+    
+    // Agregar archivos de logos si existen
+    const logoGobierno = document.getElementById('logo_gobierno').files[0];
+    const logoSalud = document.getElementById('logo_salud').files[0];
+    const logoHospital = document.getElementById('logo_hospital').files[0];
+    
+    if (logoGobierno) formData.append('logo_gobierno', logoGobierno);
+    if (logoSalud) formData.append('logo_salud', logoSalud);
+    if (logoHospital) formData.append('logo_hospital', logoHospital);
+    
+    // Si estamos editando, agregar el ID
+    if (editandoFirmaId) {
+        formData.append('firma_id', editandoFirmaId);
+        formData.append('action', 'update');
+    } else {
+        formData.append('action', 'create');
+    }
+    
+    // Enviar datos al servidor
+    fetch('{% url "correo_masivo:gestionar_firma" %}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Toastify({
+                text: "✅ " + data.message,
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#28a745"
+            }).showToast();
+        } else {
+            Toastify({
+                text: "❌ " + data.message,
+                duration: 5000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#dc3545"
+            }).showToast();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Toastify({
+            text: "❌ Error al guardar la firma",
+            duration: 5000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#dc3545"
+        }).showToast();
+    });
+});
+</script>
+{% endblock %}

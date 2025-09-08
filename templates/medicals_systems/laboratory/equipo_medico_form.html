@@ -1,0 +1,371 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ action }} Equipo Médico{% endblock title %}
+
+{% block extra_css %}
+<!-- Sweet Alert css-->
+<link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+<!-- Flatpickr -->
+<link href="{% static 'libs/flatpickr/flatpickr.min.css' %}" rel="stylesheet" type="text/css" />
+<!-- Choices css -->
+<link href="{% static 'libs/choices.js/public/assets/styles/choices.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock extra_css %}
+
+{% block main_title %}
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            {% block pagetitle %}
+                {% include "partials/page-title.html" with pagetitle="Equipos Médicos" title=action|add:" Equipo Médico" %}
+            {% endblock pagetitle %}
+        </div><!--end col-->
+        <div class="col-md-4">
+            <div class="d-flex gap-2 justify-content-end">
+                <a href="{% url 'medicals_systems:equipo_medico_list' %}" class="btn btn-primary">
+                    <i class="ri-arrow-left-line align-bottom"></i> Volver a la Lista
+                </a>
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+</div>
+{% endblock main_title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="flex-grow-1">
+                    <h4 class="card-title mb-1">{{ action }} Equipo Médico</h4>
+                    <p class="text-muted mb-0">Ingrese los datos completos del equipo médico.</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% if is_edit %}{% url 'medicals_systems:equipo_medico_edit' equipo_medico.id %}{% else %}{% url 'medicals_systems:equipo_medico_create' %}{% endif %}" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="row g-3">
+                        <!-- Sección de información básica -->
+                        <div class="col-12 mb-3">
+                            <h5 class="fs-15 fw-semibold">Información básica</h5>
+                            <hr class="mt-2">
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="id_equipo" name="id_equipo" placeholder="ID de equipo" value="{% if is_edit %}{{ equipo_medico.id_equipo }}{% endif %}" required>
+                                <label for="id_equipo">ID de Equipo *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el ID del equipo.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" value="{% if is_edit %}{{ equipo_medico.nombre }}{% endif %}" required>
+                                <label for="nombre">Nombre *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el nombre.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="uso_clinico" name="uso_clinico" placeholder="Uso clínico" value="{% if is_edit %}{{ equipo_medico.uso_clinico }}{% endif %}" required>
+                                <label for="uso_clinico">Uso clínico *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el uso clínico.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="marca" name="marca" placeholder="Marca" value="{% if is_edit %}{{ equipo_medico.marca }}{% endif %}" required>
+                                <label for="marca">Marca *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la marca.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Modelo" value="{% if is_edit %}{{ equipo_medico.modelo }}{% endif %}" required>
+                                <label for="modelo">Modelo *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el modelo.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="numero_serie" name="numero_serie" placeholder="Número de serie" value="{% if is_edit %}{{ equipo_medico.numero_serie }}{% endif %}" required>
+                                <label for="numero_serie">Número de Serie *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el número de serie.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="anio_fabricacion" name="anio_fabricacion" placeholder="Año de fabricación" value="{% if is_edit %}{{ equipo_medico.anio_fabricacion }}{% endif %}" required>
+                                <label for="anio_fabricacion">Año de Fabricación *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el año de fabricación.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicación" value="{% if is_edit %}{{ equipo_medico.ubicacion }}{% endif %}" required>
+                                <label for="ubicacion">Ubicación *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la ubicación.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <select class="form-select" id="estado_actual" name="estado_actual" aria-label="Estado actual">
+                                    <option value="" {% if not is_edit or not equipo_medico.estado_actual %}selected{% endif %}>Seleccione un estado</option>
+                                    {% for estado in form.estado_actual.field.queryset %}
+                                    <option value="{{ estado.id }}" {% if is_edit and equipo_medico.estado_actual.id == estado.id %}selected{% endif %}>{{ estado.nombre_estado }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="estado_actual">Estado Actual</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección de red y comunicaciones -->
+                        <div class="col-12 mt-4 mb-3">
+                            <h5 class="fs-15 fw-semibold">Red y Comunicaciones</h5>
+                            <hr class="mt-2">
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <select class="form-select" id="tipo_red" name="tipo_red" aria-label="Tipo de red">
+                                    <option value="" {% if not is_edit or not equipo_medico.tipo_red %}selected{% endif %}>Seleccione un tipo de red</option>
+                                    {% for tipo in form.tipo_red.field.queryset %}
+                                    <option value="{{ tipo.id }}" {% if is_edit and equipo_medico.tipo_red.id == tipo.id %}selected{% endif %}>{{ tipo.nombre_red }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="tipo_red">Tipo de Red</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="direccion_ip" name="direccion_ip" placeholder="Dirección IP" value="{% if is_edit %}{{ equipo_medico.direccion_ip }}{% endif %}" required>
+                                <label for="direccion_ip">Dirección IP *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la dirección IP.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="puerto_comunicacion" name="puerto_comunicacion" placeholder="Puerto" value="{% if is_edit %}{{ equipo_medico.puerto_comunicacion }}{% endif %}" required>
+                                <label for="puerto_comunicacion">Puerto de Comunicación *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el puerto de comunicación.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="protocolo_comunicacion" name="protocolo_comunicacion" placeholder="Protocolo" value="{% if is_edit %}{{ equipo_medico.protocolo_comunicacion }}{% endif %}">
+                                <label for="protocolo_comunicacion">Protocolo de Comunicación</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <select class="form-select" id="interoperabilidad" name="interoperabilidad" aria-label="Interoperabilidad">
+                                    <option value="" {% if not is_edit or not equipo_medico.interoperabilidad %}selected{% endif %}>Seleccione interoperabilidad</option>
+                                    {% for interop in form.interoperabilidad.field.queryset %}
+                                    <option value="{{ interop.id }}" {% if is_edit and equipo_medico.interoperabilidad.id == interop.id %}selected{% endif %}>{{ interop.nombre_unidad }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="interoperabilidad">Interoperabilidad</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch mt-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="integracion_his" name="integracion_his" {% if is_edit and equipo_medico.integracion_his %}checked{% endif %}>
+                                <label class="form-check-label" for="integracion_his">Integración HIS</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="firmware_version" name="firmware_version" placeholder="Versión de firmware" value="{% if is_edit %}{{ equipo_medico.firmware_version }}{% endif %}">
+                                <label for="firmware_version">Versión de Firmware</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección de mantenimiento -->
+                        <div class="col-12 mt-4 mb-3">
+                            <h5 class="fs-15 fw-semibold">Mantenimiento</h5>
+                            <hr class="mt-2">
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="date" class="form-control" id="fecha_ultima_mantencion" name="fecha_ultima_mantencion" value="{% if is_edit %}{{ equipo_medico.fecha_ultima_mantencion|date:'Y-m-d' }}{% endif %}" required>
+                                <label for="fecha_ultima_mantencion">Fecha Última Mantención *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la fecha de última mantención.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="date" class="form-control" id="fecha_proxima_mantencion" name="fecha_proxima_mantencion" value="{% if is_edit %}{{ equipo_medico.fecha_proxima_mantencion|date:'Y-m-d' }}{% endif %}" required>
+                                <label for="fecha_proxima_mantencion">Fecha Próxima Mantención *</label>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la fecha de próxima mantención.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="tecnico_responsable" name="tecnico_responsable" placeholder="Técnico responsable" value="{% if is_edit %}{{ equipo_medico.tecnico_responsable }}{% endif %}">
+                                <label for="tecnico_responsable">Técnico Responsable</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="proveedor_mantenimiento" name="proveedor_mantenimiento" placeholder="Proveedor" value="{% if is_edit %}{{ equipo_medico.proveedor_mantenimiento }}{% endif %}">
+                                <label for="proveedor_mantenimiento">Proveedor Mantenimiento</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="telefono_soporte" name="telefono_soporte" placeholder="Teléfono soporte" value="{% if is_edit %}{{ equipo_medico.telefono_soporte }}{% endif %}">
+                                <label for="telefono_soporte">Teléfono Soporte</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="number" step="0.01" class="form-control" id="costo_promedio_mantenimiento" name="costo_promedio_mantenimiento" placeholder="Costo promedio" value="{% if is_edit %}{{ equipo_medico.costo_promedio_mantenimiento }}{% endif %}">
+                                <label for="costo_promedio_mantenimiento">Costo Promedio Mantenimiento</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección de energía -->
+                        <div class="col-12 mt-4 mb-3">
+                            <h5 class="fs-15 fw-semibold">Datos de Energía</h5>
+                            <hr class="mt-2">
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <select class="form-select" id="fuente_alimentacion" name="fuente_alimentacion" aria-label="Fuente de alimentación">
+                                    <option value="" {% if not is_edit or not equipo_medico.fuente_alimentacion %}selected{% endif %}>Seleccione fuente de alimentación</option>
+                                    {% for fuente in form.fuente_alimentacion.field.queryset %}
+                                    <option value="{{ fuente.id }}" {% if is_edit and equipo_medico.fuente_alimentacion.id == fuente.id %}selected{% endif %}>{{ fuente.nombre_energia }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="fuente_alimentacion">Fuente de Alimentación</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="number" step="0.01" class="form-control" id="consumo_energia" name="consumo_energia" placeholder="Consumo de energía" value="{% if is_edit %}{{ equipo_medico.consumo_energia }}{% endif %}">
+                                <label for="consumo_energia">Consumo de Energía</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="ups_asignado" name="ups_asignado" placeholder="UPS asignado" value="{% if is_edit %}{{ equipo_medico.ups_asignado }}{% endif %}">
+                                <label for="ups_asignado">UPS Asignado</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="condiciones_ambientales" name="condiciones_ambientales" placeholder="Condiciones ambientales" value="{% if is_edit %}{{ equipo_medico.condiciones_ambientales }}{% endif %}">
+                                <label for="condiciones_ambientales">Condiciones Ambientales</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <textarea class="form-control" id="registro_fallas" name="registro_fallas" placeholder="Registro de fallas" style="height: 100px">{% if is_edit %}{{ equipo_medico.registro_fallas }}{% endif %}</textarea>
+                                <label for="registro_fallas">Registro de Fallas</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-2 justify-content-end mt-4">
+                        <a href="{% url 'medicals_systems:equipo_medico_list' %}" class="btn btn-light">Cancelar</a>
+                        <button type="submit" class="btn btn-success">{{ action }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<!-- Sweet Alert js -->
+<script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}"></script>
+<!-- Flatpickr -->
+<script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+<!-- Choices js -->
+<script src="{% static 'libs/choices.js/public/assets/scripts/choices.min.js' %}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Inicializar selectores con Choices.js
+        const selects = document.querySelectorAll("select[data-choices]");
+        selects.forEach(select => {
+            new Choices(select, {
+                searchEnabled: true,
+                removeItemButton: true,
+                placeholder: true,
+                allowHTML: false
+            });
+        });
+        
+        // Inicializar campos de fecha con Flatpickr
+        flatpickr("#fecha_ultima_mantencion", {
+            dateFormat: "Y-m-d",
+            allowInput: true
+        });
+        
+        flatpickr("#fecha_proxima_mantencion", {
+            dateFormat: "Y-m-d",
+            allowInput: true
+        });
+        
+        // Validación de formulario
+        var forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+        
+        // Mostrar mensajes de error si los hay
+        {% if messages %}
+            {% for message in messages %}
+                Swal.fire({
+                    title: '{{ message.tags|title }}',
+                    text: '{{ message }}',
+                    icon: '{% if message.tags == "error" %}error{% else %}success{% endif %}',
+                    confirmButtonText: 'Aceptar'
+                });
+            {% endfor %}
+        {% endif %}
+    });
+</script>
+{% endblock extra_js %} 
