@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'apps.correo_masivo',  # Sistema de correo masivo
     'components',
     'contacto',
+    'solicitudes_perfil',  # Nueva app para solicitudes de perfil
     # 'water',  # Temporalmente deshabilitada por conflictos con auth.User
     # 'medicals_systems',  # Temporalmente deshabilitada por conflictos con auth.User
     
@@ -115,7 +116,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tablas_maestras',  # Nombre de tu base de datos
         'USER': 'postgres',
-        'PASSWORD': 'POSTGRES',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '5432',
         'OPTIONS': {

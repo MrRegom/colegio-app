@@ -47,7 +47,8 @@
             </div><!-- end card header -->
             <div class="card-body tab-content">
                 <div class="tab-pane show active" id="floatingFormsPreview" role="tabpanel" aria-labelledby="floatingFormsPreview-tab" tabindex="0">
-                    <form id="profileRequestForm" class="needs-validation" novalidate>
+                    <form id="profileRequestForm" class="needs-validation" novalidate method="post" action="{% url 'crear_solicitud_perfil' %}">
+                        {% csrf_token %}
                         <div class="row g-3">
                             <div class="col-lg-6">
                                 <div class="form-floating">
@@ -191,19 +192,19 @@
                                 <div class="mt-4 mt-md-2">
                                     <div>
                                         <div class="form-check form-check-outline form-check-primary mb-3">
-                                            <input class="form-check-input" type="checkbox" id="formCheck1" name="sistema[]" value="HIS-SFERE">
+                                            <input class="form-check-input" type="checkbox" id="formCheck1" name="sistemas" value="HIS-SFERE">
                                             <label class="form-check-label" for="formCheck1">
                                                 HIS - SFERE
                                             </label>
                                         </div>
                                         <div class="form-check form-check-outline form-check-secondary mb-3">
-                                            <input class="form-check-input" type="checkbox" id="formCheck2" name="sistema[]" value="SIH">
+                                            <input class="form-check-input" type="checkbox" id="formCheck2" name="sistemas" value="SIH">
                                             <label class="form-check-label" for="formCheck2">
                                                 SIH
                                             </label>
                                         </div>
                                         <div class="form-check form-check-outline form-check-success mb-3">
-                                            <input class="form-check-input" type="checkbox" id="formCheck3" name="sistema[]" value="TRAKCARE">
+                                            <input class="form-check-input" type="checkbox" id="formCheck3" name="sistemas" value="TRAKCARE">
                                             <label class="form-check-label" for="formCheck3">
                                                 TRAKCARE
                                             </label>
@@ -292,7 +293,7 @@
                                 
                                 <div class="text-end mt-4">
                                     <button type="button" id="leadershipSignature" class="btn btn-secondary me-2">Firma de Jefatura</button>
-                                    <button type="button" id="submitToLeadership" class="btn btn-primary">Enviar a Jefatura</button>
+                                    <button type="submit" id="submitToLeadership" class="btn btn-primary">Enviar a Jefatura</button>
                                 </div>
                             </div>
                         </div>

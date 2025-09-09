@@ -1,0 +1,43 @@
+{% extends 'partials/base.html' %}
+{% block title %}Solicitudes de Perfil Recibidas{% endblock %}
+{% block content %}
+<div class="card mt-3">
+    <div class="card-header">
+        <h4 class="mb-0">Solicitudes de Perfil Recibidas</h4>
+    </div>
+    <div class="card-body">
+        {% if solicitudes %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>RUT</th>
+                        <th>Email</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solicitud in solicitudes %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ solicitud.nombre_completo }}</td>
+                        <td>{{ solicitud.rut }}</td>
+                        <td>{{ solicitud.email }}</td>
+                        <td>{{ solicitud.fecha_creacion|date:"d/m/Y H:i" }}</td>
+                        <td>{{ solicitud.estado }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info mb-0">
+            No hay solicitudes recibidas.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

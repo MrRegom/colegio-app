@@ -122,8 +122,8 @@
                         <td class="customer_name">
                             <div class="d-flex align-items-center">
                                 <div class="avatar-xs me-2">
-                                    <div class="avatar-title bg-soft-success text-success rounded-circle fs-13">
-                                        {{ funcionario.nombres.0|upper }}{{ funcionario.apellidos.0|upper }}
+                                    <div class="text-dark fs-13 px-2 py-1">
+                                        {{ funcionario.nombres }} {{ funcionario.apellidos }}
                                     </div>
                                 </div>
                                 <div>
@@ -133,11 +133,7 @@
                         </td>
                         <td class="email">{{ funcionario.email }}</td>
                         <td class="status">
-                            {% if funcionario.estado == 'activo' %}
-                                <span class="badge bg-success-subtle text-success">Activo</span>
-                            {% else %}
-                                <span class="badge bg-danger-subtle text-danger">Inactivo</span>
-                            {% endif %}
+                            {{ funcionario.estado }}
                         </td>
                         <td class="date">{{ funcionario.created_at|date:"d/m/Y H:i" }}</td>
                         <td>

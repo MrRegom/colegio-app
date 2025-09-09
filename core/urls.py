@@ -51,6 +51,9 @@ urlpatterns = [
 
     # correo masivo
     path('correo_masivo/',include('apps.correo_masivo.presentation.web.urls')),
+
+    # solicitudes_perfil
+    path('solicitudes-perfil/', include('solicitudes_perfil.urls')),
     
     
 

@@ -1,3 +1,42 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('profileRequestForm');
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+
+            fetch('/solicitudes-perfil/crear/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Error en el servidor');
+                }
+            })
+            .then(data => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Solicitud enviada',
+                    text: 'La solicitud fue enviada correctamente.'
+                });
+                form.reset();
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo enviar la solicitud.'
+                });
+            });
+        });
+    }
+});
 /**
  * Formulario de Perfil - Gestión de Firma Digital
  * 
@@ -82,16 +121,16 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Event listener para envío del formulario
     submitToLeadershipBtn.addEventListener('click', function() {
-        if (!isFingerprintVerified) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Verificación pendiente',
-                text: 'Por favor verifique su identidad con huella digital antes de enviar el formulario.',
-                confirmButtonText: 'Entendido'
-            });
-        } else {
+        // if (!isFingerprintVerified) {
+        //     Swal.fire({
+        //         icon: 'warning',
+        //         title: 'Verificación pendiente',
+        //         text: 'Por favor verifique su identidad con huella digital antes de enviar el formulario.',
+        //         confirmButtonText: 'Entendido'
+        //     });
+        // } else {
             handleFormSubmit();
-        }
+        // }
     });
     
     function showFingerprintContainer() {
@@ -266,4 +305,4 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log('WARNING: No se pudo inicializar el servicio biométrico automáticamente');
         }
     });
-}); 
+});
