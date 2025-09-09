@@ -9,5 +9,6 @@ class AccountsConfig(AppConfig):
     
     def ready(self):
         """Ejecutar configuraciones cuando la app esté lista."""
-        # Importar configuraciones del admin personalizado
+        # Importar configuraciones del admin personalizado y signals SOLO aquí
         from .infrastructure import admin_config
+        from .infrastructure import signals
