@@ -25,3 +25,8 @@ class SolicitudPerfil(models.Model):
 
     def __str__(self):
         return f"{self.nombre} {self.apellidos} - {self.rut}"
+
+    @property
+    def nombre_completo(self):
+        """Propiedad conveniente para templates: nombre + apellidos."""
+        return f"{self.nombre} {self.apellidos}"

@@ -1,39 +1,53 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('profileRequestForm');
     if (form) {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(form);
-
-            fetch('/solicitudes-perfil/crear/', {
+        // Extraer la lógica de envío a una función global para poder invocarla desde otros scripts
+        window.submitProfileForm = function() {
+            console.log('DEBUG: submitProfileForm invoked');
+            const formEl = document.getElementById('profileRequestForm');
+            if (!formEl) return Promise.reject(new Error('Formulario no encontrado'));
+            const formData = new FormData(formEl);
+            return fetch('/solicitudes-perfil/crear/', {
                 method: 'POST',
                 body: formData,
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             })
-            .then(response => {
-                if (response.ok) {
-                    return response.text();
+            .then(response => response.json())
+            .then(json => {
+                if (json.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Solicitud enviada',
+                        text: json.message || 'La solicitud fue enviada correctamente.'
+                    }).then(() => {
+                        window.location.href = '/solicitudes-perfil/lista/';
+                    });
                 } else {
-                    throw new Error('Error en el servidor');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: json.message || 'No se pudo guardar la solicitud.'
+                    });
                 }
-            })
-            .then(data => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Solicitud enviada',
-                    text: 'La solicitud fue enviada correctamente.'
-                });
-                form.reset();
+                return json;
             })
             .catch(error => {
+                console.error('Error en envío de solicitud:', error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
                     text: 'No se pudo enviar la solicitud.'
                 });
+                throw error;
             });
+        };
+
+        // Adjuntar handler de submit tradicional para compatibilidad (si alguien usa el submit nativo)
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            window.submitProfileForm();
         });
     }
 });

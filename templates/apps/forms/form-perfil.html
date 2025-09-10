@@ -216,19 +216,19 @@
                                 <div class="mt-4 mt-md-2">
                                     <div>
                                         <div class="form-check form-check-outline form-check-primary mb-3">
-                                            <input class="form-check-input" type="checkbox" id="formCheck4" name="sistema[]" value="Dedalus">
+                                            <input class="form-check-input" type="checkbox" id="formCheck4" name="sistemas" value="Dedalus">
                                             <label class="form-check-label" for="formCheck4">
                                                 Dedalus (Toma de muestras - DNLab)
                                             </label>
                                         </div>
                                         <div class="form-check form-check-outline form-check-secondary mb-3">
-                                            <input class="form-check-input" type="checkbox" id="formCheck5" name="sistema[]" value="Soporte-MDA">
+                                            <input class="form-check-input" type="checkbox" id="formCheck5" name="sistemas" value="Soporte-MDA">
                                             <label class="form-check-label" for="formCheck5">
                                                 Soporte MDA | Proactivanet
                                             </label>
                                         </div>
                                         <div class="form-check form-check-outline form-check-success mb-3">
-                                            <input class="form-check-input" type="checkbox" id="formCheck6" name="sistema[]" value="Mi-Ssvq">
+                                            <input class="form-check-input" type="checkbox" id="formCheck6" name="sistemas" value="Mi-Ssvq">
                                             <label class="form-check-label" for="formCheck6">
                                                 Mi Ssvq (Gestor documental)
                                             </label>
@@ -313,7 +313,40 @@
 <script src="{% static 'js/apps/digital-persona.js' %}"></script>
 
 <!-- Formulario de perfil -->
-<script src="{% static 'js/apps/form-perfil.js' %}"></script>
+    <script src="{% static 'js/apps/form-perfil.js' %}"></script>
+    <!-- Fallback stub: garantiza que window.submitProfileForm exista aun si form-perfil.js no se cargó correctamente -->
+    <script>
+        if (typeof window.submitProfileForm !== 'function') {
+            window.submitProfileForm = function() {
+                console.warn('Fallback submitProfileForm invoked: form-perfil.js not loaded or failed.');
+                const formEl = document.getElementById('profileRequestForm');
+                if (!formEl) return Promise.reject(new Error('Formulario no encontrado'));
+                const formData = new FormData(formEl);
+                return fetch('/solicitudes-perfil/crear/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                })
+                .then(resp => {
+                    try { return resp.json(); } catch (e) { return Promise.reject(e); }
+                })
+                .then(json => {
+                    if (json && json.success) {
+                        console.log('Fallback: solicitud enviada con éxito');
+                        window.location.href = '/solicitudes-perfil/lista/';
+                    } else {
+                        console.error('Fallback: error al guardar solicitud', json);
+                        alert(json && json.message ? json.message : 'No se pudo guardar la solicitud');
+                    }
+                    return json;
+                })
+                .catch(err => {
+                    console.error('Fallback: error en el envío:', err);
+                    throw err;
+                });
+            };
+        }
+    </script>
 
 <!-- Formularios JS -->
 <script src="{% static 'js/pages/forms.init.js' %}"></script>

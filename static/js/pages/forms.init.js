@@ -85,8 +85,22 @@ document.addEventListener('DOMContentLoaded', function() {
             // Añadir el parámetro readonly
             urlParams.append('readonly', 'true');
             
-            // Crear la URL completa
-            const readOnlyUrl = window.location.origin + window.location.pathname + '?' + urlParams.toString();
+                // Crear la URL completa
+                const readOnlyUrl = window.location.origin + window.location.pathname + '?' + urlParams.toString();
+
+                // Enviar el formulario llamando a la función global definida en form-perfil.js
+                try {
+                    if (typeof window.submitProfileForm === 'function') {
+                        window.submitProfileForm();
+                    } else if (typeof profileForm.requestSubmit === 'function') {
+                        profileForm.requestSubmit();
+                    } else {
+                        const evt = new Event('submit', { cancelable: true });
+                        profileForm.dispatchEvent(evt);
+                    }
+                } catch (err) {
+                    console.error('No se pudo enviar el formulario automáticamente:', err);
+                }
         
             // Preparar el cuerpo del correo
             //const emailBody = `
