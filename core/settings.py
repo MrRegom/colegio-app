@@ -151,9 +151,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Santiago'
 
 USE_I18N = True
 
@@ -221,12 +221,12 @@ SITE_ID = 1
 
 # SMTP Configure
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.mailtrap.io"
-EMAIL_PORT = 2525
+EMAIL_HOST = "smtp.office365.com"
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "1f37cfc80405c5"
-EMAIL_HOST_PASSWORD = "5f7e38f28ae814"
-DEFAULT_FROM_EMAIL = "1f37cfc80405c5"
+EMAIL_HOST_USER = "informativos.hgf@appminsal.cl"
+EMAIL_HOST_PASSWORD = "inhgf0304$"
+DEFAULT_FROM_EMAIL = "Hospital HGF <informativos.hgf@appminsal.cl>"
 
 # Media files (uploaded files)
 MEDIA_URL = '/media/'

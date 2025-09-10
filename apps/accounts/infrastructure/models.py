@@ -179,7 +179,7 @@ class LogAuditoria(models.Model):
         blank=True,
         help_text="Datos nuevos (JSON) después del cambio."
     )
-    ip_remota = models.GenericIPAddressField(
+    ip_usuario = models.GenericIPAddressField(
         null=True,
         blank=True,
         help_text="IP desde donde se ejecutó la acción."

@@ -107,12 +107,12 @@ class UsuarioSistemaAdmin(UserAdmin):
 @admin.register(LogAuditoria)
 class LogAuditoriaAdmin(admin.ModelAdmin):
     """Administración de Logs de Auditoría (solo lectura)."""
-    list_display = ('usuario', 'accion', 'entidad', 'entidad_id', 'created_at', 'ip_remota')
+    list_display = ('usuario', 'accion', 'entidad', 'entidad_id', 'created_at', 'ip_usuario')
     list_filter = ('accion', 'entidad', 'created_at')
     search_fields = ('usuario__username', 'accion', 'entidad', 'descripcion')
     ordering = ('-created_at',)
     readonly_fields = ('usuario', 'accion', 'entidad', 'entidad_id', 'descripcion', 
-                      'valores_previos', 'valores_nuevos', 'ip_remota', 'user_agent', 'created_at')
+                      'valores_previos', 'valores_nuevos', 'ip_usuario', 'user_agent', 'created_at')
     
     # Solo lectura - no permitir agregar/editar/eliminar
     def has_add_permission(self, request):
@@ -133,7 +133,7 @@ class LogAuditoriaAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
         (_('Información Técnica'), {
-            'fields': ('ip_remota', 'user_agent'),
+            'fields': ('ip_usuario', 'user_agent'),
             'classes': ('collapse',)
         }),
     )
