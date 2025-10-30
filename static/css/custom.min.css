@@ -149,7 +149,7 @@
   top: 0;
   bottom: 0;
   width: 5px;
-  background: linear-gradient(to bottom, #006FB3 50%, #FE6565 50%);
+  background: linear-gradient(to bottom, #1e3a8a 50%, #D4AF37 50%);
 }
 
 .card-gob-top {
@@ -174,7 +174,7 @@
   right: 0;
   top: 0;
   height: 5px;
-  background: linear-gradient(to right, #006FB3 50%, #FE6565 50%);
+  background: linear-gradient(to right, #1e3a8a 50%, #D4AF37 50%);
 }
 
 .card-gob .card-body {

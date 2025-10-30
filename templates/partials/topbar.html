@@ -6,37 +6,39 @@
         <div class="layout-width">
             <div class="navbar-header" id="navbar-header">
                 <div class="d-flex" id="header-logo">
-                    
-                     <!-- LOGO -->
-                     <div class="navbar-brand-box horizontal-logo" style="display: flex; align-items:center;">
+
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box horizontal-logo" style="display: flex; align-items:center;">
                         <a href="" class="logo logo-dark ">
                             <span class="logo-sm">
-                                <img src="https://img.themesbrand.com/judia/logo-sm.png" alt="" height="22">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="22">
                             </span>
                             <span class="logo-lg">
-                                <img src="https://img.themesbrand.com/judia/logo-dark.png" alt="" height="22">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="22">
                             </span>
                         </a>
 
                         <a href="" class="logo logo-light">
                             <span class="logo-sm">
-                                <img src="https://img.themesbrand.com/judia/logo-sm.png" alt="" height="22">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="22">
                             </span>
                             <span class="logo-lg">
-                                <img src="https://img.themesbrand.com/judia/logo-light.png" alt="" height="22">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="22">
                             </span>
                         </a>
                     </div>
 
-    
-                    <button type="button" class="btn btn-sm px-3 header-item vertical-menu-btn topnav-hamburger shadow-none" id="topnav-hamburger-icon">
+
+                    <button type="button"
+                        class="btn btn-sm px-3 header-item vertical-menu-btn topnav-hamburger shadow-none"
+                        id="topnav-hamburger-icon">
                         <span class="hamburger-icon">
                             <span></span>
                             <span></span>
                             <span></span>
                         </span>
                     </button>
-    
+
                 </div>
                 <!-- ========== App Menu ========== -->
                 <div class="app-menu navbar-menu mx-auto">
@@ -44,19 +46,19 @@
                     <div class="navbar-brand-box vertical-logo" style="height: 70px;">
                         <a href="" class="logo logo-dark">
                             <span class="logo-sm">
-                                <img src="https://img.themesbrand.com/judia/logo-sm.png" alt="" height="22">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="22">
                             </span>
                             <span class="logo-lg">
-                                <img src="https://img.themesbrand.com/judia/logo-dark.png" alt="" height="22">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="22">
                             </span>
                         </a>
 
                         <a href="" class="logo logo-light">
                             <span class="logo-sm">
-                                <img src="https://img.themesbrand.com/judia/logo-sm.png" alt="" height="22">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="22">
                             </span>
                             <span class="logo-lg">
-                                <img src="https://img.themesbrand.com/judia/logo-light.png" alt="" height="22">
+                                <img src="{% static 'images/imagenes_colegio/logoColegio.png' %}" alt="" height="22">
                             </span>
                         </a>
                     </div>
@@ -64,665 +66,241 @@
                         <ul class="navbar-nav" id="navbar-nav">
                             <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                             <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <a class="nav-link menu-link collapsed" href="#sidebarDashboards"
+                                    data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                    aria-controls="sidebarDashboards">
                                     <i class="ph-gauge"></i> <span data-key="t-dashboards">Dashboards</span>
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarDashboards">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="{% url 'dashboard_analytics' %}" class="nav-link" data-key="t-analytics"> Analytics </a>
+                                            <a href="{% url 'dashboard_analytics' %}" class="nav-link"
+                                                data-key="t-analytics"> Analytics </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'dashboard_crypto' %}" class="nav-link" data-key="t-crypto"> Crypto </a>
+                                            <a href="{% url 'dashboard_crypto' %}" class="nav-link" data-key="t-crypto">
+                                                Crypto </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'dashboard' %}" class="nav-link" data-key="t-ecommerce"> Ecommerce </a>
+                                            <a href="{% url 'dashboard' %}" class="nav-link" data-key="t-ecommerce">
+                                                Ecommerce </a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-forms">Formularios</span></li>
+                        
 
-                            <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#topbarcomputing" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="topbarcomputing">
-                                    <i class="ph-layout"></i> <span data-key="t-computing">Informática</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="topbarcomputing">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{% url 'apps:forms.form_perfil' %}" class="nav-link" data-key="t-form-perfil">Solicitud de Perfiles</a>
-                                        </li>
-                                        
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{% url 'lista_solicitudes_perfil' %}">
-                                                <i class="bi bi-inbox"></i> Solicitudes de Perfil Recibidas
-                                            </a>
-                                        </li>
-                                        
-                                        <li class="nav-item">
-                                            <a href="{% url 'contacto_list' %}" class="nav-link" data-key="t-contacto">Contacto</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <li class="menu-title"><i class="ri-more-fill"></i><span data-key="t-pages">pages</span>
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#topbarapps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="topbarapps">
-                                    <i class="ph-layout"></i> <span data-key="t-apps">Apps</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="topbarapps">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{% url 'apps:calendar' %}" class="nav-link" data-key="t-calendar">Calendar</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#sidebarChat" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarChat" data-key="t-chat"> Chat </a>
-                                            <div class="collapse menu-dropdown" id="sidebarChat">
-                                                <ul class="nav nav-sm flex-column">
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:chat.chat_view' %}" class="nav-link" data-key="t-single-chat">Single Chat</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:chat.video_conference_chat' %}" class="nav-link" data-key="t-video-conference">Video Conference</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#topbarCrypto" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="topbarCrypto" data-key="t-crypto"> Crypto </a>
-                                            <div class="collapse menu-dropdown" id="topbarCrypto">
-                                                <ul class="nav nav-sm flex-column">
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:crypto.marketplace' %}" class="nav-link" data-key="t-marketplace">Marketplace</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:crypto.exchange' %}" class="nav-link" data-key="t-exchange">Exchange</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:crypto.ico' %}" class="nav-link" data-key="t-ico">ICO</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:crypto.transactions' %}" class="nav-link" data-key="t-transactions">Transactions</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:crypto.coin_overview' %}" class="nav-link" data-key="t-coin-overview">Coin Overview</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#topbarCustomer" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="topbarCustomer" data-key="t-customers"> Customers </a>
-                                            <div class="collapse menu-dropdown" id="topbarCustomer">
-                                                <ul class="nav nav-sm flex-column">
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:customers.list' %}" class="nav-link" data-key="t-list-view">List View</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:customers.overview' %}" class="nav-link" data-key="t-overview">Overview</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#topbarFuncionarios" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="topbarFuncionarios" data-key="t-funcionarios"> Funcionarios </a>
-                                            <div class="collapse menu-dropdown" id="topbarFuncionarios">
-                                                <ul class="nav nav-sm flex-column">
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:funcionarios.list' %}" class="nav-link" data-key="t-list-view">Lista de Funcionarios</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#topbarCorreoMasivo" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="topbarCorreoMasivo" data-key="t-correo-masivo"> Correo Masivo </a>
-                                            <div class="collapse menu-dropdown" id="topbarCorreoMasivo">
-                                                <ul class="nav nav-sm flex-column">
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'correo_masivo:lista_funcionarios' %}" class="nav-link" data-key="t-lista-funcionarios">Lista de Remitentes</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'correo_masivo:gestionar_firma' %}" class="nav-link" data-key="t-gestionar-firma">Gestionar Firma</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'correo_masivo:enviar_correo' %}" class="nav-link" data-key="t-enviar-correo">Enviar Correo</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'apps:file_manager' %}" class="nav-link" data-key="t-file-manager">File Manager</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#topbarInvoice" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="topbarInvoice" data-key="t-invoices"> Invoices </a>
-                                            <div class="collapse menu-dropdown" id="topbarInvoice">
-                                                <ul class="nav nav-sm flex-column">
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:invoices.invoices_list' %}" class="nav-link" data-key="t-list-view">List View</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:invoices.invoice_create' %}" class="nav-link" data-key="t-create-invoice">Create Invoice</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="{% url 'apps:invoices.invoice_overview' %}" class="nav-link" data-key="t-overview">Overview</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'apps:notes' %}" class="nav-link" data-key="t-notes">Notes</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'apps:to_do' %}" class="nav-link" data-key="t-to-do">To Do</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="menu-title"><i class="ri-more-fill"></i><span data-key="t-pages">pages</span></li>
 
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{% url 'pages:web_apps' %}">
-                                    <i class="ph-paint-brush-broad"></i> <span data-key="t-web-apps-list">Listado de Aplicaciones</span>
+                                    <i class="ph-paint-brush-broad"></i> <span data-key="t-web-apps-list">Listado de
+                                        Aplicaciones</span>
                                 </a>
                             </li>
 
+                            <!-- Menú de Bodega - Enlace directo al menú con Cards -->
                             <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#sidebarInternalApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInternalApps">
-                                    <i class="ph-address-book"></i> <span data-key="t-internal-apps">Apps Webs Internas</span>
+                                <a class="nav-link menu-link" href="{% url 'bodega:menu_bodega' %}">
+                                    <i class="ri-archive-line"></i> <span data-key="t-bodega">Bodega</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú de Compras - Enlace directo al menú con Cards -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'compras:menu_compras' %}">
+                                    <i class="ri-shopping-cart-line"></i> <span data-key="t-compras">Compras</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú de Solicitudes - Enlace directo al menú con Cards -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'solicitudes:menu_solicitudes' %}">
+                                    <i class="ri-file-text-line"></i> <span data-key="t-solicitudes">Solicitudes</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú de Inventario (Activos) - Enlace directo al menú con Cards -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'activos:menu_inventario' %}">
+                                    <i class="ri-box-3-line"></i> <span data-key="t-inventario">Inventario</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú de Bajas de Inventario - Enlace directo al menú con Cards -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'bajas_inventario:menu_bajas' %}">
+                                    <i class="ri-delete-bin-line"></i> <span data-key="t-bajas">Bajas de Inventario</span>
+                                </a>
+                            </li>
+
+                            <!-- Menú de Administración - Gestión de Usuarios, Grupos y Permisos -->
+                            {% if perms.auth.view_user or perms.auth.view_group %}
+                            <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-admin">Administración</span></li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{% url 'accounts:menu_usuarios' %}">
+                                    <i class="ri-shield-user-line"></i> <span data-key="t-gestion-usuarios">Gestión de Usuarios</span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            <li class="nav-item">
+                                <a class="nav-link menu-link collapsed" href="#sidebarInternalApps"
+                                    data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                    aria-controls="sidebarInternalApps">
+                                    <i class="ph-address-book"></i> <span data-key="t-internal-apps">Apps Webs
+                                        Internas</span>
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarInternalApps">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="{% url 'pages:starter' %}" class="nav-link" data-key="t-starter"> Starter </a>
+                                            <a href="{% url 'pages:starter' %}" class="nav-link" data-key="t-starter">
+                                                Starter </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'pages:profile' %}" class="nav-link" data-key="t-profile"> Profile </a>
+                                            <a href="{% url 'pages:profile' %}" class="nav-link" data-key="t-profile">
+                                                Profile </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'pages:timeline' %}" class="nav-link" data-key="t-timeline"> Timeline </a>
+                                            <a href="{% url 'pages:timeline' %}" class="nav-link" data-key="t-timeline">
+                                                Timeline </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'pages:faqs' %}" class="nav-link" data-key="t-faqs"> FAQs </a>
+                                            <a href="{% url 'pages:faqs' %}" class="nav-link" data-key="t-faqs"> FAQs
+                                            </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'pages:pricing' %}" class="nav-link" data-key="t-pricing"> Pricing </a>
+                                            <a href="{% url 'pages:pricing' %}" class="nav-link" data-key="t-pricing">
+                                                Pricing </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link collapsed" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
+                                            <a class="nav-link collapsed" href="#sidebarAuth" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="sidebarAuth">
                                                 <span data-key="t-authentication">Authentication</span>
                                             </a>
                                             <div class="collapse menu-dropdown" id="sidebarAuth">
                                                 <ul class="nav nav-sm flex-column">
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:authentication.signin' %}" class="nav-link" role="button" data-key="t-signin"> Sign In </a>
+                                                        <a href="{% url 'pages:authentication.signin' %}"
+                                                            class="nav-link" role="button" data-key="t-signin"> Sign In
+                                                        </a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:authentication.signup' %}" class="nav-link" role="button" data-key="t-signup"> Sign Up </a>
+                                                        <a href="{% url 'pages:authentication.signup' %}"
+                                                            class="nav-link" role="button" data-key="t-signup"> Sign Up
+                                                        </a>
                                                     </li>
-                                        
+
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:authentication.pass_reset' %}" class="nav-link" role="button" data-key="t-password-reset">
+                                                        <a href="{% url 'pages:authentication.pass_reset' %}"
+                                                            class="nav-link" role="button" data-key="t-password-reset">
                                                             Password Reset
                                                         </a>
                                                     </li>
-                                        
+
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:authentication.change' %}" class="nav-link" role="button" data-key="t-password-create">
+                                                        <a href="{% url 'pages:authentication.change' %}"
+                                                            class="nav-link" role="button" data-key="t-password-create">
                                                             Password Create
                                                         </a>
                                                     </li>
-                                        
+
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:authentication.lockscreen' %}" class="nav-link" role="button" data-key="t-lock-screen">
+                                                        <a href="{% url 'pages:authentication.lockscreen' %}"
+                                                            class="nav-link" role="button" data-key="t-lock-screen">
                                                             Lock Screen
                                                         </a>
                                                     </li>
-                                        
+
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:authentication.logout' %}" class="nav-link" role="button" data-key="t-logout"> Logout </a>
+                                                        <a href="{% url 'pages:authentication.logout' %}"
+                                                            class="nav-link" role="button" data-key="t-logout"> Logout
+                                                        </a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:authentication.success_msg' %}" class="nav-link" role="button" data-key="t-success-message"> Success Message </a>
+                                                        <a href="{% url 'pages:authentication.success_msg' %}"
+                                                            class="nav-link" role="button" data-key="t-success-message">
+                                                            Success Message </a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:authentication.twostep_verification' %}" class="nav-link" role="button" data-key="t-two-step-verification"> Two Step Verification </a>
+                                                        <a href="{% url 'pages:authentication.twostep_verification' %}"
+                                                            class="nav-link" role="button"
+                                                            data-key="t-two-step-verification"> Two Step Verification
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#sidebarErrors" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarErrors" data-key="t-errors"> Errors </a>
+                                            <a href="#sidebarErrors" class="nav-link" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="sidebarErrors"
+                                                data-key="t-errors"> Errors </a>
                                             <div class="collapse menu-dropdown" id="sidebarErrors">
                                                 <ul class="nav nav-sm flex-column">
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:errors.error_404' %}" class="nav-link" data-key="t-404-error"> 404 Error </a>
+                                                        <a href="{% url 'pages:errors.error_404' %}" class="nav-link"
+                                                            data-key="t-404-error"> 404 Error </a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:errors.error_500' %}" class="nav-link" data-key="t-500"> 500 </a>
+                                                        <a href="{% url 'pages:errors.error_500' %}" class="nav-link"
+                                                            data-key="t-500"> 500 </a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:errors.error_503' %}" class="nav-link" data-key="t-503"> 503 </a>
+                                                        <a href="{% url 'pages:errors.error_503' %}" class="nav-link"
+                                                            data-key="t-503"> 503 </a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="{% url 'pages:errors.offline' %}" class="nav-link" data-key="t-offline-page"> Offline Page </a>
+                                                        <a href="{% url 'pages:errors.offline' %}" class="nav-link"
+                                                            data-key="t-offline-page"> Offline Page </a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'pages:maintenance' %}" class="nav-link" data-key="t-maintenance"> Maintenance </a>
+                                            <a href="{% url 'pages:maintenance' %}" class="nav-link"
+                                                data-key="t-maintenance"> Maintenance </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'pages:coming_soon' %}" class="nav-link" data-key="t-coming-soon"> Coming Soon </a>
+                                            <a href="{% url 'pages:coming_soon' %}" class="nav-link"
+                                                data-key="t-coming-soon"> Coming Soon </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'pages:privacy_policy' %}" class="nav-link" data-key="t-privacy-policy"> Privacy Policy </a>
+                                            <a href="{% url 'pages:privacy_policy' %}" class="nav-link"
+                                                data-key="t-privacy-policy"> Privacy Policy </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'pages:term_conditions' %}" class="nav-link" data-key="t-term-conditions"> Term & Conditions </a>
+                                            <a href="{% url 'pages:term_conditions' %}" class="nav-link"
+                                                data-key="t-term-conditions"> Term & Conditions </a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-web-apps">Aplicaciones Web</span></li>
-
-{% comment %}                             <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#sidebarWater" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarWater">
-                                    <i class="ph-drop"></i> <span data-key="t-water">Agua</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarWater">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{% url 'water:main' %}" class="nav-link" data-key="t-water-main">Panel Principal</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'water:quality' %}" class="nav-link" data-key="t-water-quality">Calidad del Agua</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'water:consumption' %}" class="nav-link" data-key="t-water-payments">Pagos de Agua</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'water:employees' %}" class="nav-link" data-key="t-water-employees">Empleados</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li> {% endcomment %}
-                            
-{% comment %}                             <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#sidebarLaboratory" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLaboratory">
-                                    <i class="ph-test-tube"></i> <span data-key="t-laboratory">Laboratorio</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarLaboratory">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{% url 'medicals_systems:user_list' %}" class="nav-link" data-key="t-usuarios">Usuarios</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'medicals_systems:workstation_list' %}" class="nav-link" data-key="t-workstations">Workstations</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'medicals_systems:equipo_medico_list' %}" class="nav-link" data-key="t-equipos-medicos">Equipos Médicos</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li> {% endcomment %}
-                            
-                            <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#sidebarUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUI">
-                                    <i class="ph-bandaids"></i> <span data-key="t-bootstrap-ui">Bootstrap UI</span>
-                                </a>
-                                <div class="collapse menu-dropdown mega-dropdown-menu" id="sidebarUI">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.accordions' %}" class="nav-link" data-key="t-accordion-collapse">Accordion & Collapse</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.alerts' %}" class="nav-link" data-key="t-alerts">Alerts</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.badges' %}" class="nav-link" data-key="t-badges">Badges</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.buttons' %}" class="nav-link" data-key="t-buttons">Buttons</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.cards' %}" class="nav-link" data-key="t-cards">Cards</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.carousel' %}" class="nav-link" data-key="t-carousel">Carousel</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.colors' %}" class="nav-link" data-key="t-colors">Colors</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.dropdowns' %}" class="nav-link" data-key="t-dropdowns">Dropdowns</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.embed-video' %}" class="nav-link" data-key="t-embed-video">Embed Video</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.general' %}" class="nav-link" data-key="t-general">General</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.grid' %}" class="nav-link" data-key="t-grid">Grid</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.images' %}" class="nav-link" data-key="t-images">Images</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.links' %}" class="nav-link" data-key="t-links">Links</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.lists' %}" class="nav-link" data-key="t-lists">Lists</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.media' %}" class="nav-link" data-key="t-media-object">Media object</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.modals' %}" class="nav-link" data-key="t-modals">Modals</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.notifications' %}" class="nav-link" data-key="t-notifications">Notifications</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.offcanvas' %}" class="nav-link" data-key="t-offcanvas">Offcanvas</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.placeholders' %}" class="nav-link" data-key="t-placeholders">Placeholders</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.progress' %}" class="nav-link" data-key="t-progress">Progress</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.scrollspy' %}" class="nav-link" data-key="t-scrollSpy">ScrollSpy</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.tabs' %}" class="nav-link" data-key="t-tabs">Tabs</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.typography' %}" class="nav-link" data-key="t-typography">Typography</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'components:bootstrap-ui.utilities' %}" class="nav-link" data-key="t-utilities">Utilities</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                            <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-web-apps">Aplicaciones
+                                    Web</span></li>
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#sidebarAdvanceUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAdvanceUI">
-                                    <i class="ph-stack-simple"></i> <span data-key="t-advance-ui">Advance UI</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarAdvanceUI">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:advance-ui.crop_images' %}" class="nav-link" data-key="t-crop-images">Crop Images</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:advance-ui.highlight' %}" class="nav-link" data-key="t-highlight">Highlight</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:advance-ui.nestable_list' %}" class="nav-link" data-key="t-nestable-list">Nestable List</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:advance-ui.ratings' %}" class="nav-link" data-key="t-ratings">Ratings</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:advance-ui.scrollbar' %}" class="nav-link" data-key="t-scrollbar">Scrollbar</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:advance-ui.sweetalerts' %}" class="nav-link" data-key="t-sweet-alerts">Sweet Alerts</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:advance-ui.swiper' %}" class="nav-link" data-key="t-swiper-slider">Swiper Slider</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="{% url 'components:widgets' %}">
-                                    <i class="ph-paint-brush-broad"></i> <span data-key="t-widgets">Widgets</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#sidebarForms" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarForms">
-                                    <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Forms</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarForms">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.elements' %}" class="nav-link" data-key="t-basic-elements">Basic Elements</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.select' %}" class="nav-link" data-key="t-form-select">Form Select</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.checkboxs_radios' %}" class="nav-link" data-key="t-checkboxes-radios">Checkboxes & Radios</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.pickers' %}" class="nav-link" data-key="t-pickers">Pickers</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.masks' %}" class="nav-link" data-key="t-input-masks">Input Masks</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.advanced' %}" class="nav-link" data-key="t-advanced">Advanced</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.range_sliders' %}" class="nav-link" data-key="t-range-slider">Range Slider</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.validation' %}" class="nav-link" data-key="t-validation">Validation</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.wizard' %}" class="nav-link" data-key="t-wizard">Wizard</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.editors' %}" class="nav-link" data-key="t-editors">Editors</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.file_uploads' %}" class="nav-link" data-key="t-file-uploads">File Uploads</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:forms.layouts' %}" class="nav-link" data-key="t-form-layouts">Form Layouts</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#sidebarTables" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarTables">
-                                    <i class="ph-table"></i> <span data-key="t-tables">Tables</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarTables">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:tables.basic' %}" class="nav-link" data-key="t-basic-tables">Basic Tables</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:tables.gridjs' %}" class="nav-link" data-key="t-grid-js">Grid Js</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:tables.listjs' %}" class="nav-link" data-key="t-list-js">List Js</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:tables.datatables' %}" class="nav-link" data-key="t-datatables">Datatables</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#sidebarCharts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCharts">
-                                    <i class="ph-chart-pie-slice"></i> <span data-key="t-apexcharts">Apexcharts</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarCharts">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.area' %}" class="nav-link" data-key="t-area">Area</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.bar' %}" class="nav-link" data-key="t-bar">Bar</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.boxplot' %}" class="nav-link" data-key="t-boxplot">Boxplot</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.bubble' %}" class="nav-link" data-key="t-bubble">Bubble</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.candlestick' %}" class="nav-link" data-key="t-candlstick">Candlstick</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.column' %}" class="nav-link" data-key="t-column">Column</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.heatmap' %}" class="nav-link" data-key="t-heatmap">Heatmap</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.line' %}" class="nav-link" data-key="t-line">Line</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.mixed' %}" class="nav-link" data-key="t-mixed">Mixed</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.pie' %}" class="nav-link" data-key="t-pie">Pie</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.polararea' %}" class="nav-link" data-key="t-polar-area">Polar Area</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.radar' %}" class="nav-link" data-key="t-radar">Radar</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.radialbar' %}" class="nav-link" data-key="t-radialbar">Radialbar</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.rangearea' %}" class="nav-link" data-key="t-range-area">Range Area</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.scatter' %}" class="nav-link" data-key="t-scatter">Scatter</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.timeline' %}" class="nav-link" data-key="t-timeline">Timeline</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:apexcharts.treemap' %}" class="nav-link" data-key="t-treemap">Treemap</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#sidebarIcons" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarIcons">
-                                    <i class="ph-traffic-cone"></i> <span data-key="t-icons">Icons</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarIcons">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:icons.bootstrap' %}" class="nav-link" data-key="t-bootstrap">Bootstrap</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:icons.boxicons' %}" class="nav-link" data-key="t-boxicons">Boxicons</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:icons.phosphor' %}" class="nav-link" data-key="t-phosphor">Phosphor</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:icons.remix' %}" class="nav-link" data-key="t-remix">Remix</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link menu-link collapsed" href="#sidebarMaps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMaps">
-                                    <i class="ph-map-trifold"></i> <span data-key="t-maps">Maps</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarMaps">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:maps.google' %}" class="nav-link" data-key="t-google">Google</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:maps.leaflet' %}" class="nav-link" data-key="t-leaflet">Leaflet</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'components:maps.vector' %}" class="nav-link" data-key="t-vector">Vector</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li> 
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarMultilevel" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMultilevel">
-                                <i class="bi bi-share"></i> <span data-key="t-multi-level">Multi Level</span>
-                            </a>
-                            <div class="collapse menu-dropdown" id="sidebarMultilevel">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="#!" class="nav-link" data-key="t-level-1.1"> Level 1.1 </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#sidebarAccount" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAccount" data-key="t-level-1.2"> Level
-                                            1.2
-                                        </a>
-                                        <div class="collapse menu-dropdown" id="sidebarAccount">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="#!" class="nav-link" data-key="t-level-2.1"> Level 2.1 </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#sidebarCrm" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCrm" data-key="t-level-2.2"> Level 2.2
-                                                    </a>
-                                                    <div class="collapse menu-dropdown" id="sidebarCrm">
-                                                        <ul class="nav nav-sm flex-column">
-                                                            <li class="nav-item">
-                                                                <a href="#!" class="nav-link" data-key="t-level-3.1"> Level 3.1
-                                                                </a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a href="#!" class="nav-link" data-key="t-level-3.2"> Level 3.2
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
 
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="d-flex align-items-center opacity-100" id="header-items">
 
                     <div class="dropdown ms-1 topbar-head-dropdown header-item">
-                        <button type="button" class="btn btn-icon btn-topbar rounded-circle" id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-icon btn-topbar rounded-circle"
+                            id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
                             <i class="bx bx-search align-middle fs-3xl"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-search-dropdown">
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-search-dropdown">
                             <form class="p-3">
                                 <div class="form-group m-0">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
-                                        <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                                        <input type="text" class="form-control" placeholder="Search ..."
+                                            aria-label="Recipient's username">
+                                        <button class="btn btn-primary" type="submit"><i
+                                                class="bi bi-search"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -730,90 +308,125 @@
                     </div>
 
                     <div class="dropdown ms-1 topbar-head-dropdown header-item">
-                        <button type="button" class="btn btn-icon btn-topbar rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img id="header-lang-img" src="https://img.themesbrand.com/judia/flags/us.svg" alt="Header Language" height="20" class="rounded">
+                        <button type="button" class="btn btn-icon btn-topbar rounded-circle" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img id="header-lang-img" src="{%static 'images/flags/us.svg' %}"
+                                alt="Header Language" height="20" class="rounded">
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
-    
+
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language py-2" data-lang="en" title="English">
-                                <img src="https://img.themesbrand.com/judia/flags/us.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language py-2" data-lang="en"
+                                title="English">
+                                <img src="{%static 'images/flags/us.svg' %}" alt="user-image"
+                                    class="me-2 rounded" height="18">
                                 <span class="align-middle">English</span>
                             </a>
-    
+
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="es" title="Spanish">
-                                <img src="https://img.themesbrand.com/judia/flags/spain.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="es"
+                                title="Spanish">
+                                <img src="{%static 'images/flags/spain.svg' %}" alt="user-image"
+                                    class="me-2 rounded" height="18">
                                 <span class="align-middle">Española</span>
                             </a>
-    
+
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="de" title="German">
-                                <img src="https://img.themesbrand.com/judia/flags/germany.svg" alt="user-image" class="me-2 rounded" height="18"> <span class="align-middle">Deutsche</span>
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="de"
+                                title="German">
+                                <img src="{%static 'images/flags/germany.svg' %}" alt="user-image"
+                                    class="me-2 rounded" height="18"> <span class="align-middle">Deutsche</span>
                             </a>
-    
+
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it" title="Italian">
-                                <img src="https://img.themesbrand.com/judia/flags/italy.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it"
+                                title="Italian">
+                                <img src="{%static 'images/flags/italy.svg' %}" alt="user-image"
+                                    class="me-2 rounded" height="18">
                                 <span class="align-middle">Italiana</span>
                             </a>
-    
+
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru" title="Russian">
-                                <img src="https://img.themesbrand.com/judia/flags/russia.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru"
+                                title="Russian">
+                                <img src="{%static 'images/flags/russia.svg' %}" alt="user-image"
+                                    class="me-2 rounded" height="18">
                                 <span class="align-middle">русский</span>
                             </a>
-    
+
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="zh" title="Chinese">
-                                <img src="https://img.themesbrand.com/judia/flags/china.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="zh"
+                                title="Chinese">
+                                <img src="{%static 'images/flags/china.svg' %}" alt="user-image"
+                                    class="me-2 rounded" height="18">
                                 <span class="align-middle">中国人</span>
                             </a>
-    
+
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="fr" title="French">
-                                <img src="https://img.themesbrand.com/judia/flags/french.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="fr"
+                                title="French">
+                                <img src="{%static 'images/flags/french.svg' %}" alt="user-image"
+                                    class="me-2 rounded" height="18">
                                 <span class="align-middle">français</span>
                             </a>
-    
+
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ar" title="Arabic">
-                                <img src="https://img.themesbrand.com/judia/flags/ae.svg" alt="user-image" class="me-2 rounded" height="18">
+                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ar"
+                                title="Arabic">
+                                <img src="{%static 'images/flags/ae.svg' %}" alt="user-image"
+                                    class="me-2 rounded" height="18">
                                 <span class="align-middle">عربي</span>
                             </a>
                         </div>
                     </div>
 
                     <div class="dropdown topbar-head-dropdown ms-1 header-item">
-                        <button type="button" class="btn btn-icon btn-topbar rounded-circle mode-layout" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-icon btn-topbar rounded-circle mode-layout"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="bi bi-sun align-middle fs-3xl"></i>
                         </button>
                         <div class="dropdown-menu p-2 dropdown-menu-end" id="light-dark-mode">
-                            <a href="#!" class="dropdown-item" data-mode="light"><i class="bi bi-sun align-middle me-2"></i> Default (light mode)</a>
-                            <a href="#!" class="dropdown-item" data-mode="dark"><i class="bi bi-moon align-middle me-2"></i> Dark</a>
-                            <a href="#!" class="dropdown-item" data-mode="brand"><i class="bi bi-award align-middle me-2"></i> Brand</a>
-                            <a href="#!" class="dropdown-item" data-mode="auto"><i class="bi bi-moon-stars align-middle me-2"></i> Auto (system default)</a>
+                            <a href="#!" class="dropdown-item" data-mode="light"><i
+                                    class="bi bi-sun align-middle me-2"></i> Default (light mode)</a>
+                            <a href="#!" class="dropdown-item" data-mode="dark"><i
+                                    class="bi bi-moon align-middle me-2"></i> Dark</a>
+                            <a href="#!" class="dropdown-item" data-mode="brand"><i
+                                    class="bi bi-award align-middle me-2"></i> Brand</a>
+                            <a href="#!" class="dropdown-item" data-mode="auto"><i
+                                    class="bi bi-moon-stars align-middle me-2"></i> Auto (system default)</a>
                         </div>
                     </div>
-    
+
                     <div class="dropdown topbar-head-dropdown ms-1 header-item" id="notificationDropdown">
-                        <button type="button" class="btn btn-icon btn-topbar rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-icon btn-topbar rounded-circle"
+                            id="page-header-notifications-dropdown" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                             <i class='bi bi-bell fs-2xl'></i>
-                            <span class="position-absolute topbar-badge p-0 d-flex align-items-center justify-content-center translate-middle badge rounded-pill bg-danger"><span class="notification-badge">4</span><span class="visually-hidden">unread messages</span></span>
+                            <span
+                                class="position-absolute topbar-badge p-0 d-flex align-items-center justify-content-center translate-middle badge rounded-pill bg-danger"><span
+                                    class="notification-badge">4</span><span class="visually-hidden">unread
+                                    messages</span></span>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
-    
+                        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
+
                             <div class="dropdown-head rounded-top">
                                 <div class="p-3 pb-1">
                                     <div class="row align-items-center mb-3">
                                         <div class="col">
-                                            <h6 class="mb-0 fs-lg fw-semibold"> Notifications <span class="badge bg-danger-subtle text-danger fs-sm notification-badge"> 4</span></h6>
+                                            <h6 class="mb-0 fs-lg fw-semibold"> Notifications <span
+                                                    class="badge bg-danger-subtle text-danger fs-sm notification-badge">
+                                                    4</span></h6>
                                         </div>
                                         <div class="col-auto dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" class="link-secondary fs-md"><i class="bi bi-three-dots-vertical"></i></a>
+                                            <a href="javascript:void(0);" data-bs-toggle="dropdown"
+                                                class="link-secondary fs-md"><i
+                                                    class="bi bi-three-dots-vertical"></i></a>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="javascript:void(0)" id="deleteAllNotification">All Clear</a></li>
-                                                <li><a class="dropdown-item" href="javascript:void(0)" id="markRead">Mark all as read</a></li>
+                                                <li><a class="dropdown-item" href="javascript:void(0)"
+                                                        id="deleteAllNotification">All Clear</a></li>
+                                                <li><a class="dropdown-item" href="javascript:void(0)"
+                                                        id="markRead">Mark all as read</a></li>
                                                 <li><a class="dropdown-item" href="#!">Archive All</a></li>
                                             </ul>
                                         </div>
@@ -831,24 +444,28 @@
                                     </div>
                                     <div class="flex-shrink-0">
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                id="flexSwitchCheckDefault">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="py-2 ps-3" id="notificationItemsTabContent">
                                 <div data-simplebar style="max-height: 300px;" class="pe-3">
-                                    <div class="text-reset notification-item d-block dropdown-item position-relative unread-message">
+                                    <div
+                                        class="text-reset notification-item d-block dropdown-item position-relative unread-message">
                                         <div class="d-flex gap-3">
                                             <div class="flex-shrink-0">
-                                                <img src="{% static 'images/companies/img-3.png' %}" class="rounded-circle avatar-xs" alt="Notification Images">
+                                                <img src="{% static 'images/companies/img-3.png' %}"
+                                                    class="rounded-circle avatar-xs" alt="Notification Images">
                                             </div>
                                             <div class="flex-grow-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="fs-md mb-1 lh-base">Judia Membership</h6>
                                                 </a>
-                                                <p class="text-muted mb-0">Successfully purchased a business plan for <span class="text-danger fw-medium">-$24.99</span></p>
+                                                <p class="text-muted mb-0">Successfully purchased a business plan for
+                                                    <span class="text-danger fw-medium">-$24.99</span></p>
                                             </div>
                                             <p class="mb-0 fs-xs fw-medium flex-shrink-0 text-muted">
                                                 57 sec ago
@@ -859,7 +476,8 @@
                                     <div class="text-reset notification-item d-block dropdown-item position-relative">
                                         <div class="d-flex gap-3">
                                             <div class="flex-shrink-0">
-                                                <img src="https://img.themesbrand.com/judia/users/avatar-8.jpg" class="rounded-circle avatar-xs" alt="Notification Images">
+                                                <img src="{% static 'images/users/avatar-8.jpg' %}"
+                                                    class="rounded-circle avatar-xs" alt="Notification Images">
                                             </div>
                                             <div class="flex-grow-1">
                                                 <a href="#!" class="stretched-link">
@@ -873,27 +491,32 @@
                                         </div>
                                     </div>
 
-                                    <div class="text-reset notification-item d-block dropdown-item position-relative unread-message">
+                                    <div
+                                        class="text-reset notification-item d-block dropdown-item position-relative unread-message">
                                         <div class="d-flex gap-3">
                                             <div class="avatar-xs flex-shrink-0">
-                                                <span class="avatar-title bg-danger-subtle text-danger rounded-circle fs-lg">
+                                                <span
+                                                    class="avatar-title bg-danger-subtle text-danger rounded-circle fs-lg">
                                                     <i class='bx bx-message-square-dots'></i>
                                                 </span>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <p class="text-muted mb-0"><b class="text-body">Nathan Keeling</b> replied to your comment on <b>Steex - Admin & Dashboards</b></p>
+                                                <p class="text-muted mb-0"><b class="text-body">Nathan Keeling</b>
+                                                    replied to your comment on <b>Steex - Admin & Dashboards</b></p>
                                             </div>
                                             <p class="mb-0 fs-xs fw-medium flex-shrink-0 text-muted">
                                                 3 hrs ago
                                             </p>
                                         </div>
                                     </div>
-    
+
                                     <div class="text-reset notification-item d-block dropdown-item position-relative">
                                         <div class="d-flex gap-3">
                                             <div class="position-relative flex-shrink-0">
-                                                <img src="https://img.themesbrand.com/judia/users/avatar-2.jpg" class="rounded-circle avatar-xs" alt="Notification Images">
-                                                <span class="active-badge position-absolute start-100 translate-middle p-1 bg-success rounded-circle">
+                                                <img src="{% static 'images/users/avatar-2.jpg' %}"
+                                                    class="rounded-circle avatar-xs" alt="Notification Images">
+                                                <span
+                                                    class="active-badge position-absolute start-100 translate-middle p-1 bg-success rounded-circle">
                                                     <span class="visually-hidden">New alerts</span>
                                                 </span>
                                             </div>
@@ -901,7 +524,8 @@
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="fs-md mb-1 lh-base">Angela Bernier</h6>
                                                 </a>
-                                                <p class="text-muted mb-0">Answered to your comment on the cash flow forecast's graph 🔔.</p>
+                                                <p class="text-muted mb-0">Answered to your comment on the cash flow
+                                                    forecast's graph 🔔.</p>
                                             </div>
                                             <p class="mb-0 fs-xs fw-medium flex-shrink-0 text-muted">
                                                 1 week ago
@@ -912,8 +536,10 @@
                                     <div class="text-reset notification-item d-block dropdown-item position-relative">
                                         <div class="d-flex gap-3">
                                             <div class="position-relative flex-shrink-0">
-                                                <img src="https://img.themesbrand.com/judia/users/avatar-3.jpg" class="rounded-circle avatar-xs" alt="Notification Images">
-                                                <span class="active-badge position-absolute start-100 translate-middle p-1 bg-warning rounded-circle">
+                                                <img src="{% static 'images/users/avatar-3.jpg' %}"
+                                                    class="rounded-circle avatar-xs" alt="Notification Images">
+                                                <span
+                                                    class="active-badge position-absolute start-100 translate-middle p-1 bg-warning rounded-circle">
                                                     <span class="visually-hidden">New alerts</span>
                                                 </span>
                                             </div>
@@ -940,7 +566,8 @@
                             </div>
                             <div class="empty-notification-elem text-center px-4 d-none">
                                 <div class="mt-3 avatar-md mx-auto">
-                                    <div class="avatar-title bg-info-subtle text-info fs-24 rounded-circle"> <i class="bi bi-bell "></i> </div>
+                                    <div class="avatar-title bg-info-subtle text-info fs-24 rounded-circle"> <i
+                                            class="bi bi-bell "></i> </div>
                                 </div>
                                 <div class="pb-3 mt-2">
                                     <h6 class="fs-lg fw-semibold lh-base">Hey! You have no any notifications </h6>
@@ -950,32 +577,39 @@
                     </div>
 
                     <div class="dropdown topbar-head-dropdown ms-2 header-item">
-                        <button type="button" class="btn btn-icon rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="rounded-circle img-fluid" src="https://img.themesbrand.com/judia/users/avatar-1.jpg" alt="Header Avatar">
+                        <button type="button" class="btn btn-icon rounded-circle" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img class="rounded-circle img-fluid"
+                                src="{% static 'images/users/avatar-1.jpg' %}" alt="Header Avatar">
                         </button>
                         <div class="dropdown-menu p-2 dropdown-menu-end">
                             <div class="d-flex gap-2 mb-3 topbar-profile">
                                 <div class="position-relative">
-                                    <img class="rounded-1" src="https://img.themesbrand.com/judia/users/avatar-1.jpg" alt="Header Avatar">
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger"><span class="visually-hidden">unread messages</span></span>
+                                    <img class="rounded-1" src="{% static 'images/users/avatar-1.jpg' %}"
+                                        alt="Header Avatar">
+                                    <span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger"><span
+                                            class="visually-hidden">unread messages</span></span>
                                 </div>
                                 <div>
                                     <h6 class="mb-1 fs-sm user-name">{{user.username}}</h6>
                                     <p class="mb-0 fw-medium fs-xs"><a href="#!">{{user.email}}</a></p>
                                 </div>
                             </div>
-                            <a href="{% url 'pages:profile' %}" class="dropdown-item"><i class="bi bi-person align-middle me-2"></i> Profile</a>
-                            <a href="{% url 'apps:chat.chat_view' %}" class="dropdown-item"><i class="bi bi-chat-right-text align-middle me-2"></i> Messages</a>
-                            <a href="{% url 'pages:pricing' %}" class="dropdown-item"><i class="bi bi-gem align-middle me-2"></i> My Subscription</a>
-                            <a href="{% url 'pages:profile' %}" class="dropdown-item"><i class="bi bi-person-gear align-middle me-2"></i> Account Settings</a>
+                            <a href="{% url 'pages:profile' %}" class="dropdown-item"><i
+                                    class="bi bi-person align-middle me-2"></i> Profile</a>
+                            <a href="{% url 'pages:pricing' %}" class="dropdown-item"><i
+                                    class="bi bi-gem align-middle me-2"></i> My Subscription</a>
+                            <a href="{% url 'pages:profile' %}" class="dropdown-item"><i
+                                    class="bi bi-person-gear align-middle me-2"></i> Account Settings</a>
 
                             {% if user.is_authenticated %}
 
-                                <a href="{% url 'account_change_password' %}" class="dropdown-item">
-                                    <i class="bi bi-key align-middle me-2"></i> Change Password </a>
+                            <a href="{% url 'account_change_password' %}" class="dropdown-item">
+                                <i class="bi bi-key align-middle me-2"></i> Change Password </a>
 
-                                <a href="{% url 'account_logout' %}" class="dropdown-item">
-                                    <i class="bi bi-box-arrow-right align-middle me-2"></i> Sign Out</a>
+                            <a href="{% url 'account_logout' %}" class="dropdown-item">
+                                <i class="bi bi-box-arrow-right align-middle me-2"></i> Sign Out</a>
 
                             {% endif %}
                         </div>
@@ -984,13 +618,14 @@
             </div>
         </div>
     </header>
-    
+
     <!-- removeNotificationModal -->
     <div id="removeNotificationModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        id="NotificationModalbtn-close"></button>
                 </div>
                 <div class="modal-body p-md-5">
                     <div class="text-center">
@@ -1004,20 +639,22 @@
                     </div>
                     <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
                         <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete It!</button>
+                        <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete
+                            It!</button>
                     </div>
                 </div>
-    
+
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    
+
     <!-- removeCartModal -->
     <div id="removeCartModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-cartmodal"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        id="close-cartmodal"></button>
                 </div>
                 <div class="modal-body p-md-5">
                     <div class="text-center">
@@ -1031,10 +668,11 @@
                     </div>
                     <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
                         <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn w-sm btn-danger" id="remove-cartproduct">Yes, Delete It!</button>
+                        <button type="button" class="btn w-sm btn-danger" id="remove-cartproduct">Yes, Delete
+                            It!</button>
                     </div>
                 </div>
-    
+
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->

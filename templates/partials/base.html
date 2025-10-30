@@ -1,7 +1,7 @@
 {% load static %}
 <!doctype html>
 
-<html lang="es" data-layout="horizontal" data-layout-width="fluid" data-sidebar="light" data-topbar="brand" data-preloader="enabled" data-card-layout="borderless" data-bs-theme="light" data-topbar-image="pattern-2" data-sidebar-size="lg">
+<html lang="es" data-layout="horizontal" data-layout-width="fluid" data-sidebar="light" data-topbar="brand" data-preloader="enabled" data-card-layout="border" data-bs-theme="light" data-topbar-image="pattern-2" data-sidebar-size="lg">
 <head>
 
     <meta charset="utf-8">
@@ -11,7 +11,8 @@
     <meta content="Themesbrand" name="author">
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{% static 'images/logo_hospital.png' %}">
+    <link rel="shortcut icon" href="{% static 'images/imagenes_colegio/logoColegio.png' %}">
+    <link rel="icon" href="{% static 'images/imagenes_colegio/logoColegio.png' %}">
 
     {% block css %}
     {% block extra_css %}
@@ -26,7 +27,9 @@
     <!-- App Css-->
     <link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css">
     <!-- custom Css-->
-    <link href="{% static 'css/custom.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet" type="text/css">
+    <!-- SweetAlert2 (para alertas de timeout) -->
+    <link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css">    
 
     {% endblock css %}
 
@@ -36,7 +39,7 @@
 <div id="preloader">
     <div id="status">
         <div class="spinner-border text-primary avatar-sm" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">Cargando...</span>
         </div>
     </div>
 </div>

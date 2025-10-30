@@ -155,7 +155,7 @@ File: Custom Css File
   top: 0;
   bottom: 0;
   width: 5px;
-  background: linear-gradient(to bottom, #006FB3 50%, #FE6565 50%);
+  background: linear-gradient(to bottom, #1e3a8a 50%, #D4AF37 50%);
 }
 
 .card-gob-top {
@@ -180,7 +180,7 @@ File: Custom Css File
   right: 0;
   top: 0;
   height: 5px;
-  background: linear-gradient(to right, #006FB3 50%, #FE6565 50%);
+  background: linear-gradient(to right, #1e3a8a 50%, #D4AF37 50%);
 }
 
 .card-gob .card-body {
@@ -461,4 +461,581 @@ svg {
   background-color: rgba(var(--tb-primary-rgb), 0.04);
   color: var(--tb-primary) !important;
   border-radius: 6px;
+}
+
+/* ====================================================
+   ESTILOS PARA PESTAÑAS ESTILO KIT DIGITAL
+   ================================================== */
+
+/* Contenedor de pestañas kit digital */
+.kit-digital-tabs {
+  display: flex;
+  gap: 0.5rem;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Botón de pestaña kit digital */
+.kit-digital-tab {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--tb-gray-a);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 2.5rem;
+  justify-content: flex-start;
+}
+
+/* Icono dentro del botón */
+.kit-digital-tab i {
+  font-size: 1rem;
+  color: inherit;
+  transition: all 0.2s ease-in-out;
+  width: 1.2rem;
+  text-align: center;
+}
+
+/* Estado hover del botón - igual que el menú */
+.kit-digital-tab:hover {
+  background-color: rgba(var(--tb-primary-rgb), 0.04);
+  color: var(--tb-primary);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* Estado activo del botón - exactamente como el menú lateral */
+.kit-digital-tab.active {
+  border-style: solid;
+  border-width: 1px;
+  border-top-color: var(--tb-primary) !important;    /* Azul arriba */
+  border-left-color: var(--tb-primary) !important;   /* Azul izquierda */
+  border-right-color: var(--tb-secondary) !important; /* Rojo derecha */
+  border-bottom-color: var(--tb-secondary) !important; /* Rojo abajo */
+  border-radius: 6px;
+  background-color: rgba(var(--tb-primary-rgb), 0.04) !important;
+  color: var(--tb-primary) !important;
+  font-weight: 700 !important;
+  padding: calc(0.5rem - 1px) calc(1rem - 1px); /* Ajustado para compensar el borde */
+}
+
+/* Icono en estado activo */
+.kit-digital-tab.active i {
+  color: var(--tb-primary) !important;
+}
+
+/* Estado focus para accesibilidad */
+.kit-digital-tab:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--tb-primary-rgb), 0.25);
+}
+
+/* Variantes para diferentes estados - colores sutiles en estado normal */
+.kit-digital-tab[aria-controls="todos"] i {
+  color: var(--tb-gray-a);
+}
+.kit-digital-tab[aria-controls="todos"].active i,
+.kit-digital-tab[aria-controls="todos"]:hover i {
+  color: var(--tb-primary) !important;
+}
+
+.kit-digital-tab[aria-controls="enuso"] i {
+  color: var(--tb-gray-a);
+}
+.kit-digital-tab[aria-controls="enuso"].active i,
+.kit-digital-tab[aria-controls="enuso"]:hover i {
+  color: var(--tb-primary) !important;
+}
+
+.kit-digital-tab[aria-controls="mantencion"] i {
+  color: var(--tb-gray-a);
+}
+.kit-digital-tab[aria-controls="mantencion"].active i,
+.kit-digital-tab[aria-controls="mantencion"]:hover i {
+  color: var(--tb-primary) !important;
+}
+
+.kit-digital-tab[aria-controls="baja"] i {
+  color: var(--tb-gray-a);
+}
+.kit-digital-tab[aria-controls="baja"].active i,
+.kit-digital-tab[aria-controls="baja"]:hover i {
+  color: var(--tb-primary) !important;
+}
+
+/* Responsive design para móviles */
+@media (max-width: 768px) {
+  .kit-digital-tabs {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  
+  .kit-digital-tab {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    justify-content: center;
+    min-height: 2.25rem;
+  }
+  
+  .kit-digital-tab i {
+    font-size: 0.9rem;
+  }
+  
+  .kit-digital-tab.active {
+    padding: calc(0.5rem - 1px) calc(0.75rem - 1px);
+  }
+}
+
+/* ====================================================
+   BOTONES UNIFICADOS ESTILO KIT DIGITAL
+   ================================================== */
+
+/* Base para todos los botones del kit */
+.btn-kit-primary,
+.btn-kit-secondary,
+.btn-kit-success,
+.btn-kit-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--tb-gray-a);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 2.5rem;
+}
+
+/* Hover para todos los botones */
+.btn-kit-primary:hover,
+.btn-kit-secondary:hover,
+.btn-kit-success:hover,
+.btn-kit-outline:hover {
+  border-style: solid;
+  border-width: 1px;
+  border-top-color: var(--tb-primary) !important;    /* Azul arriba */
+  border-left-color: var(--tb-primary) !important;   /* Azul izquierda */
+  border-right-color: var(--tb-secondary) !important; /* Rojo derecha */
+  border-bottom-color: var(--tb-secondary) !important; /* Rojo abajo */
+  border-radius: 6px;
+  background-color: rgba(var(--tb-primary-rgb), 0.04) !important;
+  color: var(--tb-primary) !important;
+  font-weight: 700 !important;
+  padding: calc(0.5rem - 1px) calc(1rem - 1px); /* Ajustado para compensar el borde */
+  transition: all 0.2s ease;
+}
+
+/* Focus para todos los botones */
+.btn-kit-primary:focus,
+.btn-kit-secondary:focus,
+.btn-kit-success:focus,
+.btn-kit-outline:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--tb-primary-rgb), 0.25);
+}
+
+/* Iconos dentro de los botones */
+.btn-kit-primary i,
+.btn-kit-secondary i,
+.btn-kit-success i,
+.btn-kit-outline i {
+  font-size: 1rem;
+  color: inherit;
+  transition: all 0.2s ease-in-out;
+  width: 1.2rem;
+  text-align: center;
+}
+
+/* Estados disabled */
+.btn-kit-primary:disabled,
+.btn-kit-secondary:disabled,
+.btn-kit-success:disabled,
+.btn-kit-outline:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-kit-primary:disabled:hover,
+.btn-kit-secondary:disabled:hover,
+.btn-kit-success:disabled:hover,
+.btn-kit-outline:disabled:hover {
+  background-color: transparent;
+  color: var(--tb-gray-a);
+}
+
+/* Responsive para botones */
+@media (max-width: 768px) {
+  .btn-kit-primary,
+  .btn-kit-secondary,
+  .btn-kit-success,
+  .btn-kit-outline {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    min-height: 2.25rem;
+  }
+  
+  /* Hover en móviles con padding ajustado */
+  .btn-kit-primary:hover,
+  .btn-kit-secondary:hover,
+  .btn-kit-success:hover,
+  .btn-kit-outline:hover {
+    padding: calc(0.5rem - 1px) calc(0.75rem - 1px);
+  }
+  
+  .btn-kit-primary i,
+  .btn-kit-secondary i,
+  .btn-kit-success i,
+  .btn-kit-outline i {
+    font-size: 0.9rem;
+  }
+}
+
+/* ====================================================
+   FONDO PERSONALIZADO CON IMAGEN DEL HOSPITAL
+   ================================================== */
+
+/* Configuración de imagen de fondo del header principal */
+#layout-wrapper::before {
+  background-image: url('../images/logos/hospital_ges.png'), linear-gradient(135deg, #f8f9fa, rgba(248, 249, 250, 0.85)) !important;
+  background-blend-mode: multiply !important;
+  background-size: 300px auto, cover !important;
+  background-position: center center, center center !important;
+  background-repeat: no-repeat !important;
+  opacity: 0.7 !important;
+}
+
+/* Variable personalizada para el fondo del wrapper */
+:root {
+  --tb-menu-wrapper-bg: #f8f9fa !important;
+  --tb-menu-wrapper-pattern-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Asegurar que el patrón SVG tenga colores compatibles con gris claro */
+.wrapper-images svg path[stroke] {
+  stroke: rgba(0, 0, 0, 0.08) !important;
+}
+
+.wrapper-images svg path[fill] {
+  fill: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Header específico con overlay gris claro elegante */
+#page-topbar.topbar-shadow {
+  background-color: rgba(248, 249, 250, 0.95) !important;
+  backdrop-filter: blur(12px) saturate(150%) !important;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Asegurar que el brand tenga contraste adecuado sobre gris claro */
+[data-topbar=brand] .navbar-header .horizontal-logo .logo-light {
+  display: none !important;
+}
+
+[data-topbar=brand] .navbar-header .horizontal-logo .logo-dark {
+  display: block !important;
+}
+
+/* Texto del navbar con buen contraste sobre gris claro */
+.navbar-header, 
+.navbar-header .btn-topbar,
+.navbar-header .topbar-profile,
+#page-topbar .navbar-nav .nav-link,
+#page-topbar .navbar-nav .nav-item > a,
+#page-topbar .dropdown-toggle,
+#page-topbar .navbar-brand,
+.navbar-header .d-flex a,
+.navbar-header .d-flex span {
+  color: #2b313e !important;
+  text-shadow: none !important;
+}
+
+.navbar-header .btn-topbar:hover,
+#page-topbar .navbar-nav .nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  color: #2b313e !important;
+  border-radius: 6px !important;
+}
+
+/* Breadcrumbs oscuros */
+.page-title-box,
+.page-title-box h4,
+.page-title-box .breadcrumb,
+.page-title-box .breadcrumb-item,
+.page-title-box .breadcrumb-item a,
+.page-title-box .breadcrumb-item::before {
+  color: #2b313e !important;
+  text-shadow: none !important;
+}
+
+.page-title-box .breadcrumb-item a:hover {
+  color: rgba(43, 49, 62, 0.7) !important;
+}
+
+/* Enlaces del menú superior con borde oscuro */
+#page-topbar .dropdown-menu,
+#page-topbar .notification-list {
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ====================================================
+   ESTILOS INSTITUCIONALES COLEGIO - AZUL Y DORADO
+   ================================================== */
+
+/* Colores institucionales del colegio */
+:root {
+  --colegio-azul: #1e3a8a;      /* Azul profundo del escudo */
+  --colegio-dorado: #D4AF37;    /* Dorado del escudo */
+  --colegio-azul-claro: #3b82f6; /* Azul más claro para hover */
+}
+
+/* Aplicación directa de colores institucionales */
+.colegio-azul {
+  color: #1e3a8a !important;
+}
+
+.colegio-dorado {
+  color: #D4AF37 !important;
+}
+
+.colegio-bg-azul {
+  background-color: #1e3a8a !important;
+}
+
+.colegio-bg-dorado {
+  background-color: #D4AF37 !important;
+}
+
+/* Banner superior con fondo azul institucional */
+#page-topbar {
+  background: linear-gradient(135deg, var(--colegio-azul) 0%, #1e40af 100%) !important;
+  border-bottom: 3px solid var(--colegio-dorado) !important;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3) !important;
+}
+
+/* Texto dorado en el banner */
+#page-topbar .navbar-header,
+#page-topbar .navbar-header .btn-topbar,
+#page-topbar .navbar-header .topbar-profile,
+#page-topbar .navbar-nav .nav-link,
+#page-topbar .navbar-nav .nav-item > a,
+#page-topbar .dropdown-toggle,
+#page-topbar .navbar-brand,
+#page-topbar .navbar-header .d-flex a,
+#page-topbar .navbar-header .d-flex span,
+#page-topbar .btn-icon,
+#page-topbar .btn-topbar,
+#page-topbar .header-item button,
+#page-topbar .header-item .btn {
+  color: var(--colegio-dorado) !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Hover dorado más brillante */
+#page-topbar .navbar-header .btn-topbar:hover,
+#page-topbar .navbar-nav .nav-link:hover,
+#page-topbar .btn-icon:hover,
+#page-topbar .btn-topbar:hover,
+#page-topbar .header-item button:hover {
+  background-color: rgba(212, 175, 55, 0.15) !important;
+  color: #f4d03f !important;
+  border-radius: 6px !important;
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+/* Iconos dorados */
+#page-topbar i,
+#page-topbar .bi,
+#page-topbar .ph,
+#page-topbar .ri,
+#page-topbar .bx {
+  color: var(--colegio-dorado) !important;
+}
+
+/* Dropdowns con fondo azul y texto dorado */
+#page-topbar .dropdown-menu {
+  background-color: var(--colegio-azul) !important;
+  border: 1px solid var(--colegio-dorado) !important;
+  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4) !important;
+}
+
+#page-topbar .dropdown-item {
+  color: var(--colegio-dorado) !important;
+}
+
+#page-topbar .dropdown-item:hover {
+  background-color: rgba(212, 175, 55, 0.15) !important;
+  color: #f4d03f !important;
+}
+
+/* Notificaciones con estilo institucional */
+#page-topbar .notification-list {
+  background-color: var(--colegio-azul) !important;
+  border: 1px solid var(--colegio-dorado) !important;
+}
+
+/* Badge de notificaciones dorado */
+#page-topbar .badge {
+  background-color: var(--colegio-dorado) !important;
+  color: var(--colegio-azul) !important;
+  font-weight: bold !important;
+}
+
+/* Logo en el banner */
+#page-topbar .navbar-brand img {
+  filter: brightness(1.2) contrast(1.1);
+}
+
+/* Separador dorado */
+#page-topbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--colegio-dorado) 0%, #f4d03f 50%, var(--colegio-dorado) 100%);
+}
+
+/* Animación sutil para elementos del banner */
+#page-topbar .btn-topbar,
+#page-topbar .btn-icon,
+#page-topbar .header-item button {
+  transition: all 0.3s ease;
+}
+
+#page-topbar .btn-topbar:hover,
+#page-topbar .btn-icon:hover,
+#page-topbar .header-item button:hover {
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+/* ====================================================
+   ESTILOS PARA PÁGINA DE LOGIN INSTITUCIONAL
+   ================================================== */
+
+/* Botón de login con colores institucionales */
+.auth-page-wrapper .btn-primary {
+  background: linear-gradient(135deg, var(--colegio-azul) 0%, #1e40af 100%) !important;
+  border: 2px solid var(--colegio-dorado) !important;
+  color: var(--colegio-dorado) !important;
+  font-weight: bold !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.auth-page-wrapper .btn-primary:hover {
+  background: linear-gradient(135deg, #1e40af 0%, var(--colegio-azul) 100%) !important;
+  border-color: #f4d03f !important;
+  color: #f4d03f !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4) !important;
+}
+
+/* Títulos en la página de login */
+.auth-page-wrapper h5 {
+  color: var(--colegio-azul) !important;
+  font-weight: bold !important;
+}
+
+.auth-page-wrapper .text-primary {
+  color: var(--colegio-azul) !important;
+}
+
+/* Campos de formulario con estilo institucional */
+.auth-page-wrapper .form-control {
+  border: 2px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.auth-page-wrapper .form-control:focus {
+  border-color: var(--colegio-dorado) !important;
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25) !important;
+}
+
+/* Enlaces en la página de login */
+.auth-page-wrapper a {
+  color: var(--colegio-azul) !important;
+  text-decoration: none !important;
+}
+
+.auth-page-wrapper a:hover {
+  color: var(--colegio-dorado) !important;
+  text-decoration: underline !important;
+}
+
+/* Card de login con borde dorado */
+.auth-page-wrapper .card {
+  border: 2px solid var(--colegio-dorado) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.2) !important;
+}
+
+/* Patrón SVG en la página de login con colores institucionales */
+.auth-page-wrapper svg path[stroke] {
+  stroke: rgba(212, 175, 55, 0.4) !important;
+}
+
+.auth-page-wrapper svg path[fill] {
+  fill: rgba(30, 58, 138, 0.3) !important;
+}
+
+/* Línea superior con colores institucionales */
+.auth-page-wrapper .card-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--colegio-azul) 0%, var(--colegio-dorado) 50%, var(--colegio-azul) 100%);
+  border-radius: 2px 2px 0 0;
+}
+
+/* Panel izquierdo con mejor contraste */
+.auth-page-wrapper .auth-card {
+  background: linear-gradient(135deg, var(--colegio-azul) 0%, #1e40af 100%) !important;
+  border: 2px solid var(--colegio-dorado) !important;
+  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4) !important;
+}
+
+/* Texto del panel izquierdo con mejor legibilidad */
+.auth-page-wrapper .auth-card h2 {
+  color: white !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+.auth-page-wrapper .auth-card h2 span {
+  color: var(--colegio-dorado) !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.auth-page-wrapper .auth-card p {
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Logo en el panel izquierdo */
+.auth-page-wrapper .auth-card img {
+  filter: brightness(1.1) contrast(1.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }

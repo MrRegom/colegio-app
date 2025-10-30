@@ -1,0 +1,325 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Bajas de Inventario</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Estadísticas rápidas -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-animate">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <p class="text-uppercase fw-medium text-muted mb-0">Total Bajas</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <h5 class="text-danger fs-14 mb-0">
+                                    <i class="ri-delete-bin-line align-middle"></i>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-end justify-content-between mt-4">
+                            <div>
+                                <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                    {{ stats.total_bajas }}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-animate">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <p class="text-uppercase fw-medium text-muted mb-0">Mis Bajas</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <h5 class="text-info fs-14 mb-0">
+                                    <i class="ri-user-line align-middle"></i>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-end justify-content-between mt-4">
+                            <div>
+                                <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                    {{ stats.mis_bajas }}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-animate">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <p class="text-uppercase fw-medium text-muted mb-0">Pendientes</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <h5 class="text-warning fs-14 mb-0">
+                                    <i class="ri-time-line align-middle"></i>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-end justify-content-between mt-4">
+                            <div>
+                                <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                    {{ stats.pendientes_autorizacion }}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-animate">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <p class="text-uppercase fw-medium text-muted mb-0">Autorizadas</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <h5 class="text-success fs-14 mb-0">
+                                    <i class="ri-check-double-line align-middle"></i>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-end justify-content-between mt-4">
+                            <div>
+                                <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                    {{ stats.autorizadas }}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú principal con Cards -->
+        <div class="row">
+            <div class="col-12">
+                <h5 class="mb-3 text-muted">Seleccione una opción:</h5>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Card 1: Gestión de Bajas -->
+            {% if permisos.puede_gestionar %}
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <div class="card card-height-100 ribbon-box border ribbon-fill shadow-lg">
+                    <div class="card-body">
+                        <div class="ribbon ribbon-danger">Gestión</div>
+                        <div class="text-center mb-3">
+                            <div class="avatar-md mx-auto mb-3">
+                                <div class="avatar-title bg-danger-subtle text-danger fs-2 rounded-circle">
+                                    <i class="ri-file-list-3-line"></i>
+                                </div>
+                            </div>
+                            <h5 class="card-title mb-2">Gestión de Bajas</h5>
+                            <p class="text-muted mb-0">Administre todas las bajas de inventario</p>
+                        </div>
+                        <div class="d-grid">
+                            <a href="{% url 'bajas_inventario:lista_bajas' %}" class="btn btn-danger">
+                                <i class="ri-list-check align-bottom me-1"></i> Ver Listado
+                            </a>
+                        </div>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Total:</small>
+                                <span class="badge bg-danger">{{ stats.total_bajas }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Card 2: Nueva Baja -->
+            {% if permisos.puede_crear %}
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <div class="card card-height-100 ribbon-box border ribbon-fill shadow-lg">
+                    <div class="card-body">
+                        <div class="ribbon ribbon-warning">Nuevo</div>
+                        <div class="text-center mb-3">
+                            <div class="avatar-md mx-auto mb-3">
+                                <div class="avatar-title bg-warning-subtle text-warning fs-2 rounded-circle">
+                                    <i class="ri-add-circle-line"></i>
+                                </div>
+                            </div>
+                            <h5 class="card-title mb-2">Nueva Baja</h5>
+                            <p class="text-muted mb-0">Registre una nueva baja de inventario</p>
+                        </div>
+                        <div class="d-grid">
+                            <a href="{% url 'bajas_inventario:crear_baja' %}" class="btn btn-warning">
+                                <i class="ri-add-line align-bottom me-1"></i> Crear Baja
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Card 3: Mis Bajas -->
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <div class="card card-height-100 ribbon-box border ribbon-fill shadow-lg">
+                    <div class="card-body">
+                        <div class="ribbon ribbon-info">Personal</div>
+                        <div class="text-center mb-3">
+                            <div class="avatar-md mx-auto mb-3">
+                                <div class="avatar-title bg-info-subtle text-info fs-2 rounded-circle">
+                                    <i class="ri-user-line"></i>
+                                </div>
+                            </div>
+                            <h5 class="card-title mb-2">Mis Bajas</h5>
+                            <p class="text-muted mb-0">Revise sus bajas solicitadas</p>
+                        </div>
+                        <div class="d-grid">
+                            <a href="{% url 'bajas_inventario:mis_bajas' %}" class="btn btn-info">
+                                <i class="ri-file-user-line align-bottom me-1"></i> Ver Mis Bajas
+                            </a>
+                        </div>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Total:</small>
+                                <span class="badge bg-info">{{ stats.mis_bajas }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Por Autorizar -->
+            {% if permisos.puede_autorizar %}
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <div class="card card-height-100 ribbon-box border ribbon-fill shadow-lg">
+                    <div class="card-body">
+                        <div class="ribbon ribbon-primary">Autorización</div>
+                        <div class="text-center mb-3">
+                            <div class="avatar-md mx-auto mb-3">
+                                <div class="avatar-title bg-primary-subtle text-primary fs-2 rounded-circle">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                            </div>
+                            <h5 class="card-title mb-2">Por Autorizar</h5>
+                            <p class="text-muted mb-0">Autorice bajas pendientes</p>
+                        </div>
+                        <div class="d-grid">
+                            <a href="{% url 'bajas_inventario:bajas_por_autorizar' %}" class="btn btn-primary">
+                                <i class="ri-checkbox-circle-line align-bottom me-1"></i> Autorizar Bajas
+                            </a>
+                        </div>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Pendientes:</small>
+                                <span class="badge bg-warning">{{ stats.pendientes_autorizacion }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Información adicional -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-none">
+                    <div class="card-body">
+                        <div class="alert alert-danger border-0 mb-0" role="alert">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-information-line fs-16 align-middle"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="alert-heading">Información del Módulo</h6>
+                                    <p class="mb-0">
+                                        Gestione las bajas de inventario por pérdida, obsolescencia, daño u otros motivos.
+                                        Actualmente hay <strong>{{ stats.total_bajas }} bajas registradas</strong>, de las cuales
+                                        <strong>{{ stats.pendientes_autorizacion }} están pendientes de autorización</strong>.
+                                        Las bajas autorizadas suman <strong>{{ stats.autorizadas }}</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<style>
+    .card-height-100 {
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-height-100:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    }
+
+    .card-animate {
+        transition: transform 0.3s ease;
+    }
+
+    .card-animate:hover {
+        transform: translateY(-3px);
+    }
+
+    .ribbon-box .card-body {
+        padding: 1.5rem;
+    }
+
+    .avatar-md {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .avatar-title {
+        display: flex;
+        align-items-center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+{% endblock %}

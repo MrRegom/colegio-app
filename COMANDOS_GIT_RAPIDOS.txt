@@ -1,0 +1,66 @@
+================================================================================
+                    COMANDOS GIT - REFERENCIA RAPIDA
+================================================================================
+
+CONFIGURACION INICIAL (UNA SOLA VEZ)
+-------------------------------------
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu-email@gmail.com"
+cd C:\Users\mr.yo\Downloads\colegioapp\colegio
+git init
+git add .
+git commit -m "Primera subida del proyecto"
+git remote add origin https://github.com/TU-USUARIO/TU-REPOSITORIO.git
+git branch -M main
+git push -u origin main
+
+================================================================================
+
+AL EMPEZAR TU DIA DE TRABAJO (CADA DIA)
+----------------------------------------
+cd C:\Users\mr.yo\Downloads\colegioapp\colegio
+git pull origin main
+
+================================================================================
+
+AL TERMINAR TU DIA DE TRABAJO (CADA DIA)
+-----------------------------------------
+cd C:\Users\mr.yo\Downloads\colegioapp\colegio prevention
+git status                                    # Ver que archivos cambiaste
+git add .                                     # Agregar todos los cambios
+git commit -m "Descripción de lo que hiciste" # Guardar con descripción
+git push origin main                          # Subir a GitHub
+
+================================================================================
+
+EJEMPLOS DE MENSAJES DE COMMIT
+-------------------------------
+git commit -m "Agregada funcionalidad de solicitudes"
+git commit -m "Corregido error en el formulario de usuarios"
+git commit -m "Actualizado diseño del dashboard"
+git commit -m "Mejorada la validación de datos"
+git commit -m "Agregados nuevos reportes"
+
+================================================================================
+
+VER ESTADO ACTUAL
+-----------------
+git status          # Ver archivos modificados
+git log --oneline   # Ver historial de commits (últimas 10 líneas)
+
+================================================================================
+
+SI ALGO SALE MAL
+----------------
+# Si hay conflictos al hacer pull:
+git pull origin main
+
+# Si te dice que el origin ya existe:
+git remote remove origin
+git remote add origin https://github.com/TU-USUARIO/TU-REPOSITORIO.git
+
+# Ver la URL actual del repositorio:
+git remote -v
+
+================================================================================
+

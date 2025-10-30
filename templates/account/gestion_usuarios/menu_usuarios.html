@@ -1,0 +1,296 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ titulo }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard_analytics' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Usuarios y Permisos</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Estadísticas rápidas -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-animate">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <p class="text-uppercase fw-medium text-muted mb-0">Total Usuarios</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <h5 class="text-primary fs-14 mb-0">
+                                    <i class="ri-user-line align-middle"></i>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-end justify-content-between mt-4">
+                            <div>
+                                <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                    {{ stats.total_usuarios }}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-animate">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <p class="text-uppercase fw-medium text-muted mb-0">Usuarios Activos</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <h5 class="text-success fs-14 mb-0">
+                                    <i class="ri-user-check-line align-middle"></i>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-end justify-content-between mt-4">
+                            <div>
+                                <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                    {{ stats.usuarios_activos }}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-animate">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <p class="text-uppercase fw-medium text-muted mb-0">Usuarios Staff</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <h5 class="text-warning fs-14 mb-0">
+                                    <i class="ri-user-star-line align-middle"></i>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-end justify-content-between mt-4">
+                            <div>
+                                <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                    {{ stats.usuarios_staff }}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-animate">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <p class="text-uppercase fw-medium text-muted mb-0">Total Roles</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <h5 class="text-info fs-14 mb-0">
+                                    <i class="ri-shield-user-line align-middle"></i>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-end justify-content-between mt-4">
+                            <div>
+                                <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                    {{ stats.total_grupos }}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú principal con Cards -->
+        <div class="row">
+            <div class="col-12">
+                <h5 class="mb-3 text-muted">Seleccione una opción:</h5>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Card 1: Gestión de Usuarios -->
+            {% if permisos.puede_crear_usuarios or permisos.puede_editar_usuarios %}
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="card card-height-100 ribbon-box border ribbon-fill shadow-lg">
+                    <div class="card-body">
+                        <div class="ribbon ribbon-primary">Usuarios</div>
+                        <div class="text-center mb-3">
+                            <div class="avatar-md mx-auto mb-3">
+                                <div class="avatar-title bg-primary-subtle text-primary fs-2 rounded-circle">
+                                    <i class="ri-user-settings-line"></i>
+                                </div>
+                            </div>
+                            <h5 class="card-title mb-2">Gestión de Usuarios</h5>
+                            <p class="text-muted mb-0">Administre todos los usuarios del sistema</p>
+                        </div>
+                        <div class="d-grid">
+                            <a href="{% url 'accounts:lista_usuarios' %}" class="btn btn-primary">
+                                <i class="ri-list-check align-bottom me-1"></i> Ver Listado
+                            </a>
+                        </div>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Total:</small>
+                                <span class="badge bg-primary">{{ stats.total_usuarios }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Card 2: Crear Usuario -->
+            {% if permisos.puede_crear_usuarios %}
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="card card-height-100 ribbon-box border ribbon-fill shadow-lg">
+                    <div class="card-body">
+                        <div class="ribbon ribbon-success">Nuevo</div>
+                        <div class="text-center mb-3">
+                            <div class="avatar-md mx-auto mb-3">
+                                <div class="avatar-title bg-success-subtle text-success fs-2 rounded-circle">
+                                    <i class="ri-user-add-line"></i>
+                                </div>
+                            </div>
+                            <h5 class="card-title mb-2">Crear Usuario</h5>
+                            <p class="text-muted mb-0">Registre un nuevo usuario en el sistema</p>
+                        </div>
+                        <div class="d-grid">
+                            <a href="{% url 'accounts:crear_usuario' %}" class="btn btn-success">
+                                <i class="ri-add-line align-bottom me-1"></i> Nuevo Usuario
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Card 3: Gestión de Roles -->
+            {% if permisos.puede_gestionar_grupos %}
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="card card-height-100 ribbon-box border ribbon-fill shadow-lg">
+                    <div class="card-body">
+                        <div class="ribbon ribbon-warning">Roles</div>
+                        <div class="text-center mb-3">
+                            <div class="avatar-md mx-auto mb-3">
+                                <div class="avatar-title bg-warning-subtle text-warning fs-2 rounded-circle">
+                                    <i class="ri-shield-user-line"></i>
+                                </div>
+                            </div>
+                            <h5 class="card-title mb-2">Gestión de Roles</h5>
+                            <p class="text-muted mb-0">Administre roles y sus permisos</p>
+                        </div>
+                        <div class="d-grid">
+                            <a href="{% url 'accounts:lista_grupos' %}" class="btn btn-warning">
+                                <i class="ri-shield-check-line align-bottom me-1"></i> Ver Roles
+                            </a>
+                        </div>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Total:</small>
+                                <span class="badge bg-warning">{{ stats.total_grupos }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Información adicional -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-none">
+                    <div class="card-body">
+                        <div class="alert alert-info border-0 mb-0" role="alert">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-information-line fs-16 align-middle"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="alert-heading">Información del Módulo</h6>
+                                    <p class="mb-0">
+                                        Gestione usuarios, roles y permisos del sistema desde esta interfaz.
+                                        Actualmente hay <strong>{{ stats.total_usuarios }} usuarios registrados</strong>,
+                                        de los cuales <strong>{{ stats.usuarios_activos }} están activos</strong>.
+                                        El sistema cuenta con <strong>{{ stats.total_grupos }} roles configurados</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<style>
+    .card-height-100 {
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-height-100:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    }
+
+    .card-animate {
+        transition: transform 0.3s ease;
+    }
+
+    .card-animate:hover {
+        transform: translateY(-3px);
+    }
+
+    .ribbon-box .card-body {
+        padding: 1.5rem;
+    }
+
+    .avatar-md {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .avatar-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+{% endblock %}

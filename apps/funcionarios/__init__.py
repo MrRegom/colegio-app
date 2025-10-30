@@ -1,1 +1,0 @@
-# App Funcionarios - Arquitectura Hexagonal

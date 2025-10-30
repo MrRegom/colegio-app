@@ -75,7 +75,7 @@ var Invoices = [
     }, {
         invoice_no: '24301902',
         logo_img: '/static/logo-dark.png',
-        customer: 'Peter Hartley',
+        customer: 'Peter Hartleyasdsadsadsadasdasdsadsadsad',
         email: "hartley@judia.com",
         createDate: "21 Mar, 2023",
         dueDate: "21 Mar, 2023",

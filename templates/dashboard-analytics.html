@@ -20,11 +20,6 @@
                     {% include "partials/page-title.html" with pagetitle="Dashboards" title="Analytics" %}
                 {% endblock pagetitle %}
             </div><!--end col-->
-            <div class="col-md-auto ms-auto">
-                {% block customizer %}
-                    {% include "partials/customizer.html" %}
-                {% endblock customizer %}
-            </div><!--end col-->
         </div><!--end row-->
     </div>
 {% endblock main_title %}
@@ -251,32 +246,32 @@
                                     </div>
                                     <ul class="list-unstyled vstack gap-2 mb-0">
                                         <li class="d-flex align-items-center gap-2">
-                                            <img src="https://img.themesbrand.com/judia/flags/us.svg" alt="" height="16" class="rounded-circle object-fit-cover">
+                                            <img src="{%static 'images/flags/us.svg' %}" alt="" height="16" class="rounded-circle object-fit-cover">
                                             <h6 class="flex-grow-1 mb-0">United States</h6>
                                             <p class="text-muted mb-0">39.41%</p>
                                         </li>
                                         <li class="d-flex align-items-center gap-2">
-                                            <img src="https://img.themesbrand.com/judia/flags/de.svg" alt="" height="16" class="rounded-circle object-fit-cover">
+                                            <img src="{%static 'images/flags/de.svg' %}" alt="" height="16" class="rounded-circle object-fit-cover">
                                             <h6 class="flex-grow-1 mb-0">Germany</h6>
                                             <p class="text-muted mb-0">16.84%</p>
                                         </li>
                                         <li class="d-flex align-items-center gap-2">
-                                            <img src="https://img.themesbrand.com/judia/flags/fr.svg" alt="" height="16" class="rounded-circle object-fit-cover">
+                                            <img src="{%static 'images/flags/fr.svg' %}" alt="" height="16" class="rounded-circle object-fit-cover">
                                             <h6 class="flex-grow-1 mb-0">France</h6>
                                             <p class="text-muted mb-0">12.54%</p>
                                         </li>
                                         <li class="d-flex align-items-center gap-2">
-                                            <img src="https://img.themesbrand.com/judia/flags/ru.svg" alt="" height="16" class="rounded-circle object-fit-cover">
+                                            <img src="{%static 'images/flags/ru.svg' %}" alt="" height="16" class="rounded-circle object-fit-cover">
                                             <h6 class="flex-grow-1 mb-0">Russia</h6>
                                             <p class="text-muted mb-0">11.13%</p>
                                         </li>
                                         <li class="d-flex align-items-center gap-2">
-                                            <img src="https://img.themesbrand.com/judia/flags/br.svg" alt="" height="16" class="rounded-circle object-fit-cover">
+                                            <img src="{%static 'images/flags/br.svg' %}" alt="" height="16" class="rounded-circle object-fit-cover">
                                             <h6 class="flex-grow-1 mb-0">Brazil</h6>
                                             <p class="text-muted mb-0">9.17%</p>
                                         </li>
                                         <li class="d-flex align-items-center gap-2">
-                                            <img src="https://img.themesbrand.com/judia/flags/se.svg" alt="" height="16" class="rounded-circle object-fit-cover">
+                                            <img src="{%static 'images/flags/se.svg' %}" alt="" height="16" class="rounded-circle object-fit-cover">
                                             <h6 class="flex-grow-1 mb-0">Sweden</h6>
                                             <p class="text-muted mb-0">1.25%</p>
                                         </li>
