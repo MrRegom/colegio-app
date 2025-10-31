@@ -1,0 +1,39 @@
+========================================
+COMANDOS PARA EJECUTAR EN PYTHONANYWHERE
+========================================
+
+1. Conectarse y activar entorno:
+cd ~/colegio-app  # (ajusta según tu directorio)
+source venv/bin/activate
+
+2. Actualizar código:
+git pull origin main
+
+3. Instalar dependencias:
+pip install -r requirements.txt
+
+4. Ejecutar script de verificación:
+python verificar_y_actualizar.py
+cat reporte_verificacion.txt
+
+5. Limpiar datos:
+python manage.py shell
+# En el shell:
+from django.db import connection
+c = connection.cursor()
+c.execute("UPDATE tba_bodega_articulos SET marca_id = NULL WHERE marca_id IS NOT NULL")
+c.execute("UPDATE activo SET marca_id = NULL WHERE marca_id IS NOT NULL")
+exit()
+
+6. Aplicar migraciones:
+python manage.py makemigrations
+python manage.py migrate
+
+7. Recopilar estáticos:
+python manage.py collectstatic --noinput
+
+8. Reiniciar web app:
+# Ir al Dashboard → Web → Reload
+
+========================================
+

@@ -4,6 +4,13 @@ import django.db.models.deletion
 from django.db import migrations, models
 
 
+def limpiar_marca_antes_fk(apps, schema_editor):
+    """Limpiar valores de marca (texto) antes de convertir a ForeignKey"""
+    Articulo = apps.get_model('bodega', 'Articulo')
+    # Los registros con marca como texto se dejarán sin marca al convertir
+    # No hay nada que hacer aquí porque Django manejará el cambio de campo
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -12,6 +19,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        # Primero agregar los nuevos campos que no causan problemas
         migrations.AddField(
             model_name='articulo',
             name='modelo',
@@ -27,9 +35,18 @@ class Migration(migrations.Migration):
             name='sector',
             field=models.ForeignKey(blank=True, help_text='Sector o área del inventario (Música, Ed. Física, Laboratorio, etc.)', null=True, on_delete=django.db.models.deletion.PROTECT, related_name='articulos', to='inventario.sectorinventario', verbose_name='Sector/Taller'),
         ),
-        migrations.AlterField(
+        # Para el campo marca, necesitamos un proceso de 2 pasos:
+        # 1. Renombrar el campo CharField actual
+        migrations.RenameField(
+            model_name='articulo',
+            old_name='marca',
+            new_name='marca_old',
+        ),
+        # 2. Crear el nuevo campo ForeignKey
+        migrations.AddField(
             model_name='articulo',
             name='marca',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='articulos', to='inventario.marca', verbose_name='Marca'),
         ),
+        # 3. Eliminar el campo viejo en otra migración (hacemos que sea nullable)
     ]
