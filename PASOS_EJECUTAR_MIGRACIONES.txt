@@ -1,0 +1,53 @@
+==================================================
+PASOS PARA EJECUTAR MIGRACIONES Y PROBAR EL MÓDULO
+==================================================
+
+1. EJECUTAR MIGRACIONES:
+   
+   En la terminal, ejecuta:
+   
+   python manage.py makemigrations inventario
+   python manage.py migrate
+
+2. VERIFICAR QUE TODO ESTÉ CORRECTO:
+   
+   python manage.py check
+
+3. INICIAR EL SERVIDOR:
+   
+   python manage.py runserver
+
+4. ACCEDER A LAS URLS:
+   
+   - Talleres: http://127.0.0.1:8000/inventario/talleres/
+   - Tipos de Equipo: http://127.0.0.1:8000/inventario/tipos-equipo/
+   - Equipos: http://127.0.0.1:8000/inventario/equipos/
+
+5. CREAR UN SUPERUSUARIO (si no tienes uno):
+   
+   python manage.py createsuperuser
+
+6. PROBAR EN EL ADMIN:
+   
+   http://127.0.0.1:8000/admin/
+   
+   Deberías ver:
+   - INVENTARIO > Talleres
+   - INVENTARIO > Tipos de Equipos
+   - INVENTARIO > Equipos
+   - INVENTARIO > Mantenimientos de Equipos
+
+==================================================
+NOTAS:
+==================================================
+
+- Si hay errores en las migraciones, revisa que todos los modelos
+  estén correctamente definidos en apps/inventario/models.py
+
+- Los templates de equipos aún faltan (lista, formulario, detalle, eliminar).
+  Puedes usar el mismo patrón que los de taller_*
+
+- Recuerda que necesitas estar autenticado para acceder a las vistas
+
+==================================================
+

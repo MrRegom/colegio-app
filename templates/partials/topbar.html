@@ -135,6 +135,147 @@
                                 </a>
                             </li>
 
+                            <!-- Menú de Gestores - CRUD de catálogos -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link collapsed" href="#sidebarGestores"
+                                    data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                    aria-controls="sidebarGestores">
+                                    <i class="ri-settings-3-line"></i> <span data-key="t-gestores">Gestores</span>
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarGestores">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{% url 'inventario:menu_gestores' %}" class="nav-link" data-key="t-menu-gestores">
+                                                <i class="ri-dashboard-line"></i> Menú Principal
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="#gestoresInventario" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="gestoresInventario">
+                                                <i class="ri-box-3-line"></i> <span>Inventario</span>
+                                            </a>
+                                            <div class="collapse menu-dropdown" id="gestoresInventario">
+                                                <ul class="nav nav-sm flex-column">
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'bodega:articulo_lista' %}" class="nav-link">Artículos</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'bodega:categoria_lista' %}" class="nav-link">Categorías (Bodega)</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'activos:lista_categorias' %}" class="nav-link">Categorías (Activos)</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:bodega_list' %}" class="nav-link">Bodegas</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'activos:lista_unidades' %}" class="nav-link">Unidades de Medida</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="#gestoresOrganizacion" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="gestoresOrganizacion">
+                                                <i class="ri-building-line"></i> <span>Organización</span>
+                                            </a>
+                                            <div class="collapse menu-dropdown" id="gestoresOrganizacion">
+                                                <ul class="nav nav-sm flex-column">
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:departamento_list' %}" class="nav-link">Departamentos</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:taller_list' %}" class="nav-link">Talleres</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'activos:lista_ubicaciones' %}" class="nav-link">Ubicaciones</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="#gestoresConfiguracion" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="gestoresConfiguracion">
+                                                <i class="ri-settings-line"></i> <span>Configuración</span>
+                                            </a>
+                                            <div class="collapse menu-dropdown" id="gestoresConfiguracion">
+                                                <ul class="nav nav-sm flex-column">
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'activos:lista_estados' %}" class="nav-link">Estados de Activo</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:estado_orden_compra_list' %}" class="nav-link">Estados Orden Compra</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:estado_recepcion_list' %}" class="nav-link">Estados Recepción</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'bodega:movimiento_lista' %}" class="nav-link">Tipos de Movimiento</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'activos:lista_tipos_movimiento' %}" class="nav-link">Tipos Mov. Activo</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:tipo_equipo_list' %}" class="nav-link">Tipos de Equipo</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:proveniencia_list' %}" class="nav-link">Proveniencias</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="#gestoresProductos" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="gestoresProductos">
+                                                <i class="ri-product-hunt-line"></i> <span>Catálogos de Productos</span>
+                                            </a>
+                                            <div class="collapse menu-dropdown" id="gestoresProductos">
+                                                <ul class="nav nav-sm flex-column">
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:marca_list' %}" class="nav-link">Marcas</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:modelo_list' %}" class="nav-link">Modelos</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:nombre_articulo_list' %}" class="nav-link">Nombres de Artículos</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:sector_inventario_list' %}" class="nav-link">Sectores de Inventario</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="#gestoresEquipos" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="gestoresEquipos">
+                                                <i class="ri-tools-line"></i> <span>Equipos</span>
+                                            </a>
+                                            <div class="collapse menu-dropdown" id="gestoresEquipos">
+                                                <ul class="nav nav-sm flex-column">
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'inventario:equipo_list' %}" class="nav-link">Equipos</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="#gestoresProveedores" data-bs-toggle="collapse"
+                                                role="button" aria-expanded="false" aria-controls="gestoresProveedores">
+                                                <i class="ri-user-line"></i> <span>Proveedores</span>
+                                            </a>
+                                            <div class="collapse menu-dropdown" id="gestoresProveedores">
+                                                <ul class="nav nav-sm flex-column">
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'compras:proveedor_lista' %}" class="nav-link">Proveedores</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
                             <!-- Menú de Administración - Gestión de Usuarios, Grupos y Permisos -->
                             {% if perms.auth.view_user or perms.auth.view_group %}
                             <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-admin">Administración</span></li>

@@ -87,8 +87,8 @@ class ActivoForm(forms.ModelForm):
     class Meta:
         model = Activo
         fields = [
-            'codigo', 'nombre', 'descripcion',
-            'categoria', 'estado',
+            'codigo', 'nombre_articulo', 'nombre', 'descripcion',
+            'categoria', 'estado', 'unidad_medida', 'sector',
             'marca', 'modelo', 'numero_serie', 'codigo_barras',
             'precio_unitario', 'costo_promedio',
             'requiere_serie', 'requiere_lote', 'requiere_vencimiento',
@@ -110,17 +110,26 @@ class ActivoForm(forms.ModelForm):
             'estado': forms.Select(
                 attrs={'class': 'form-select'}
             ),
-            'marca': forms.TextInput(
-                attrs={'class': 'form-control', 'placeholder': 'Marca del producto'}
+            'unidad_medida': forms.Select(
+                attrs={'class': 'form-select'}
             ),
-            'modelo': forms.TextInput(
-                attrs={'class': 'form-control', 'placeholder': 'Modelo'}
+            'sector': forms.Select(
+                attrs={'class': 'form-select'}
+            ),
+            'nombre_articulo': forms.Select(
+                attrs={'class': 'form-select', 'id': 'id_nombre_articulo', 'data-autocomplete': 'true'}
+            ),
+            'marca': forms.Select(
+                attrs={'class': 'form-select', 'id': 'id_marca', 'data-filter': 'modelo'}
+            ),
+            'modelo': forms.Select(
+                attrs={'class': 'form-select', 'id': 'id_modelo', 'disabled': True}
             ),
             'numero_serie': forms.TextInput(
                 attrs={'class': 'form-control', 'placeholder': 'Número de serie'}
             ),
             'codigo_barras': forms.TextInput(
-                attrs={'class': 'form-control', 'placeholder': 'Código de barras'}
+                attrs={'class': 'form-control', 'placeholder': 'Dejar vacío para auto-generar desde código'}
             ),
             'precio_unitario': forms.NumberInput(
                 attrs={'class': 'form-control', 'min': '0', 'step': '0.01'}
@@ -147,6 +156,25 @@ class ActivoForm(forms.ModelForm):
         # Filtrar solo registros activos para los selectores
         self.fields['categoria'].queryset = CategoriaActivo.objects.filter(activo=True, eliminado=False)
         self.fields['estado'].queryset = EstadoActivo.objects.filter(activo=True)
+        self.fields['unidad_medida'].queryset = UnidadMedida.objects.filter(activo=True, eliminado=False)
+        
+        # Filtrar marcas y modelos activos
+        from apps.inventario.models import Marca, Modelo, NombreArticulo, SectorInventario
+        self.fields['marca'].queryset = Marca.objects.filter(activo=True, eliminado=False)
+        self.fields['modelo'].queryset = Modelo.objects.filter(activo=True, eliminado=False)
+        self.fields['modelo'].required = False
+        
+        # Si hay instancia y tiene marca, filtrar modelos
+        if self.instance and self.instance.pk and self.instance.marca:
+            self.fields['modelo'].queryset = Modelo.objects.filter(
+                marca=self.instance.marca,
+                activo=True,
+                eliminado=False
+            )
+        
+        # Cargar nombres de artículos y sectores activos
+        self.fields['nombre_articulo'].queryset = NombreArticulo.objects.filter(activo=True, eliminado=False)
+        self.fields['sector'].queryset = SectorInventario.objects.filter(activo=True, eliminado=False)
 
     def save(self, commit=True):
         instance = super().save(commit=False)

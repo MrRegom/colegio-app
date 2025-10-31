@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'apps.reportes',  # Gestión de reportes
     'apps.notificaciones',  # Sistema de notificaciones
     'apps.bajas_inventario',  # Gestión de bajas de inventario
+    'apps.inventario',  # Gestión completa de inventario (CRUD catálogos)
     
     # Crispy Forms
     "crispy_forms",
