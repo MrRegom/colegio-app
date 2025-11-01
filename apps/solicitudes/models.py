@@ -287,7 +287,7 @@ class Solicitud(BaseModel):
         ]
 
     def __str__(self):
-        return f"SOL-{self.numero} - {self.solicitante.correo}"
+        return f"SOL-{self.numero} - {self.solicitante.email}"
 
 
 class DetalleSolicitud(BaseModel):

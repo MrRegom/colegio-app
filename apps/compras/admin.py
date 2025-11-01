@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Proveedor, EstadoOrdenCompra, OrdenCompra, DetalleOrdenCompra, DetalleOrdenCompraArticulo,
-    EstadoRecepcion, RecepcionArticulo, DetalleRecepcionArticulo,
+    EstadoRecepcion, TipoRecepcion, RecepcionArticulo, DetalleRecepcionArticulo,
     RecepcionActivo, DetalleRecepcionActivo
 )
 
@@ -26,6 +26,14 @@ class EstadoOrdenCompraAdmin(admin.ModelAdmin):
 class EstadoRecepcionAdmin(admin.ModelAdmin):
     list_display = ['codigo', 'nombre', 'es_inicial', 'es_final', 'activo']
     list_filter = ['es_inicial', 'es_final', 'activo']
+    search_fields = ['codigo', 'nombre']
+    readonly_fields = ['fecha_creacion', 'fecha_actualizacion']
+
+
+@admin.register(TipoRecepcion)
+class TipoRecepcionAdmin(admin.ModelAdmin):
+    list_display = ['codigo', 'nombre', 'requiere_orden', 'activo']
+    list_filter = ['requiere_orden', 'activo']
     search_fields = ['codigo', 'nombre']
     readonly_fields = ['fecha_creacion', 'fecha_actualizacion']
 

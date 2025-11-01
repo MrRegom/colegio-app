@@ -172,3 +172,55 @@ def generar_codigo_unico(
 
     # Formatear con ceros a la izquierda
     return f'{prefijo}-{nuevo_numero:0{longitud}d}'
+
+
+def generar_codigo_con_anio(
+    prefijo: str,
+    modelo,
+    campo: str = 'numero',
+    longitud: int = 6
+) -> str:
+    """
+    Genera un código único para un modelo usando un prefijo y el año actual.
+    El correlativo se reinicia cada año.
+
+    Args:
+        prefijo: Prefijo del código (ej: 'OC', 'SOL', 'FAC')
+        modelo: Clase del modelo Django
+        campo: Nombre del campo que contiene el código (default: 'numero')
+        longitud: Longitud del número secuencial (default: 6)
+
+    Returns:
+        str: Código único generado (ej: 'OC-2025-000001')
+
+    Example:
+        >>> from apps.compras.models import OrdenCompra
+        >>> codigo = generar_codigo_con_anio('OC', OrdenCompra)
+        >>> codigo
+        'OC-2025-000001'
+    """
+    from datetime import datetime
+
+    # Obtener el año actual
+    anio_actual: int = datetime.now().year
+
+    # Buscar el último código con ese prefijo y año
+    patron_busqueda: str = f'{prefijo}-{anio_actual}-'
+    ultimos = modelo.objects.filter(
+        **{f'{campo}__startswith': patron_busqueda}
+    ).order_by(f'-{campo}')[:1]
+
+    if ultimos.exists():
+        ultimo_codigo: str = getattr(ultimos[0], campo)
+        # Extraer el número del código (después del segundo guion)
+        match = re.search(r'(\d+)$', ultimo_codigo)
+        if match:
+            ultimo_numero: int = int(match.group(1))
+            nuevo_numero: int = ultimo_numero + 1
+        else:
+            nuevo_numero = 1
+    else:
+        nuevo_numero = 1
+
+    # Formatear con ceros a la izquierda
+    return f'{prefijo}-{anio_actual}-{nuevo_numero:0{longitud}d}'

@@ -225,9 +225,17 @@ class SolicitudService:
 
                 # Validar que no exceda lo solicitado
                 if cantidad_aprobada > detalle.cantidad_solicitada:
+                    producto = detalle.producto_nombre
                     raise ValidationError(
-                        f'La cantidad aprobada para {detalle.activo.codigo} '
-                        f'excede la cantidad solicitada'
+                        f'La cantidad aprobada para {producto} '
+                        f'no puede exceder la cantidad solicitada ({detalle.cantidad_solicitada})'
+                    )
+
+                # Validar que no sea negativa
+                if cantidad_aprobada < 0:
+                    producto = detalle.producto_nombre
+                    raise ValidationError(
+                        f'La cantidad aprobada para {producto} no puede ser negativa'
                     )
 
                 detalle.cantidad_aprobada = cantidad_aprobada
@@ -239,9 +247,9 @@ class SolicitudService:
         solicitud.notas_aprobacion = notas_aprobacion
 
         # Cambiar a estado aprobado
-        estado_aprobado = self.estado_repo.get_by_codigo('APROBADO')
+        estado_aprobado = self.estado_repo.get_by_codigo('APROBADA')
         if not estado_aprobado:
-            raise ValidationError('No existe el estado APROBADO en el sistema')
+            raise ValidationError('No existe el estado APROBADA en el sistema')
 
         estado_anterior = solicitud.estado
         solicitud.estado = estado_aprobado
@@ -283,9 +291,9 @@ class SolicitudService:
             raise ValidationError({'motivo_rechazo': 'Debe indicar el motivo del rechazo'})
 
         # Cambiar a estado rechazado
-        estado_rechazado = self.estado_repo.get_by_codigo('RECHAZADO')
+        estado_rechazado = self.estado_repo.get_by_codigo('RECHAZADA')
         if not estado_rechazado:
-            raise ValidationError('No existe el estado RECHAZADO en el sistema')
+            raise ValidationError('No existe el estado RECHAZADA en el sistema')
 
         estado_anterior = solicitud.estado
         solicitud.estado = estado_rechazado
@@ -356,9 +364,9 @@ class SolicitudService:
         solicitud.notas_despacho = notas_despacho
 
         # Cambiar a estado despachado
-        estado_despachado = self.estado_repo.get_by_codigo('DESPACHADO')
+        estado_despachado = self.estado_repo.get_by_codigo('DESPACHADA')
         if not estado_despachado:
-            raise ValidationError('No existe el estado DESPACHADO en el sistema')
+            raise ValidationError('No existe el estado DESPACHADA en el sistema')
 
         estado_anterior = solicitud.estado
         solicitud.estado = estado_despachado
@@ -404,9 +412,9 @@ class SolicitudService:
             raise ValidationError({'motivo_cancelacion': 'Debe indicar el motivo de cancelación'})
 
         # Cambiar a estado cancelado
-        estado_cancelado = self.estado_repo.get_by_codigo('CANCELADO')
+        estado_cancelado = self.estado_repo.get_by_codigo('CANCELADA')
         if not estado_cancelado:
-            raise ValidationError('No existe el estado CANCELADO en el sistema')
+            raise ValidationError('No existe el estado CANCELADA en el sistema')
 
         estado_anterior = solicitud.estado
         solicitud.estado = estado_cancelado

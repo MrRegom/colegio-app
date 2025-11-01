@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.core.validators import MinValueValidator, EmailValidator
 from django.contrib.auth.models import User
@@ -127,6 +128,15 @@ class OrdenCompra(models.Model):
         null=True
     )
 
+    # Relación con solicitudes aprobadas
+    solicitudes = models.ManyToManyField(
+        'solicitudes.Solicitud',
+        related_name='ordenes_compra',
+        blank=True,
+        verbose_name='Solicitudes Asociadas',
+        help_text='Solicitudes aprobadas que originan esta orden de compra'
+    )
+
     # Montos
     subtotal = models.DecimalField(
         max_digits=12,
@@ -198,6 +208,7 @@ class DetalleOrdenCompra(BaseModel):
     precio_unitario = models.DecimalField(
         max_digits=12,
         decimal_places=2,
+        default=Decimal('0'),
         validators=[MinValueValidator(0)],
         verbose_name='Precio Unitario'
     )
@@ -235,7 +246,9 @@ class DetalleOrdenCompra(BaseModel):
 
     def save(self, *args, **kwargs):
         # Calcular subtotal automáticamente
-        self.subtotal = (self.cantidad * self.precio_unitario) - self.descuento
+        precio = self.precio_unitario or Decimal('0')
+        descuento = self.descuento or Decimal('0')
+        self.subtotal = (self.cantidad * precio) - descuento
         super().save(*args, **kwargs)
 
 
@@ -262,6 +275,7 @@ class DetalleOrdenCompraArticulo(BaseModel):
     precio_unitario = models.DecimalField(
         max_digits=12,
         decimal_places=2,
+        default=Decimal('0'),
         validators=[MinValueValidator(0)],
         verbose_name='Precio Unitario'
     )
@@ -297,7 +311,9 @@ class DetalleOrdenCompraArticulo(BaseModel):
         return f"{self.orden_compra.numero} - {self.articulo.sku} ({self.cantidad})"
 
     def save(self, *args, **kwargs):
-        self.subtotal = (self.cantidad * self.precio_unitario) - self.descuento
+        precio = self.precio_unitario or Decimal('0')
+        descuento = self.descuento or Decimal('0')
+        self.subtotal = (self.cantidad * precio) - descuento
         super().save(*args, **kwargs)
 
 
@@ -322,10 +338,36 @@ class EstadoRecepcion(BaseModel):
         return f"{self.codigo} - {self.nombre}"
 
 
+class TipoRecepcion(BaseModel):
+    """Catálogo de tipos de recepción"""
+    codigo = models.CharField(max_length=20, unique=True, verbose_name='Código')
+    nombre = models.CharField(max_length=100, verbose_name='Nombre')
+    descripcion = models.TextField(blank=True, null=True, verbose_name='Descripción')
+    requiere_orden = models.BooleanField(default=False, verbose_name='Requiere Orden de Compra')
+    activo = models.BooleanField(default=True, verbose_name='Activo')
+
+    class Meta:
+        db_table = 'compra_tipo_recepcion'
+        verbose_name = 'Tipo de Recepción'
+        verbose_name_plural = 'Tipos de Recepción'
+        ordering = ['codigo']
+
+    def __str__(self):
+        return f"{self.codigo} - {self.nombre}"
+
+
 class RecepcionArticulo(BaseModel):
     """Modelo para gestionar recepciones de artículos de bodega"""
-    numero = models.CharField(max_length=20, unique=True, verbose_name='Número de Recepción')
+    numero = models.CharField(max_length=30, unique=True, verbose_name='Número de Recepción')
     fecha_recepcion = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de Recepción')
+    tipo = models.ForeignKey(
+        TipoRecepcion,
+        on_delete=models.PROTECT,
+        related_name='recepciones_articulos',
+        verbose_name='Tipo de Recepción',
+        null=True,  # Temporal para migración
+        blank=True
+    )
     orden_compra = models.ForeignKey(
         OrdenCompra,
         on_delete=models.PROTECT,

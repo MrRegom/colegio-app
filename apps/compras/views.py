@@ -12,7 +12,7 @@ from typing import Any
 from django.db.models import QuerySet
 from django.urls import reverse_lazy
 from django.views.generic import (
-    TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+    TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView, View
 )
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -25,7 +25,7 @@ from core.mixins import (
 from .models import (
     Proveedor, OrdenCompra, DetalleOrdenCompraArticulo, DetalleOrdenCompra,
     EstadoOrdenCompra, RecepcionArticulo, DetalleRecepcionArticulo,
-    EstadoRecepcion, RecepcionActivo, DetalleRecepcionActivo
+    EstadoRecepcion, TipoRecepcion, RecepcionActivo, DetalleRecepcionActivo
 )
 from .forms import (
     ProveedorForm, OrdenCompraForm, DetalleOrdenCompraArticuloForm,
@@ -35,7 +35,7 @@ from .forms import (
 )
 from .repositories import (
     ProveedorRepository, OrdenCompraRepository, EstadoOrdenCompraRepository,
-    RecepcionArticuloRepository, RecepcionActivoRepository
+    RecepcionArticuloRepository, RecepcionActivoRepository, EstadoRecepcionRepository
 )
 from .services import (
     ProveedorService, OrdenCompraService,
@@ -331,12 +331,13 @@ class OrdenCompraDetailView(BaseAuditedViewMixin, DetailView):
         return context
 
 
-class OrdenCompraCreateView(BaseAuditedViewMixin, CreateView):
+class OrdenCompraCreateView(BaseAuditedViewMixin, AtomicTransactionMixin, CreateView):
     """
     Vista para crear una nueva orden de compra.
 
     Permisos: compras.add_ordencompra
     Auditoría: Registra acción CREAR automáticamente
+    Transacción atómica: Garantiza que el número se genere correctamente
     """
     model = OrdenCompra
     form_class = OrdenCompraForm
@@ -362,9 +363,53 @@ class OrdenCompraCreateView(BaseAuditedViewMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        """Procesa el formulario válido con log de auditoría."""
+        """Procesa el formulario válido con log de auditoría y genera número automático."""
+        from decimal import Decimal
+        from core.utils.business import generar_codigo_con_anio
+        from apps.solicitudes.models import DetalleSolicitud
+
+        # Asignar solicitante
         form.instance.solicitante = self.request.user
+
+        # Generar número de orden automáticamente con año
+        form.instance.numero = generar_codigo_con_anio('OC', OrdenCompra, 'numero', longitud=6)
+
         response = super().form_valid(form)
+
+        # Agregar automáticamente los detalles de las solicitudes asociadas
+        solicitudes = form.cleaned_data.get('solicitudes', [])
+        if solicitudes:
+            for solicitud in solicitudes:
+                # Obtener detalles aprobados de la solicitud
+                detalles = solicitud.detalles.filter(cantidad_aprobada__gt=0)
+
+                for detalle in detalles:
+                    if detalle.articulo:
+                        # Crear detalle de orden para artículo
+                        # Los artículos no tienen precio_unitario, usar 0
+                        DetalleOrdenCompraArticulo.objects.create(
+                            orden_compra=self.object,
+                            articulo=detalle.articulo,
+                            cantidad=detalle.cantidad_aprobada,
+                            precio_unitario=Decimal('0'),
+                            descuento=Decimal('0')
+                        )
+                    elif detalle.activo:
+                        # Crear detalle de orden para activo
+                        # Obtener precio del activo o usar 0 si es None
+                        precio = getattr(detalle.activo, 'precio_unitario', None) or Decimal('0')
+                        DetalleOrdenCompra.objects.create(
+                            orden_compra=self.object,
+                            activo=detalle.activo,
+                            cantidad=detalle.cantidad_aprobada,
+                            precio_unitario=precio,
+                            descuento=Decimal('0')
+                        )
+
+            # Recalcular totales de la orden
+            orden_service = OrdenCompraService()
+            orden_service.recalcular_totales(self.object)
+
         self.log_action(self.object, self.request)
         return response
 
@@ -456,6 +501,104 @@ class OrdenCompraDeleteView(BaseAuditedViewMixin, DeleteView):
         return redirect(self.success_url)
 
 
+class ObtenerDetallesSolicitudesView(View):
+    """
+    Vista AJAX para obtener los detalles de solicitudes seleccionadas.
+    Retorna JSON con los artículos/activos de las solicitudes.
+    """
+
+    def get(self, request, *args, **kwargs):
+        """Retorna los detalles de las solicitudes en formato JSON."""
+        from django.http import JsonResponse
+        from apps.solicitudes.models import Solicitud
+
+        solicitud_ids = request.GET.getlist('solicitudes[]')
+
+        if not solicitud_ids:
+            return JsonResponse({'detalles': []})
+
+        detalles_data = []
+
+        for solicitud_id in solicitud_ids:
+            try:
+                solicitud = Solicitud.objects.get(id=solicitud_id, eliminado=False)
+                detalles = solicitud.detalles.filter(cantidad_aprobada__gt=0)
+
+                for detalle in detalles:
+                    detalle_info = {
+                        'solicitud_numero': solicitud.numero,
+                        'tipo': 'articulo' if detalle.articulo else 'activo',
+                        'codigo': detalle.producto_codigo,
+                        'nombre': detalle.producto_nombre,
+                        'cantidad_aprobada': str(detalle.cantidad_aprobada),
+                    }
+
+                    if detalle.articulo:
+                        detalle_info['unidad_medida'] = detalle.articulo.unidad_medida
+                        detalle_info['precio_unitario'] = str(detalle.articulo.precio_unitario if hasattr(detalle.articulo, 'precio_unitario') else 0)
+                    else:
+                        detalle_info['unidad_medida'] = detalle.activo.unidad_medida.simbolo
+                        detalle_info['precio_unitario'] = str(detalle.activo.precio_unitario if hasattr(detalle.activo, 'precio_unitario') else 0)
+
+                    detalles_data.append(detalle_info)
+
+            except Solicitud.DoesNotExist:
+                continue
+
+        return JsonResponse({'detalles': detalles_data})
+
+
+class ObtenerArticulosOrdenCompraView(View):
+    """
+    Vista AJAX para obtener los artículos de una orden de compra.
+    Retorna JSON con los artículos de la orden seleccionada.
+    """
+
+    def get(self, request, *args, **kwargs):
+        """Retorna los artículos de la orden de compra en formato JSON."""
+        from django.http import JsonResponse
+
+        orden_id = request.GET.get('orden_id')
+
+        if not orden_id:
+            return JsonResponse({'articulos': []})
+
+        try:
+            orden = OrdenCompra.objects.get(id=orden_id)
+            articulos_data = []
+
+            # Obtener artículos de bodega
+            detalles_articulos = orden.detalles_articulos.all().select_related('articulo')
+            for detalle in detalles_articulos:
+                articulos_data.append({
+                    'id': detalle.articulo.id,
+                    'sku': detalle.articulo.sku,
+                    'codigo': detalle.articulo.codigo,
+                    'nombre': detalle.articulo.nombre,
+                    'cantidad': str(detalle.cantidad),
+                    'unidad_medida': detalle.articulo.unidad_medida,
+                    'tipo': 'articulo'
+                })
+
+            # Obtener activos
+            detalles_activos = orden.detalles.all().select_related('activo', 'activo__unidad_medida')
+            for detalle in detalles_activos:
+                articulos_data.append({
+                    'id': detalle.activo.id,
+                    'sku': detalle.activo.codigo,
+                    'codigo': detalle.activo.codigo,
+                    'nombre': detalle.activo.nombre,
+                    'cantidad': str(detalle.cantidad),
+                    'unidad_medida': detalle.activo.unidad_medida.simbolo,
+                    'tipo': 'activo'
+                })
+
+            return JsonResponse({'articulos': articulos_data})
+
+        except OrdenCompra.DoesNotExist:
+            return JsonResponse({'articulos': [], 'error': 'Orden de compra no encontrada'}, status=404)
+
+
 class OrdenCompraAgregarArticuloView(BaseAuditedViewMixin, AtomicTransactionMixin, CreateView):
     """
     Vista para agregar un artículo a una orden de compra.
@@ -501,6 +644,56 @@ class OrdenCompraAgregarArticuloView(BaseAuditedViewMixin, AtomicTransactionMixi
 
         # Log de auditoría
         self.audit_description_template = f'Agregó artículo {self.object.articulo.sku} a orden {orden.numero}'
+        self.log_action(self.object, self.request)
+
+        return response
+
+
+class OrdenCompraAgregarActivoView(BaseAuditedViewMixin, AtomicTransactionMixin, CreateView):
+    """
+    Vista para agregar un activo/bien a una orden de compra.
+
+    Permisos: compras.add_detalleordencompra
+    Auditoría: Registra acción CREAR automáticamente
+    Transacción atómica: Garantiza que se actualicen los totales correctamente
+    Utiliza: OrdenCompraService para recalcular totales
+    """
+    model = DetalleOrdenCompra
+    form_class = DetalleOrdenCompraActivoForm
+    template_name = 'compras/orden/agregar_activo.html'
+    permission_required = 'compras.add_detalleordencompra'
+
+    # Configuración de auditoría
+    audit_action = 'CREAR'
+    success_message = 'Activo agregado exitosamente.'
+
+    def get_success_url(self) -> str:
+        """Redirige al detalle de la orden."""
+        return reverse_lazy('compras:orden_compra_detalle', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs) -> dict:
+        """Agrega datos al contexto."""
+        context = super().get_context_data(**kwargs)
+        orden_repo = OrdenCompraRepository()
+        orden = orden_repo.get_by_id(self.kwargs['pk'])
+        context['orden'] = orden
+        context['titulo'] = 'Agregar Activo/Bien'
+        context['action'] = 'Agregar'
+        return context
+
+    def form_valid(self, form):
+        """Procesa el formulario y actualiza totales usando service."""
+        orden_repo = OrdenCompraRepository()
+        orden = orden_repo.get_by_id(self.kwargs['pk'])
+        form.instance.orden_compra = orden
+        response = super().form_valid(form)
+
+        # Recalcular totales usando service
+        orden_service = OrdenCompraService()
+        orden_service.recalcular_totales(orden)
+
+        # Log de auditoría
+        self.audit_description_template = f'Agregó activo {self.object.activo.codigo} a orden {orden.numero}'
         self.log_action(self.object, self.request)
 
         return response
@@ -613,34 +806,119 @@ class RecepcionArticuloCreateView(BaseAuditedViewMixin, AtomicTransactionMixin, 
 
     def get_context_data(self, **kwargs) -> dict:
         """Agrega datos al contexto."""
+        from decimal import Decimal
+        import json
+
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Nueva Recepción de Artículos'
         context['action'] = 'Crear'
+
+        # Agregar lista de artículos disponibles
+        context['articulos'] = Articulo.objects.filter(
+            activo=True, eliminado=False
+        ).select_related('categoria').order_by('sku')
+
+        # Pasar tipos de recepción en formato JSON
+        tipos_recepcion = list(TipoRecepcion.objects.filter(
+            activo=True, eliminado=False
+        ).values('id', 'codigo', 'nombre', 'requiere_orden'))
+        context['tipos_recepcion'] = json.dumps(tipos_recepcion)
+
         return context
 
     def form_valid(self, form):
-        """Procesa el formulario usando service."""
-        recepcion_service = RecepcionArticuloService()
+        """Procesa el formulario con generación automática de número y guardado de detalles."""
+        from decimal import Decimal
+        from core.utils.business import generar_codigo_con_anio
+        from django.db import transaction
 
         try:
-            # Crear recepción usando service
-            self.object = recepcion_service.crear_recepcion(
-                bodega=form.cleaned_data['bodega'],
-                recibido_por=self.request.user,
-                orden_compra=form.cleaned_data.get('orden_compra'),
-                documento_referencia=form.cleaned_data.get('documento_referencia', ''),
-                observaciones=form.cleaned_data.get('observaciones', '')
-            )
+            with transaction.atomic():
+                # Asignar usuario que recibe
+                form.instance.recibido_por = self.request.user
 
-            messages.success(self.request, self.get_success_message(self.object))
-            self.log_action(self.object, self.request)
-            return redirect(self.get_success_url())
+                # Generar número de recepción automáticamente con año
+                form.instance.numero = generar_codigo_con_anio('REC-ART', RecepcionArticulo, 'numero', longitud=6)
+
+                # Obtener estado inicial
+                estado_repo = EstadoRecepcionRepository()
+                estado_inicial = estado_repo.get_inicial()
+                if not estado_inicial:
+                    form.add_error(None, 'No se encontró un estado inicial para recepciones')
+                    return self.form_invalid(form)
+
+                form.instance.estado = estado_inicial
+
+                # Guardar recepción
+                response = super().form_valid(form)
+
+                # Procesar detalles de artículos desde el POST
+                detalles = self._extraer_detalles_post(self.request.POST)
+
+                if not detalles:
+                    form.add_error(None, 'Debe agregar al menos un artículo a la recepción')
+                    return self.form_invalid(form)
+
+                # Crear detalles de artículos
+                for detalle_data in detalles:
+                    DetalleRecepcionArticulo.objects.create(
+                        recepcion=self.object,
+                        articulo_id=detalle_data['articulo_id'],
+                        cantidad=Decimal(str(detalle_data['cantidad'])),
+                        lote=detalle_data.get('lote', ''),
+                        fecha_vencimiento=detalle_data.get('fecha_vencimiento'),
+                        observaciones=detalle_data.get('observaciones', '')
+                    )
+
+                messages.success(self.request, self.get_success_message(self.object))
+                self.log_action(self.object, self.request)
+                return response
 
         except ValidationError as e:
             for field, errors in e.message_dict.items():
                 for error in errors:
                     form.add_error(field if field != '__all__' else None, error)
             return self.form_invalid(form)
+        except Exception as e:
+            form.add_error(None, f'Error al crear la recepción: {str(e)}')
+            return self.form_invalid(form)
+
+    def _extraer_detalles_post(self, post_data):
+        """
+        Extrae los detalles de artículos del POST.
+        Formato esperado: detalles[0][articulo_id], detalles[0][cantidad], etc.
+        """
+        detalles = []
+        indices = set()
+
+        # Identificar todos los índices presentes
+        for key in post_data.keys():
+            if key.startswith('detalles['):
+                # Extraer índice: detalles[0][campo] -> 0
+                indice = key.split('[')[1].split(']')[0]
+                indices.add(indice)
+
+        # Extraer datos para cada índice
+        for indice in indices:
+            articulo_id = post_data.get(f'detalles[{indice}][articulo_id]')
+            cantidad = post_data.get(f'detalles[{indice}][cantidad]')
+
+            if articulo_id and cantidad:
+                detalle = {
+                    'articulo_id': int(articulo_id),
+                    'cantidad': float(cantidad),
+                    'lote': post_data.get(f'detalles[{indice}][lote]', ''),
+                    'observaciones': post_data.get(f'detalles[{indice}][observaciones]', '')
+                }
+
+                # Fecha de vencimiento (opcional)
+                fecha_venc = post_data.get(f'detalles[{indice}][fecha_vencimiento]')
+                if fecha_venc:
+                    detalle['fecha_vencimiento'] = fecha_venc
+
+                detalles.append(detalle)
+
+        return detalles
 
 
 class RecepcionArticuloAgregarView(BaseAuditedViewMixin, AtomicTransactionMixin, CreateView):
@@ -748,17 +1026,17 @@ class RecepcionArticuloConfirmarView(BaseAuditedViewMixin, AtomicTransactionMixi
         from apps.compras.repositories import EstadoRecepcionRepository
         estado_repo = EstadoRecepcionRepository()
 
-        # Cambiar estado a confirmado
-        estado_confirmado = estado_repo.get_by_codigo('CONFIRMADO')
-        if not estado_confirmado:
-            # Buscar estado final
+        # Cambiar estado a completada
+        estado_completado = estado_repo.get_by_codigo('COMPLETADA')
+        if not estado_completado:
+            # Si no existe COMPLETADA, buscar cualquier estado final
             from apps.compras.models import EstadoRecepcion
-            estado_confirmado = EstadoRecepcion.objects.filter(
+            estado_completado = EstadoRecepcion.objects.filter(
                 es_final=True, activo=True, eliminado=False
-            ).first()
+            ).exclude(codigo='CANCELADA').first()
 
-        if estado_confirmado:
-            self.object.estado = estado_confirmado
+        if estado_completado:
+            self.object.estado = estado_completado
             self.object.save()
 
         # Actualizar stock de cada artículo usando service
@@ -1024,17 +1302,20 @@ class RecepcionActivoConfirmarView(BaseAuditedViewMixin, DetailView):
         """Procesa la confirmación de la recepción."""
         self.object = self.get_object()
 
-        # Cambiar estado a confirmado
-        estado_confirmado = EstadoRecepcion.objects.filter(
-            codigo='CONFIRMADO', activo=True
-        ).first()
-        if not estado_confirmado:
-            estado_confirmado = EstadoRecepcion.objects.filter(
-                es_final=True, activo=True
-            ).first()
+        # Cambiar estado a completada
+        from apps.compras.repositories import EstadoRecepcionRepository
+        estado_repo = EstadoRecepcionRepository()
+        estado_completado = estado_repo.get_by_codigo('COMPLETADA')
 
-        self.object.estado = estado_confirmado
-        self.object.save()
+        if not estado_completado:
+            # Si no existe COMPLETADA, buscar cualquier estado final excluyendo CANCELADA
+            estado_completado = EstadoRecepcion.objects.filter(
+                es_final=True, activo=True, eliminado=False
+            ).exclude(codigo='CANCELADA').first()
+
+        if estado_completado:
+            self.object.estado = estado_completado
+            self.object.save()
 
         # Log de auditoría
         self.log_action(self.object, request)

@@ -20,7 +20,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Agregar Artículo de Bodega a la Orden</h5>
+                        <h5 class="card-title mb-0">Agregar Activo/Bien a la Orden</h5>
                     </div>
                     <div class="card-body">
                         {% if form.errors %}
@@ -44,10 +44,10 @@
                             {% csrf_token %}
                             <div class="row g-3">
                                 <div class="col-md-12">
-                                    <label class="form-label">Artículo <span class="text-danger">*</span></label>
-                                    {{ form.articulo }}
-                                    {% if form.articulo.errors %}
-                                        <div class="text-danger small">{{ form.articulo.errors.0 }}</div>
+                                    <label class="form-label">Activo/Bien <span class="text-danger">*</span></label>
+                                    {{ form.activo }}
+                                    {% if form.activo.errors %}
+                                        <div class="text-danger small">{{ form.activo.errors.0 }}</div>
                                     {% endif %}
                                 </div>
                                 <div class="col-md-4">
@@ -81,7 +81,7 @@
                             </div>
                             <div class="mt-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="ri-add-line"></i> Agregar Artículo
+                                    <i class="ri-add-line"></i> Agregar Activo
                                 </button>
                                 <a href="{% url 'compras:orden_compra_detalle' orden.pk %}" class="btn btn-secondary">
                                     Cancelar
@@ -97,7 +97,7 @@
                             <h6><i class="ri-information-line"></i> Información:</h6>
                             <ul class="mb-0">
                                 <li>El subtotal se calculará automáticamente: <strong>(Cantidad × Precio Unitario) - Descuento</strong></li>
-                                <li>Los totales de la orden se actualizarán al agregar el artículo</li>
+                                <li>Los totales de la orden se actualizarán al agregar el activo</li>
                             </ul>
                         </div>
                     </div>

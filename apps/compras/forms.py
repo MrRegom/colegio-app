@@ -10,7 +10,7 @@ from decimal import Decimal
 from .models import (
     Proveedor, OrdenCompra, DetalleOrdenCompraArticulo, DetalleOrdenCompra,
     EstadoOrdenCompra, RecepcionArticulo, DetalleRecepcionArticulo,
-    RecepcionActivo, DetalleRecepcionActivo, EstadoRecepcion
+    RecepcionActivo, DetalleRecepcionActivo, EstadoRecepcion, TipoRecepcion
 )
 from apps.bodega.models import Bodega, Articulo
 from apps.activos.models import Activo
@@ -67,16 +67,20 @@ class OrdenCompraForm(forms.ModelForm):
     class Meta:
         model = OrdenCompra
         fields = [
-            'numero', 'fecha_orden', 'fecha_entrega_esperada',
-            'proveedor', 'bodega_destino', 'estado', 'observaciones'
+            'fecha_orden', 'fecha_entrega_esperada',
+            'proveedor', 'bodega_destino', 'estado', 'solicitudes', 'observaciones'
         ]
         widgets = {
-            'numero': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'OC-00001'}),
             'fecha_orden': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'fecha_entrega_esperada': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'proveedor': forms.Select(attrs={'class': 'form-select'}),
             'bodega_destino': forms.Select(attrs={'class': 'form-select'}),
             'estado': forms.Select(attrs={'class': 'form-select'}),
+            'solicitudes': forms.SelectMultiple(attrs={
+                'class': 'form-select',
+                'size': '5',
+                'data-live-search': 'true'
+            }),
             'observaciones': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
@@ -98,6 +102,15 @@ class OrdenCompraForm(forms.ModelForm):
             activo=True
         ).order_by('codigo')
 
+        # Filtrar solicitudes aprobadas (solo no eliminadas y con estado APROBADA)
+        from apps.solicitudes.models import Solicitud
+        self.fields['solicitudes'].queryset = Solicitud.objects.filter(
+            estado__codigo='APROBADA',
+            eliminado=False
+        ).select_related('solicitante', 'estado').order_by('-numero')
+        self.fields['solicitudes'].required = False
+        self.fields['solicitudes'].help_text = 'Seleccione las solicitudes aprobadas asociadas a esta orden (opcional)'
+
         # Establecer estado inicial por defecto
         if not self.instance.pk:
             estado_inicial = EstadoOrdenCompra.objects.filter(
@@ -105,19 +118,6 @@ class OrdenCompraForm(forms.ModelForm):
             ).first()
             if estado_inicial:
                 self.fields['estado'].initial = estado_inicial
-
-    def clean_numero(self):
-        """Validar que el número de orden sea único."""
-        numero = self.cleaned_data.get('numero', '').strip().upper()
-
-        queryset = OrdenCompra.objects.filter(numero=numero)
-        if self.instance and self.instance.pk:
-            queryset = queryset.exclude(pk=self.instance.pk)
-
-        if queryset.exists():
-            raise ValidationError(f'Ya existe una orden de compra con el número "{numero}".')
-
-        return numero
 
     def clean(self):
         """Validar fechas."""
@@ -242,10 +242,10 @@ class RecepcionArticuloForm(forms.ModelForm):
 
     class Meta:
         model = RecepcionArticulo
-        fields = ['numero', 'orden_compra', 'bodega', 'documento_referencia', 'observaciones']
+        fields = ['tipo', 'orden_compra', 'bodega', 'documento_referencia', 'observaciones']
         widgets = {
-            'numero': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'REC-ART-00001'}),
-            'orden_compra': forms.Select(attrs={'class': 'form-select'}),
+            'tipo': forms.Select(attrs={'class': 'form-select', 'id': 'id_tipo'}),
+            'orden_compra': forms.Select(attrs={'class': 'form-select', 'id': 'id_orden_compra'}),
             'bodega': forms.Select(attrs={'class': 'form-select'}),
             'documento_referencia': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Guía/Factura'}),
             'observaciones': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
@@ -254,7 +254,13 @@ class RecepcionArticuloForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        # Filtrar tipos de recepción activos
+        self.fields['tipo'].queryset = TipoRecepcion.objects.filter(
+            activo=True, eliminado=False
+        ).order_by('codigo')
+
         # Filtrar órdenes no finalizadas
+        # OrdenCompra no hereda de BaseModel, no tiene campo eliminado
         self.fields['orden_compra'].queryset = OrdenCompra.objects.filter(
             estado__es_final=False
         ).select_related('proveedor').order_by('-numero')
@@ -265,18 +271,18 @@ class RecepcionArticuloForm(forms.ModelForm):
             activo=True, eliminado=False
         ).order_by('nombre')
 
-    def clean_numero(self):
-        """Validar que el número de recepción sea único."""
-        numero = self.cleaned_data.get('numero', '').strip().upper()
+    def clean(self):
+        """Validar que si el tipo requiere orden de compra, se haya seleccionado una."""
+        cleaned_data = super().clean()
+        tipo = cleaned_data.get('tipo')
+        orden_compra = cleaned_data.get('orden_compra')
 
-        queryset = RecepcionArticulo.objects.filter(numero=numero)
-        if self.instance and self.instance.pk:
-            queryset = queryset.exclude(pk=self.instance.pk)
+        if tipo and tipo.requiere_orden and not orden_compra:
+            raise ValidationError({
+                'orden_compra': f'El tipo de recepción "{tipo.nombre}" requiere seleccionar una orden de compra.'
+            })
 
-        if queryset.exists():
-            raise ValidationError(f'Ya existe una recepción con el número "{numero}".')
-
-        return numero
+        return cleaned_data
 
 
 class DetalleRecepcionArticuloForm(forms.ModelForm):

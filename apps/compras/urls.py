@@ -17,8 +17,14 @@ urlpatterns = [
     path('ordenes/', views.OrdenCompraListView.as_view(), name='orden_compra_lista'),
     path('ordenes/crear/', views.OrdenCompraCreateView.as_view(), name='orden_compra_crear'),
     path('ordenes/<int:pk>/', views.OrdenCompraDetailView.as_view(), name='orden_compra_detalle'),
+    path('ordenes/<int:pk>/editar/', views.OrdenCompraUpdateView.as_view(), name='orden_compra_editar'),
     path('ordenes/<int:pk>/agregar-articulo/', views.OrdenCompraAgregarArticuloView.as_view(), name='orden_compra_agregar_articulo'),
+    path('ordenes/<int:pk>/agregar-activo/', views.OrdenCompraAgregarActivoView.as_view(), name='orden_compra_agregar_activo'),
     path('ordenes/<int:pk>/eliminar/', views.OrdenCompraDeleteView.as_view(), name='orden_compra_eliminar'),
+
+    # AJAX
+    path('api/obtener-detalles-solicitudes/', views.ObtenerDetallesSolicitudesView.as_view(), name='obtener_detalles_solicitudes'),
+    path('api/obtener-articulos-orden-compra/', views.ObtenerArticulosOrdenCompraView.as_view(), name='obtener_articulos_orden_compra'),
 
     # ==================== RECEPCIÓN DE ARTÍCULOS ====================
     path('recepciones-articulos/', views.RecepcionArticuloListView.as_view(), name='recepcion_articulo_lista'),
