@@ -147,6 +147,15 @@ class Activo(BaseModel):
     y campos de control (activo, eliminado, fecha_creacion, fecha_actualizacion).
     """
     codigo = models.CharField(max_length=50, unique=True, verbose_name='Código/SKU')
+    nombre_articulo = models.ForeignKey(
+        'inventario.NombreArticulo',
+        on_delete=models.SET_NULL,
+        related_name='activos',
+        blank=True,
+        null=True,
+        verbose_name='Nombre de Artículo (Catálogo)',
+        help_text='Nombre estándar del catálogo (opcional para autocompletado)'
+    )
     nombre = models.CharField(max_length=200, verbose_name='Nombre')
     descripcion = models.TextField(blank=True, null=True, verbose_name='Descripción')
     categoria = models.ForeignKey(
@@ -167,12 +176,45 @@ class Activo(BaseModel):
         related_name='activos',
         verbose_name='Estado'
     )
+    
+    # Sector/Taller del inventario (Música, Ed. Física, Laboratorio, etc.)
+    sector = models.ForeignKey(
+        'inventario.SectorInventario',
+        on_delete=models.PROTECT,
+        related_name='activos',
+        blank=True,
+        null=True,
+        verbose_name='Sector/Taller',
+        help_text='Sector o área del inventario (Música, Ed. Física, Laboratorio, etc.)'
+    )
 
     # Información del producto
-    marca = models.CharField(max_length=100, blank=True, null=True, verbose_name='Marca')
-    modelo = models.CharField(max_length=100, blank=True, null=True, verbose_name='Modelo')
+    marca = models.ForeignKey(
+        'inventario.Marca',
+        on_delete=models.PROTECT,
+        related_name='activos',
+        blank=True,
+        null=True,
+        verbose_name='Marca'
+    )
+    modelo = models.ForeignKey(
+        'inventario.Modelo',
+        on_delete=models.PROTECT,
+        related_name='activos',
+        blank=True,
+        null=True,
+        verbose_name='Modelo',
+        help_text='Selecciona primero la marca para filtrar modelos'
+    )
     numero_serie = models.CharField(max_length=100, blank=True, null=True, verbose_name='Número de Serie')
-    codigo_barras = models.CharField(max_length=100, blank=True, null=True, verbose_name='Código de Barras')
+    codigo_barras = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        unique=True,
+        verbose_name='Código de Barras',
+        help_text='Código de barras del producto (dejar vacío para auto-generar desde el código)'
+    )
 
     # Stock y control
     stock_minimo = models.DecimalField(
@@ -221,6 +263,13 @@ class Activo(BaseModel):
     requiere_serie = models.BooleanField(default=False, verbose_name='Requiere Número de Serie')
     requiere_lote = models.BooleanField(default=False, verbose_name='Requiere Lote')
     requiere_vencimiento = models.BooleanField(default=False, verbose_name='Requiere Fecha de Vencimiento')
+    
+    def save(self, *args, **kwargs):
+        """Auto-generar código de barras si no se proporciona"""
+        if not self.codigo_barras and self.codigo:
+            # Generar código de barras desde el código/SKU
+            self.codigo_barras = f"COD{self.codigo.replace('-', '').replace('_', '').upper()[:12]}"
+        super().save(*args, **kwargs)
 
     class Meta:
         db_table = 'activo'

@@ -47,9 +47,42 @@ class Articulo(BaseModel):
     """Modelo para gestionar artículos en bodega"""
     sku = models.CharField(max_length=50, unique=True, verbose_name='SKU')
     codigo = models.CharField(max_length=50, verbose_name='Código')
+    nombre_articulo = models.ForeignKey(
+        'inventario.NombreArticulo',
+        on_delete=models.SET_NULL,
+        related_name='articulos',
+        blank=True,
+        null=True,
+        verbose_name='Nombre de Artículo (Catálogo)',
+        help_text='Nombre estándar del catálogo (opcional para autocompletado)'
+    )
     nombre = models.CharField(max_length=200, verbose_name='Nombre')
     descripcion = models.TextField(blank=True, null=True, verbose_name='Descripción')
-    marca = models.CharField(max_length=100, blank=True, null=True, verbose_name='Marca')
+    marca = models.ForeignKey(
+        'inventario.Marca',
+        on_delete=models.PROTECT,
+        related_name='articulos',
+        blank=True,
+        null=True,
+        verbose_name='Marca'
+    )
+    modelo = models.ForeignKey(
+        'inventario.Modelo',
+        on_delete=models.PROTECT,
+        related_name='articulos',
+        blank=True,
+        null=True,
+        verbose_name='Modelo',
+        help_text='Selecciona primero la marca para filtrar modelos'
+    )
+    codigo_barras = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        unique=True,
+        verbose_name='Código de Barras',
+        help_text='Código de barras del producto (dejar vacío para auto-generar)'
+    )
     categoria = models.ForeignKey(
         Categoria,
         on_delete=models.PROTECT,
@@ -94,6 +127,17 @@ class Articulo(BaseModel):
         verbose_name='Ubicación Física (Bodega)'
     )
     observaciones = models.TextField(blank=True, null=True, verbose_name='Observaciones')
+    
+    # Sector/Taller del inventario
+    sector = models.ForeignKey(
+        'inventario.SectorInventario',
+        on_delete=models.PROTECT,
+        related_name='articulos',
+        blank=True,
+        null=True,
+        verbose_name='Sector/Taller',
+        help_text='Sector o área del inventario (Música, Ed. Física, Laboratorio, etc.)'
+    )
 
     class Meta:
         db_table = 'tba_bodega_articulos'
@@ -103,6 +147,13 @@ class Articulo(BaseModel):
 
     def __str__(self):
         return f"{self.sku} - {self.nombre}"
+    
+    def save(self, *args, **kwargs):
+        """Auto-generar código de barras si no se proporciona"""
+        if not self.codigo_barras and self.sku:
+            # Generar código de barras desde el SKU
+            self.codigo_barras = f"SKU{self.sku.replace('-', '').replace('_', '').upper()[:12]}"
+        super().save(*args, **kwargs)
 
 
 class TipoMovimiento(BaseModel):

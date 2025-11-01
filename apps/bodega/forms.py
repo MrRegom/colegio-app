@@ -68,6 +68,26 @@ class CategoriaForm(forms.ModelForm):
         if not nombre:
             raise ValidationError('El nombre es obligatorio.')
         return nombre
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Filtrar solo marcas y modelos activos
+        from apps.inventario.models import Marca, Modelo
+        self.fields['marca'].queryset = Marca.objects.filter(activo=True, eliminado=False)
+        self.fields['modelo'].queryset = Modelo.objects.filter(activo=True, eliminado=False)
+        self.fields['modelo'].required = False
+        
+        # Si hay instancia y tiene marca, filtrar modelos
+        if self.instance and self.instance.pk and self.instance.marca:
+            self.fields['modelo'].queryset = Modelo.objects.filter(
+                marca=self.instance.marca,
+                activo=True,
+                eliminado=False
+            )
+        
+        # Cargar sectores activos
+        from apps.inventario.models import SectorInventario
+        self.fields['sector'].queryset = SectorInventario.objects.filter(activo=True, eliminado=False)
 
 
 class ArticuloForm(forms.ModelForm):
@@ -76,7 +96,8 @@ class ArticuloForm(forms.ModelForm):
     class Meta:
         model = Articulo
         fields = [
-            'sku', 'codigo', 'nombre', 'descripcion', 'marca', 'categoria',
+            'sku', 'codigo', 'nombre_articulo', 'nombre', 'descripcion',
+            'marca', 'modelo', 'codigo_barras', 'categoria', 'sector',
             'stock_actual', 'stock_minimo', 'stock_maximo', 'punto_reorden',
             'unidad_medida', 'ubicacion_fisica', 'observaciones', 'activo'
         ]
@@ -90,19 +111,38 @@ class ArticuloForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Código del artículo'
             }),
+            'nombre_articulo': forms.Select(attrs={
+                'class': 'form-select',
+                'id': 'id_nombre_articulo',
+                'data-autocomplete': 'true'
+            }),
             'nombre': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Nombre del artículo',
-                'required': True
+                'required': True,
+                'id': 'id_nombre'
+            }),
+            'marca': forms.Select(attrs={
+                'class': 'form-select',
+                'id': 'id_marca',
+                'data-filter': 'modelo'
+            }),
+            'modelo': forms.Select(attrs={
+                'class': 'form-select',
+                'id': 'id_modelo',
+                'disabled': True
+            }),
+            'codigo_barras': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Dejar vacío para auto-generar desde SKU'
+            }),
+            'sector': forms.Select(attrs={
+                'class': 'form-select'
             }),
             'descripcion': forms.Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Descripción detallada',
                 'rows': 3
-            }),
-            'marca': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Marca del artículo'
             }),
             'categoria': forms.Select(attrs={
                 'class': 'form-select',
@@ -164,6 +204,24 @@ class ArticuloForm(forms.ModelForm):
             activo=True,
             eliminado=False
         ).order_by('codigo')
+        
+        # Filtrar marcas y modelos activos
+        from apps.inventario.models import Marca, Modelo, NombreArticulo, SectorInventario
+        self.fields['marca'].queryset = Marca.objects.filter(activo=True, eliminado=False)
+        self.fields['modelo'].queryset = Modelo.objects.filter(activo=True, eliminado=False)
+        self.fields['modelo'].required = False
+        
+        # Si hay instancia y tiene marca, filtrar modelos
+        if self.instance and self.instance.pk and self.instance.marca:
+            self.fields['modelo'].queryset = Modelo.objects.filter(
+                marca=self.instance.marca,
+                activo=True,
+                eliminado=False
+            )
+        
+        # Cargar nombres de artículos y sectores activos
+        self.fields['nombre_articulo'].queryset = NombreArticulo.objects.filter(activo=True, eliminado=False)
+        self.fields['sector'].queryset = SectorInventario.objects.filter(activo=True, eliminado=False)
 
     def clean_sku(self):
         """Validar que el SKU sea único (en mayúsculas)."""

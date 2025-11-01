@@ -1,0 +1,22 @@
+INSTRUCCIONES RÁPIDAS PARA SUBIR A GIT:
+
+1. Haz doble clic en el archivo: GIT_PUSH.bat
+   
+   O ejecuta manualmente estos comandos en tu terminal:
+
+   cd c:\Users\mr.yo\Downloads\colegioapp\colegio
+   git add -A
+   git commit -m "avance inventario y sus gestores"
+   git push
+
+2. El script automáticamente:
+   - Agregará todos los archivos nuevos y modificados
+   - Creará el commit con el mensaje solicitado
+   - Subirá los cambios al repositorio remoto
+
+3. Después del push, tu compañero debe ejecutar:
+   git pull
+   python manage.py makemigrations
+   python manage.py migrate
+   python manage.py runserver
+
